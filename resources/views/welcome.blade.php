@@ -1,3 +1,9 @@
-<h1>bienvenido brouu!!</h1>
-<button><a href="{{Route('Rol.index')}}">Roles</a></button>
-<button><a href="{{Route('Empleado.index')}}">Empleado</a></button>
+@extends('navegador')
+
+@section('Contenido')
+
+
+    <h1 class="text-3xl font-bold underline
+    bg-green-600 "">QUEN ONDA PUTITOS!!</h1>
+@endsection
+

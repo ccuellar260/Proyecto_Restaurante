@@ -13,12 +13,19 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('rols', function (Blueprint $table) {
-            $table->id('id_rol');
-
+        Schema::create('productos', function (Blueprint $table) {
+            $table->id('id_producto');
             $table->string('nombre');
             $table->text('descripcion');
-            
+            $table->decimal('precio');
+            $table->unsignedBigInteger('id_tipo_plato');
+
+            $table->foreign('id_tipo_plato')
+            ->references('id_tipo_plato')
+            ->on('tipo_productos')
+            ->onDelete('Cascade')
+            ->onUpdate('Cascade');
+
         });
     }
 
@@ -29,6 +36,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('rols');
+        Schema::dropIfExists('productos');
     }
 };

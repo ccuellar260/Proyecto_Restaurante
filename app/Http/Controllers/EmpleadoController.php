@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Empleado;
+use App\Models\User;
+use App\Models\Rol;
+use Illuminate\Support\Str;
 
 class EmpleadoController extends Controller
 {
@@ -16,15 +19,25 @@ class EmpleadoController extends Controller
 
 
     public function create(){
-        return view('VistasEmpleado.create');
+        $Rol = Rol::get();
+        return view('VistasEmpleado.create',['Rol'=>$Rol]);
     }
 
     public function store(Request $request){
         //metodo yt
+        $us = new User;
+        $us->nombre_usuario= $request->usuario;
+        $us->correo_electronico = $request->correo;
+        $us->password = $request->contrasena;
+        $us->remember_token = Str::random(10);
+        $us->id_rol = $request->Rol;
+        $us->save();
+
         $table =new Empleado;
         $table->ci = $request->ci;
         $table->nombre_completo = $request->nombre_completo;
         $table->telefono = $request->telefono;
+        $table->nombre_usuario = $request->usuario;
         $table->save();
         return redirect()->Route('Empleado.index');
     }

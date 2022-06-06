@@ -13,12 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('rols', function (Blueprint $table) {
-            $table->id('id_rol');
-
-            $table->string('nombre');
+        Schema::create('turnos', function (Blueprint $table) {
+            $table->id('id_turno');
             $table->text('descripcion');
-            
+            $table->time('hora_entrada');
+            $table->time('hora_salida');
         });
     }
 
@@ -29,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('rols');
+        Schema::dropIfExists('turnos');
     }
 };

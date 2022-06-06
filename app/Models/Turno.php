@@ -5,16 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Rol extends Model
+class Turno extends Model
 {
     use HasFactory;
 
-    public $timestamps = false; // desabilitar el time
-    protected $primaryKey = 'id_rol'; //cambiar la primai key
+    public $timestamps = false;
+    protected $primaryKey = 'id_turno';
 
-
-    public function users(){
+    public function empleado_turnos(){
         //hasMany{tien mucho} //metodo para dar la primari key
-        return $this->hasMany(User::class);
+        return $this->hasMany(EmpleadoTurno::class);
     }
 }

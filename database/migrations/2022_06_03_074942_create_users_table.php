@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('usuarios', function (Blueprint $table) {
+        Schema::create('users', function (Blueprint $table) {
 
             $table->string('nombre_usuario')->unique();
             $table->string('correo_electronico')->unique();
@@ -33,13 +33,7 @@ return new class extends Migration
                ->onDelete('Cascade')
                ->onUpdate('Cascade');
 
-            //craer los foreing key de usuarios
-            $table->unsignedBigInteger('ci')->unique();
-            $table->foreign('ci')
-                ->references('ci')
-                ->on('empleados')
-                ->onDelete('Cascade')
-                ->onUpdate('Cascade');
+          
 
 
         });
