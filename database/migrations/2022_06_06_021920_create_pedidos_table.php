@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('pedidos', function (Blueprint $table) {
             $table->id('id_pedido');
-            $table->unsignedBigInteger('nro_mesa')->unique();
-            $table->unsignedBigInteger('ci_empleado')->unique();
+            $table->unsignedBigInteger('nro_mesa');
+            $table->unsignedBigInteger('ci_empleado');
 
             $table->foreign('nro_mesa')
                ->references('nro_mesa')

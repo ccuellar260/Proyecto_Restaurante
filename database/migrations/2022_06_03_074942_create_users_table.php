@@ -26,14 +26,13 @@ return new class extends Migration
             $table->timestamps();  //fecha de creacion y de modficiacion
 
             //crear los foreing key
-            $table->unsignedBigInteger('id_rol')->unique(); //entero grande
+            $table->unsignedBigInteger('id_rol'); //entero grande
             $table->foreign('id_rol')
                ->references('id_rol')
                ->on('rols')
                ->onDelete('Cascade')
                ->onUpdate('Cascade');
 
-          
 
 
         });

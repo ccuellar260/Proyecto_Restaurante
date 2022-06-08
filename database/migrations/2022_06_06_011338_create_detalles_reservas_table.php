@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('detalles_reservas', function (Blueprint $table) {
             $table->id('id_detalle');
-            $table->unsignedBigInteger('id_reserva')->unique();
-            $table->unsignedBigInteger('nro_mesa')->unique();
+            $table->unsignedBigInteger('id_reserva');
+            $table->unsignedBigInteger('nro_mesa');
             $table->integer('cantidad');
 
             $table->foreign('id_reserva')

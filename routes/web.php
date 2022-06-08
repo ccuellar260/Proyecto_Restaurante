@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\RolController;
 use App\Http\Controllers\EmpleadoController;
+use App\Http\Controllers\PedidosController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +26,16 @@ Route::get('/', function () {
 Route::resource('Rol', RolController::class)->except(['show']);
 
 Route::resource('Empleado', EmpleadoController::class)->except(['show']);
+Route::resource('Mesas', EmpleadoController::class)->except(['show']);
+
+//Realizar Pedidos
+Route::get('Pedidos/{empleado}',[PedidosController::class,'index'])->name('Pedido');
+Route::post('Pedidos',[PedidosController::class,'storePedido'])->name('Pedidos.StorePedido');
+Route::get('Pedidos/{pedido}/CrearPedido}',[PedidosController::class,'crear_pedido'])->name('Pedido.Create');
+Route::get('Pedidos/{emp}/Detalles',[PedidosController::class,'detalles'])->name('pedidos.Detalle');
+Route::post('DetalllesPedidos',[PedidosController::class,'storeDetalles'])->name('Pedido.storeDetalles');
+
+
 
 //middleare('auth'); //verificar si estamos logeados
 //mideleware('guest')//rediecciona si ya estamos logueamos
@@ -43,4 +54,6 @@ Route::post('Login',function(){
     }
      return 'login falso!'; //redireccionar a login
 });
+
+Route::view("Recibe",'VistasPedido.recibe')->name('recibe');
 

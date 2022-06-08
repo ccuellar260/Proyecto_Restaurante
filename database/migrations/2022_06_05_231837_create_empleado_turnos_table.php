@@ -19,8 +19,8 @@ return new class extends Migration
             $table->time('hora_salida');
             $table->timestamp('fecha')->created_at();//la fecha deneria ser id
 
-            $table->unsignedBigInteger('id_empleado')->unique();
-            $table->unsignedBigInteger('id_turno')->unique();
+            $table->unsignedBigInteger('id_empleado');
+            $table->unsignedBigInteger('id_turno');
 
             $table->foreign('id_empleado')
                ->references('ci')

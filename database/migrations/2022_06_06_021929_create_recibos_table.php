@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id('id_recibo');
             $table->decimal('precio_total');
 
-            $table->unsignedBigInteger('ci_cliente')->unique();
+            $table->unsignedBigInteger('ci_cliente');
             $table->unsignedBigInteger('id_pedido')->unique();
             $table->foreign('ci_cliente')
                     ->references('ci')

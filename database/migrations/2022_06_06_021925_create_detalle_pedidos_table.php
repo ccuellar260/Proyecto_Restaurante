@@ -18,8 +18,8 @@ return new class extends Migration
             $table->integer('cantidad');
             $table->date('fecha');
             $table->time('hora');
-            $table->unsignedBigInteger('id_pedido')->unique();
-            $table->unsignedBigInteger('id_producto')->unique();
+            $table->unsignedBigInteger('id_pedido');
+            $table->unsignedBigInteger('id_producto');
 
              $table->foreign('id_pedido')
                     ->references('id_pedido')

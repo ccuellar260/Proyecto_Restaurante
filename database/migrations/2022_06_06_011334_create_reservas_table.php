@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id('id_reserva');
             $table->date('fecha_reserva');
             $table->time('hora_reserva');
-            $table->unsignedBigInteger('ci_cliente')->unique();
-            $table->unsignedBigInteger('ci_empleado')->unique();
+            $table->unsignedBigInteger('ci_cliente');
+            $table->unsignedBigInteger('ci_empleado');
 
             $table->foreign('ci_cliente')
                 ->references('ci')
