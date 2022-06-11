@@ -20,5 +20,11 @@ class Mesa extends Model
   public function pedidos(){
     //hasMany{tien mucho} //metodo para dar la primari key
    return $this->hasMany(Pedido::class);
-}
+    }
+
+
+    public function ambientes(){
+        //belongsTo{perteneces a} //metodo para recibir la forieng key
+    return $this->belongsTo(Ambiente::class);
+    }
 }

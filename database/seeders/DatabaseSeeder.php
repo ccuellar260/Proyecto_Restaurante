@@ -11,6 +11,8 @@ use App\Models\TipoProducto;
 use App\Models\Producto;
 use App\Models\TipoMesa;
 use App\Models\Mesa;
+use App\Models\Ambiente;
+
 
 
 class DatabaseSeeder extends Seeder
@@ -50,6 +52,7 @@ class DatabaseSeeder extends Seeder
        $this->CargarTipoProducto();
        $this->CargarProducto();
        $this->CargarTipoMesa();
+       $this->CargarAmbiente();
        $this->CargarMesa();
 
 
@@ -200,21 +203,40 @@ class DatabaseSeeder extends Seeder
         $e->nro_mesa = 20;
         $e->estado = 'Disponible';
         $e->id_tipo_mesa = '2';
+        $e->id_ambiente=1;
         $e->save();
 
         $e = new Mesa();
         $e->nro_mesa = 21;
         $e->estado = 'Disponible';
         $e->id_tipo_mesa = '2';
+        $e->id_ambiente=1;
         $e->save();
 
         $e = new Mesa();
         $e->nro_mesa = 22;
         $e->estado = 'Disponible';
         $e->id_tipo_mesa = '2';
+        $e->id_ambiente=1;
+        $e->save();
+    }
+
+    public function CargarAmbiente(){
+        $e = new Ambiente();
+        $e->id_ambiente= 1 ;
+        $e->nombre= 'Adentro';
+        $e->descripcion='adentro';
+        $e->capacidad=12;
+        $e->estado='disponible';
         $e->save();
 
-
+        $e = new Ambiente();
+        $e->id_ambiente= 2;
+        $e->nombre= 'Fuera';
+        $e->descripcion='fuera';
+        $e->capacidad=6;
+        $e->estado='disponible';
+        $e->save();
     }
 
 

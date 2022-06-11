@@ -21,11 +21,15 @@ $Rol=$_POST['Rol']
 
     <form action="{{Route('Empleado.store')}}"
         method="POST">
-        @csrf
 
         <p> cree un usuario:
             <input type="text"
-                   name='usuario'></p>
+                   name='usuario'>
+            @error('usuario')
+                <small>*{{$message}}</small> <br>
+            @enderror
+        </p>
+
 
          <!-- The second value will be selected initially -->
          <label >Selecionar Rol: </label>

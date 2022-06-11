@@ -33,14 +33,23 @@
             <tr>
                   <th>  Nro de Pedido  -  </th>
                   <th> Nro de Mesa   -</th>
-                  <th>  Ci de Mesero  </th>
+                  <th>  Ci de Mesero - </th>
+                  <th>  Detalles </th>
             </tr>
 
             @foreach ($pedidos as $p)
             <tr>
-                  <td>{{$p->id_pedido}}</td>
-                  <td>{{$p->nro_mesa}}</td>
-                  <td>{{$p->ci_empleado}}</td>
+                    <td>{{$p->id_pedido}}</td>
+                    <td>{{$p->nro_mesa}}</td>
+                    <td>{{$p->ci_empleado}}</td>
+                    <td>
+                        <button>
+                            <a href="{{Route('Pedido.smostrarDetalles',
+                                      $p->id_pedido)}}">
+                                      Ver Detalles
+                            </a>
+                        </button>
+                    </td>
             </tr>
             @endforeach
       </table>

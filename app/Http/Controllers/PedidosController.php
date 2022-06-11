@@ -25,8 +25,12 @@ class PedidosController extends Controller
         $platos = Producto::where('id_tipo_plato',1)->get();
         $bebidas = Producto::where('id_tipo_plato',2)->get();
         $postres = Producto::where('id_tipo_plato',3)->get();
+        $emp = $pedido->ci_empleado;
+        $me = $pedido->nro_mesa;
 
         return view('VistasPedido.crearPedido',[
+            'ci'=>$emp,
+            'nro_mesa'=>$me,
             'pedido'=>$pedido,
             'platos'=>$platos,
             'bebidas'=>$bebidas,
@@ -49,17 +53,26 @@ class PedidosController extends Controller
         $detalle->id_pedido= $r->pedido;
         $detalle->id_producto = $r->producto;
         $detalle->cantidad = $r->cantidad;
-        $detalle->fecha = '2022-06-06';
-        $detalle->hora = '05:33:13';
+        $detalle->fecha = '2022-06-06'; //hacer que dsevuelva fecha actua;
+        $detalle->hora = '05:33:13'; //lo mismo de arriba pa la hora
         $detalle->save();
-
 
         return redirect()->Route('Pedido.Create',$detalle->id_pedido);
     }
 
-    public function detalles(){
+    public function destroy(Pedido $pedido){
+        $ci = $pedido->ci_empleado;
+        $pedido->delete();
+        return redirect()->Route('Pedido',$ci);
+    }
 
-
+    public function mostrarDetalle(Pedido $pe){
+        $de = DetallePedido::join('productos',                            'detalle_pedidos.id_producto','=','productos.id_producto')
+                                  ->where('id_pedido',$pe->id_pedido)->get();
+        return view('VistasPedido.verPedido',[
+                    'detalles'=>$de,
+                    'pedido'=>$pe
+                ]);
     }
 
 

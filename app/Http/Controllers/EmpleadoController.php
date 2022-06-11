@@ -24,7 +24,18 @@ class EmpleadoController extends Controller
     }
 
     public function store(Request $request){
-        //metodo yt
+        //validacion, sino cumple retorna a la vista anterior
+        $request->validate([
+            'usuario' => 'required',
+            'Rol'     => 'required',
+            'correo'  => 'required',
+            'contrasena'=> 'required',
+            'ci'        => 'required',
+            'nombre_completo'=> 'required',
+            'telefono' => 'required',
+        ]);
+
+
         $us = new User;
         $us->nombre_usuario= $request->usuario;
         $us->correo_electronico = $request->correo;
