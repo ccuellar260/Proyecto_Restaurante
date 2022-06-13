@@ -30,6 +30,10 @@
                 @else  <tr>NO ESTAS LOGUEADO</tr>
                 @endauth <br>
 
+                <!-- mostrar pedidos solo a admins -->
+
+
+
 
                 <!-- Botones -->
                 @guest  <!--mostrar login por que esta como invitado-->
@@ -49,13 +53,24 @@
                 @endguest
 
 
-                <a href="{{Route('Rol.index')}}" class="block font-medium text-gray-500 dark:text-gray-300 hover:underline">Roles</a>
-                <a href="{{Route('Empleado.index')}}" class="block font-medium text-gray-500 dark:text-gray-300 hover:underline">Empleado</a>
+                <a href="{{Route('Pedido',Auth::user()->nombre_usuario)}}"
+                    class="block font-medium text-gray-500 dark:text-gray-300 hover:underline">  Gestionar Pedidos</a>
+
+
+                @if (Auth()->user()->id_rol == 1)
+                <a href="{{Route('Rol.index')}}" class="block font-medium
+                text-gray-500 dark:text-gray-300 hover:underline">Gestionar Roles</a>
+
+                <a href="{{Route('Empleado.index')}}" class="block font-medium text-gray-500 dark:text-gray-300 hover:underline">Gestionar Empleados
+                <a href="{{Route('Mesas.index')}}" class="block font-medium text-gray-500 dark:text-gray-300 hover:underline"> Gestionar Mesas</a>
+
+
+
+                <a href="{{Route('Producto.index')}}" class="block font-medium text-gray-500 dark:text-gray-300 hover:underline">Gestion Producto</a>
+
                 <a href="{{Route('Amb.index')}}" class="block font-medium text-gray-500 dark:text-gray-300 hover:underline">Gestion de Ambiente</a>
 
-                <a href="{{Route('Amb.index')}}" class="block font-medium text-gray-500 dark:text-gray-300 hover:underline">Producto</a>
 
-                <a href="{{Route('Amb.index')}}" class="block font-medium text-gray-500 dark:text-gray-300 hover:underline">Pedidos</a>
 
                 <a href="{{Route('Amb.index')}}" class="block font-medium text-gray-500 dark:text-gray-300 hover:underline">Clientes</a>
 
@@ -63,6 +78,19 @@
 
                 <a href="{{Route('Amb.index')}}" class="block font-medium text-gray-500 dark:text-gray-300 hover:underline">
                 Reservas</a>
+
+
+                @endif
+
+
+
+
+                    @if (Auth()->user()->id_rol == 2)
+                    <a href="{{Route('Pedido',Auth::user()->nombre_usuario)}}"
+                        class="block font-medium text-gray-500 dark:text-gray-300 hover:underline">  Consultar Producto</a>
+                    @endif
+
+
             </div>
 
             <!-- parte derecha --> <!--mt-6 lg:mt-0 lg:px-2 lg:w-4/5-->

@@ -50,17 +50,19 @@ class AuthController extends Controller
 
     //usandon el Hash::check
     //Hash::check //recibe texo plano password, luego la encriptada en la Tabla
-  if (Hash::check($r->password,$user->password)){
+  if ($user != null and  Hash::check($r->password,$user->password)){
     //hacer login
     Auth::login($user);
 
     //generar el token csrf
     $r->session()->regenerate();
 
+
+
     $bienvenida = 'Bienvenido '.(Auth::user()->nombre_usuario);
     //redirecciona a dashboard con una variable status
      return //intended, por sin entra ua una url protegida
-            redirect()->intended(Route('Dashboard',))
+            redirect()->intended(Route('Dashboard'))
             ->with('status',$bienvenida);
  }//false, login incorrecto redireccionar devuelta login
   //distafar un error de validacion

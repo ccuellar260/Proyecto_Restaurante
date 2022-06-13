@@ -28,4 +28,9 @@ class Empleado extends Model
        return $this->hasMany(Pedido::class);
    }
 
+   public function mesas(){
+    //hasMany{tien mucho} //metodo para dar la primari key
+   return $this->hasMany(Mesa::class);
+}
+
 }

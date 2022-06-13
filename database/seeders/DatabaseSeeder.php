@@ -211,6 +211,7 @@ class DatabaseSeeder extends Seeder
         $e->estado = 'Disponible';
         $e->id_tipo_mesa = '2';
         $e->id_ambiente=1;
+        $e->ci_empleado =  8994432;
         $e->save();
 
         $e = new Mesa();
@@ -218,6 +219,7 @@ class DatabaseSeeder extends Seeder
         $e->estado = 'Disponible';
         $e->id_tipo_mesa = '2';
         $e->id_ambiente=1;
+        $e->ci_empleado =  8994432;
         $e->save();
 
         $e = new Mesa();
@@ -225,6 +227,7 @@ class DatabaseSeeder extends Seeder
         $e->estado = 'Disponible';
         $e->id_tipo_mesa = '2';
         $e->id_ambiente=1;
+        $e->ci_empleado = 8994432;
         $e->save();
     }
 

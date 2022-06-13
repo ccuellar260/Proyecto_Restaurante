@@ -8,13 +8,17 @@ use App\models\Empleado;
 use App\models\Mesa;
 use App\models\DetallePedido;
 use App\models\Producto;
+use App\models\User;
 
 class PedidosController extends Controller
 {
 
-    public function index(Empleado $empleado){
+    public function index(User $user){
+
         $pedidos = Pedido::get();
         $mesas = Mesa::get();
+        $empleado = Empleado::join('users',                            'empleados.nombre_usuario','=','users.nombre_usuario')
+        ->where('empleados.nombre_usuario',$user->nombre_usuario)->first();
         return view('VistasPedido.pedido',compact('pedidos','mesas','empleado'));
     }
 
@@ -73,6 +77,16 @@ class PedidosController extends Controller
                     'detalles'=>$de,
                     'pedido'=>$pe
                 ]);
+    }
+
+    public function editarDetalles(Pedido $pe){
+        $de = DetallePedido::join('productos',                            'detalle_pedidos.id_producto','=','productos.id_producto')
+                                  ->where('id_pedido',$pe->id_pedido)->get();
+                             
+        return view('VistasPedido.editarPedidos',[
+                'detalles'=>$de,
+                'pedido'=>$pe
+                 ]);
     }
 
 

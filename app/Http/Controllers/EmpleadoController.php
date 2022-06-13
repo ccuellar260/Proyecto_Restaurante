@@ -13,7 +13,12 @@ class EmpleadoController extends Controller
 {
 
     public function index(){
-        $tabla = Empleado::get(); //mostrame los datos de la tabla Empleado
+        //$tabla = Empleado::get(); //mostrame los datos de la tabla Empleado
+        $tabla = User::join('rols',
+                'rols.id_rol','=','users.id_rol'
+                )->join('empleados',
+                'empleados.nombre_usuario','=','users.nombre_usuario'
+                )->get();
 
         return view('VistasEmpleado.index',['tabla'=>$tabla]);
     }
@@ -86,5 +91,13 @@ class EmpleadoController extends Controller
        // $Empleado->delete();
         User::where('nombre_usuario',$Empleado->nombre_usuario)->delete();
         return back();
+    }
+
+    public function asignarMesa(Empleado $ci){
+        $mesa = Mesa::get();
+
+        return view('VistasEmpleado.asignarMesa',['empleado'=> $ci,
+                    'mesa'=>$mesa
+                    ]);
     }
 }

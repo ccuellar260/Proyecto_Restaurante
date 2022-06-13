@@ -6,6 +6,8 @@ use App\Http\Controllers\RolController;
 use App\Http\Controllers\EmpleadoController;
 use App\Http\Controllers\PedidosController;
 use App\Http\Controllers\AmbienteController;
+use App\Http\Controllers\MesaController;
+use App\Http\Controllers\ProductoController;
 
 //clase para usar validatioException
 use App\Http\Controllers\Auth\AuthController;
@@ -25,13 +27,21 @@ use Illuminate\Validation\ValidationException;
 Route::get('/', function () {
 
     return view('welcome',);
-});
+})->middleware('auth');
 
            //nombre clase, nombre de metodo  //-> name es el nombre de ruta
-Route::resource('Rol', RolController::class)->except(['show'])->middleware('auth');
+Route::resource('Rol', RolController::class)->except(['show'])
+->middleware('auth');
 
-Route::resource('Empleado', EmpleadoController::class)->except(['show']);
-Route::resource('Mesas', EmpleadoController::class)->except(['show']);
+Route::resource('Empleado', EmpleadoController::class)->except(['show'])->middleware('auth')->middleware('Admin');
+Route::resource('Mesas', MesaController::class)->except(['show'])
+->middleware('auth')->middleware('Admin');
+Route::get('Empleado/asignarMesa/{ci}', [EmpleadoController::class,'asignarMesa'])
+->name('Empleado.asignarMesa')->middleware('auth')->middleware('Admin');
+
+Route::resource('Producto', ProductoController::class)->except(['show'])
+->middleware('auth')->middleware('Admin');
+
 
 //Gestion de Ambinete
 Route::get('Ambiente',[AmbienteController::class,'index'])
@@ -48,7 +58,7 @@ Route::delete('Ambiente/Dell/{ambiente}',[AmbienteController::class,'destroy'])
       ->name('Amb.Destroy');
 
 //Realizar Pedidos
-Route::get('Pedidos/{empleado}',[PedidosController::class,'index'])
+Route::get('Pedidos/{user}',[PedidosController::class,'index'])
      ->name('Pedido');
 Route::post('Pedidos',[PedidosController::class,'storePedido'])
      ->name('Pedidos.StorePedido');
@@ -60,6 +70,8 @@ Route::delete('Pedidos/{pedido}',[PedidosController::class,'destroy'])
      ->name('Pedido.destroy');
 Route::get('Pedido/{pe}/Detalle',[PedidosController::class,'mostrarDetalle'])
      ->name('Pedido.smostrarDetalles');
+Route::get('Pedido/{pe}/edit',[PedidosController::class,'editarDetalles'])
+->name('Pedido.editarDetalles');
 
 
 

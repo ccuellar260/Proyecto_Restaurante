@@ -27,4 +27,9 @@ class Mesa extends Model
         //belongsTo{perteneces a} //metodo para recibir la forieng key
     return $this->belongsTo(Ambiente::class);
     }
+
+    public function empleados(){
+        //belongsTo{perteneces a} //metodo para recibir la forieng key
+    return $this->belongsTo(Empleado::class);
+    }
 }

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('estado');
             $table->unsignedBigInteger('id_tipo_mesa');
             $table->unsignedBigInteger('id_ambiente');
+            $table->unsignedBigInteger('ci_empleado');
 
             $table->foreign('id_tipo_mesa')
               ->references('id_tipo_mesa')
@@ -28,6 +29,12 @@ return new class extends Migration
               $table->foreign('id_ambiente')
               ->references('id_ambiente')
               ->on('ambientes')
+              ->onDelete('Cascade')
+              ->onUpdate('Cascade');
+
+              $table->foreign('ci_empleado')
+              ->references('ci')
+              ->on('empleados')
               ->onDelete('Cascade')
               ->onUpdate('Cascade');
         });
