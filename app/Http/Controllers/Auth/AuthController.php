@@ -56,10 +56,11 @@ class AuthController extends Controller
 
     //generar el token csrf
     $r->session()->regenerate();
+
     $bienvenida = 'Bienvenido '.(Auth::user()->nombre_usuario);
     //redirecciona a dashboard con una variable status
      return //intended, por sin entra ua una url protegida
-            redirect()->intended(Route('Dashboard'))
+            redirect()->intended(Route('Dashboard',))
             ->with('status',$bienvenida);
  }//false, login incorrecto redireccionar devuelta login
   //distafar un error de validacion

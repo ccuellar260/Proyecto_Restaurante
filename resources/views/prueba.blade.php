@@ -56,7 +56,7 @@
                         </div>
 
                         <div class="mt-2">
-                            <label>
+                            <label class="block  text-sm text-white">
                                 <input type="checkbox" name="recordar">
                                 Recordar contrasena
                             </label> <br>
