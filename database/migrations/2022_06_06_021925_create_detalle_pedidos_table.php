@@ -24,13 +24,13 @@ return new class extends Migration
              $table->foreign('id_pedido')
                     ->references('id_pedido')
                     ->on('pedidos')
-                    ->onDelelete('Cascade')
+                    ->onDelete('Cascade')
                     ->onUpdate('Cascade');
 
             $table->foreign('id_producto')
                     ->references('id_producto')
                     ->on('productos')
-                    ->onDelelete('Cascade')
+                    ->onDelete('Cascade')
                     ->onUpdate('Cascade');
 
 

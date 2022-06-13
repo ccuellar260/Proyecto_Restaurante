@@ -21,7 +21,7 @@ $Rol=$_POST['Rol']
 
     <form action="{{Route('Empleado.store')}}"
         method="POST">
-
+        @csrf
         <p> cree un usuario:
             <input type="text"
                    name='usuario'>

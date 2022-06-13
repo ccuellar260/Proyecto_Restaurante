@@ -1,9 +1,9 @@
-@extends('dashboard')
+@extends('navegador')
 
-@section('dashboard')
+@section('Contenido')
 
    <!-- mostrr solo pedidos disponibles -->
-   <p>loguin con ci: {{$empleado->ci}}</p>
+   <p>loguin con ci: {{$empleado->nombre_usuario}}</p>
    <p>mostrr solo pedidos disponibles </p>
    <p>de moemtno esta mostarn todos los pedidos</p>
 

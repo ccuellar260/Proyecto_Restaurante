@@ -10,9 +10,16 @@
     <h3>Inicio de sesion</h3>
 
 
-    <form action=""
+    <form action="{{Route('LoginStore')}}"
           method="POST">
           @csrf
+        <p>
+            <!-- usando el status solo muestra una edicion-->
+            @if (session('statusLogout')) <!--Existe el atributo status?-->
+            <br>   <!-- mostarr lo que esta en status-->
+            {{session('statusLogout')}}
+           @endif
+        </p>
 
           <label>Introdusca su correo <br></label>
         <input type="email" required autofocus

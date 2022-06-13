@@ -26,27 +26,47 @@
 
                  <!-- metodo para verificar si estamos autentificados-->
                 @auth
-                <tr>estas logueado</tr>
-                @else  <tr>no estas logueado</tr>
+                <tr>ESTAS LOGUEADO</tr>
+                @else  <tr>NO ESTAS LOGUEADO</tr>
                 @endauth <br>
 
 
                 <!-- Botones -->
                 @guest  <!--mostrar login por que esta como invitado-->
-                    <a href="{{Route('login')}}" class="block font-medium text-gray-500 dark:text-gray-300 hover:underline">Login</a>
+                    <a href="{{Route('Login')}}" class="block font-medium text-gray-500 dark:text-gray-300 hover:underline">Login</a>
                 @else <!-- caso contrario mostrar lo demas botones -->
-                     <a href="{{Route('dashboard')}}" class="block font-medium text-gray-500 dark:text-gray-300 hover:underline">Dasboard</a>
-                    <button><a href="">Logout</a></button>
+                     <a href="{{Route('Dashboard')}}" class="block font-medium text-gray-500 dark:text-gray-300 hover:underline">Dasboard</a>
+                     <!-- boton logout-->
+                     <form action="{{Route('Logout')}}"
+                        method="POST">
+                        @csrf
+                        <!-- envio de datos por a, lo mismo que boton-->
+                        <a class="block font-medium text-gray-500 dark:text-gray-300 hover:underline"
+                        href="#"
+                           onclick="this.closest('form').submit()"
+                        >Logout</a>
+                     </form>
                 @endguest
 
 
                 <a href="{{Route('Rol.index')}}" class="block font-medium text-gray-500 dark:text-gray-300 hover:underline">Roles</a>
                 <a href="{{Route('Empleado.index')}}" class="block font-medium text-gray-500 dark:text-gray-300 hover:underline">Empleado</a>
                 <a href="{{Route('Amb.index')}}" class="block font-medium text-gray-500 dark:text-gray-300 hover:underline">Gestion de Ambiente</a>
+
+                <a href="{{Route('Amb.index')}}" class="block font-medium text-gray-500 dark:text-gray-300 hover:underline">Producto</a>
+
+                <a href="{{Route('Amb.index')}}" class="block font-medium text-gray-500 dark:text-gray-300 hover:underline">Pedidos</a>
+
+                <a href="{{Route('Amb.index')}}" class="block font-medium text-gray-500 dark:text-gray-300 hover:underline">Clientes</a>
+
+                <a href="{{Route('Amb.index')}}" class="block font-medium text-gray-500 dark:text-gray-300 hover:underline">Horarios</a>
+
+                <a href="{{Route('Amb.index')}}" class="block font-medium text-gray-500 dark:text-gray-300 hover:underline">
+                Reservas</a>
             </div>
 
-            <!-- parte derecha -->
-             <div class="mt-6 lg:mt-0 lg:px-2 lg:w-4/5 ">
+            <!-- parte derecha --> <!--mt-6 lg:mt-0 lg:px-2 lg:w-4/5-->
+             <div class=" mt-6 lg:mt-0 lg:px-2 lg:w-4/5">
                 @yield('Contenido')
             </div>
 

@@ -8,6 +8,7 @@ use App\Http\Controllers\PedidosController;
 use App\Http\Controllers\AmbienteController;
 
 //clase para usar validatioException
+use App\Http\Controllers\Auth\AuthController;
 use Illuminate\Validation\ValidationException;
 
 /*
@@ -62,41 +63,21 @@ Route::get('Pedido/{pe}/Detalle',[PedidosController::class,'mostrarDetalle'])
 
 
 
-
-
-     //PONER EN UN CONTROLADOR
-//middleare('auth'); //verificar si estamos logeados
-//mideleware('guest')//rediecciona si ya estamos logueamos
-Route::view('Login','login')->name('login')->middleware('guest');
-Route::view('Dashboard','dashboard')->name('dashboard')->middleware('auth');
+//ritas de prueba
 Route::view('prueba','prueba')->name('prueba');
 Route::view('formulario','formulario')->name('formulario');
-
-Route::post('Login',function(){
-    //del request solo sacame correo y contrasena
-    $credenciales = request()->validate([
-        'correo_electronico' =>['required','email','string'],
-        'password'=>['required','string']
-        ]);
-
-    //filled, devuelve V o F si se dio click al inout recordar
-    $recordar = request()->filled('recordar');
-
-  //  Auth::attempt(['email' => $email, 'password' => $password],true o fals);
-  // recibe credenciales y si desea recordar la contra, $recordar
-    if (Auth::attempt($credenciales,$recordar)){//Es correcta la autentificacion
-       //generar el token csrf
-       request()->session()->regenerate();
-       $bienvenida = 'Bienvenido '.(Auth::user()->nombre_usuario);
-        return redirect('Dashboard')->with('status',$bienvenida);
-    }//false, login incorrecto redireccionar devuelta login
-     //distafar un error de validacion
-     throw ValidationException::withMessages([
-        //meustra el eeroror del correo
-        'correo_electronico'=> __('auth.failed'),
-     ]);
-
-});
-
 Route::view("Recibe",'VistasPedido.recibe')->name('recibe');
+
+//middleare('auth'); //verificar si estamos logeados
+//mideleware('guest')//rediecciona si ya estamos logueamos
+Route::get('Login',[AuthController::class,'login'])
+     ->name('Login')->middleware('guest');
+Route::post('Login',[AuthController::class,'loginStore'])
+     ->name('LoginStore');
+Route::get('Dashboard',[AuthController::class,'dashboard'])
+     ->name('Dashboard')->middleware('auth');
+Route::post('Logout',[AuthController::class,'logout'])
+     ->name('Logout');
+
+
 

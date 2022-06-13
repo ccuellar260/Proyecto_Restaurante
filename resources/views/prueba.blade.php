@@ -1,112 +1,132 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    <title>prueba</title>
+    <title>Login</title>
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <style>
+        .login {
+            background: url('{{ asset('img/chancho al palo.jpg') }}');
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+    </style>
 </head>
+
 <body>
-  <!-- component -->
-<section class="bg-white dark:bg-gray-900">
-    <div class="container px-6 py-8 mx-auto">
-        <div class="lg:flex lg:-mx-2">
+    <div class="h-screen font-sans login bg-cover">
+        <div class="container mx-auto h-full flex flex-1 justify-center items-center">
+            <div class="w-full max-w-lg">
+                <div class="leading-loose">
+                    <form class="max-w-sm m-4 p-10 bg-stone-900 bg-opacity-50 rounded shadow-xl" method="POST"
+                        action="{{ route('Login') }}">
+                        @csrf
 
-            <div class="space-y-3 lg:w-1/5 lg:px-2 lg:space-y-4">
-                    <!--abregador los navegadores-->
-                    <a href="{{Route('login')}}" class="block font-medium text-gray-500 dark:text-gray-300 hover:underline">Login</a>
-                    <a href="{{Route('dashboard')}}" class="block font-medium text-gray-500 dark:text-gray-300 hover:underline">Dasboard</a>
-                    <a href="{{Route('Rol.index')}}" class="block font-medium text-gray-500 dark:text-gray-300 hover:underline">Roles</a>
-                    <a href="{{Route('Empleado.index')}}" class="block font-medium text-gray-500 dark:text-gray-300 hover:underline">Empleado</a>
-            </div>
-
-            <!-- Div para la parte de la derecha-->
-            <div class="mt-6 lg:mt-0 lg:px-2 lg:w-4/5 ">
-                <!-- para el titulo que va arriba de los productos-->
-                <div class="flex items-center justify-between text-sm tracking-widest uppercase ">
-                <!-- titulo de la inzquierda-->
-                <p class="text-gray-500 dark:text-gray-300">6 Items</p>
-                        <!-- titulo de la derecha -->
-                        <div class="flex items-center">
-                            <p class="text-gray-500 dark:text-gray-300">Sort</p>
-                            <select class="font-medium text-gray-700 bg-transparent dark:text-gray-500 focus:outline-none">
-                                <option value="#">Recommended</option>
-                                <option value="#">Size</option>
-                                <option value="#">Price</option>
-                            </select>
+                        <p>
+                            <!-- usando el status solo muestra una edicion-->
+                            @if (session('statusLogout')) <!--Existe el atributo status?-->
+                            <br>   <!-- mostarr lo que esta en status-->
+                            {{session('statusLogout')}}
+                           @endif
+                        </p>
+                        <p class="text-white font-medium text-center text-lg font-bold">INICIO DE SESION</p>
+                        <div class="">
+                            <label class="block text-sm text-white" for="email">Introdusca su correo </label>
+                            <input
+                                class="w-full px-5 py-1 text-gray-700 bg-gray-300 rounded focus:outline-none focus:bg-white"
+                                type="email"  required autofocus id="email" name="correo_electronico"
+                                value='{{old('correo_electronico')}}'
+                                placeholder="Ejemplo007@gmail.com"
+                                aria-label="email" required>
+                                @error('correo_electronico') {{$message}}@enderror
+                                <br>
                         </div>
+                        <div class="mt-2">
+                            <label class="block  text-sm text-white">Introdusca su contrasena </label>
+                            <input
+                                class="w-full px-5 py-1 text-gray-700 bg-gray-300 rounded focus:outline-none focus:bg-white"
+                                type="password" id="password" name="password" placeholder="Contrasena"
+
+                                arial-label="password" required>
+                                @error('password') {{$message}}@enderror
+
+                        </div>
+
+                        <div class="mt-2">
+                            <label>
+                                <input type="checkbox" name="recordar">
+                                Recordar contrasena
+                            </label> <br>
+                        </div>
+
+
+                        <div class="mt-4 items-center flex justify-between">
+                            <button
+                                class="px-4 py-1 text-white font-light tracking-wider bg-gray-900 hover:bg-gray-800 rounded"
+                                type="submit">Entrar</button>
+                        </div>
+
+
+                    </form>
+
                 </div>
-
-
-
-
-                <!-- Div para todas las poleras con sus nombre y botones-->
-                <div class="grid grid-cols-1 gap-8 mt-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                    <!--polera 1 negra-->
-                    <div class="flex flex-col items-center justify-center w-full max-w-lg mx-auto">
-                        <!-- Img de producto con su nombre y percio debajo -->
-                        <img class="object-cover w-full rounded-md h-72 xl:h-80" src="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=634&q=80" alt="T-Shirt">
-                        <h4 class="mt-2 text-lg font-medium text-gray-700     dark:text-gray-200">Polera Negra</h4>
-                        <p class="text-blue-500">$12.55</p>
-
-                        <!-- Botton de adicionar al carro-->
-                        <button class="flex items-center justify-center w-full px-2 py-2 mt-4 font-medium tracking-wide text-white capitalize transition-colors duration-200 transform bg-gray-800 rounded-md hover:bg-gray-700 focus:outline-none focus:bg-gray-700">
-                            <!-- icono para el botuuon-->
-                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mx-1" viewBox="0 0 20 20" fill="currentColor">
-                                <path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" />
-                            </svg>
-                            <span class="mx-1">Adicionar al carro</span>
-                        </button>
-                    </div>
-
-                    <div class="flex flex-col items-center justify-center w-full max-w-lg mx-auto">
-                        <img class="object-cover w-full rounded-md h-72 xl:h-80" src="https://images.unsplash.com/photo-1620799139507-2a76f79a2f4d?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=966&q=80" alt="T-Shirt">
-                        <h4 class="mt-2 text-lg font-medium text-gray-700 dark:text-gray-200"> Slub jersey T-shirt</h4>
-                        <p class="text-blue-500">$18.70</p>
-
-                        <button class="flex items-center justify-center w-full px-2 py-2 mt-4 font-medium tracking-wide text-white capitalize transition-colors duration-200 transform bg-gray-800 rounded-md hover:bg-gray-700 focus:outline-none focus:bg-gray-700">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mx-1" viewBox="0 0 20 20" fill="currentColor">
-                                <path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" />
-                            </svg>
-                            <span class="mx-1">Add to cart</span>
-                        </button>
-                    </div>
-
-                    <div class="flex flex-col items-center justify-center w-full max-w-lg mx-auto">
-                        <img class="object-cover w-full rounded-md h-72 xl:h-80" src="https://images.unsplash.com/photo-1603320409990-02d834987237?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="T-Shirt">
-                        <h4 class="mt-2 text-lg font-medium text-gray-700 dark:text-gray-200">Pokera verde</h4>
-                        <p class="text-blue-500">$16.55</p>
-
-                        <button class="flex items-center justify-center w-full px-2 py-2 mt-4 font-medium tracking-wide text-white capitalize transition-colors duration-200 transform bg-gray-800 rounded-md hover:bg-gray-700 focus:outline-none focus:bg-gray-700">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mx-1" viewBox="0 0 20 20" fill="currentColor">
-                                <path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" />
-                            </svg>
-                            <span class="mx-1">Add to cart</span>
-                        </button>
-                    </div>
-
-                    <div class="flex flex-col items-center justify-center w-full max-w-lg mx-auto">
-                        <img class="object-cover w-full rounded-md h-72 xl:h-80" src="https://images.unsplash.com/photo-1603320410149-db26b12d5c2b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=634&q=80" alt="T-Shirt">
-                        <h4 class="mt-2 text-lg font-medium text-gray-700 dark:text-gray-200">Art T-shirt</h4>
-                        <p class="text-blue-500">$12.55</p>
-
-                        <button class="flex items-center justify-center w-full px-2 py-2 mt-4 font-medium tracking-wide text-white capitalize transition-colors duration-200 transform bg-gray-800 rounded-md hover:bg-gray-700 focus:outline-none focus:bg-gray-700">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mx-1" viewBox="0 0 20 20" fill="currentColor">
-                                <path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" />
-                            </svg>
-                            <span class="mx-1">Add to cart</span>
-                        </button>
-                    </div>
-                </div>
-
             </div>
         </div>
     </div>
-</section>
 
 
+
+
+
+
+    <!--<div class="h-screen flex">
+        <div class="hidden lg:flex w-full lg:w-1/2 login_img_section justify-around items-center">
+            <div class="bg-black opacity-20 inset-0 z-0"></div>
+            <div class="w-full mx-auto px-20 flex-col items-center space-y-6">
+                <h1 class="text-white font-bold text-4xl font-sans">RESTAURANT-KUREGRILL</h1>
+                <p class="text-white mt-1">El chancho al palo comenzó a prepararse en los años 80 en una familia
+                    apasionada a la comida campestre. En cada reunión, o celebración, este platillo era elaborado de una
+                    manera muy peculiar que asa la carne al palo. dando un sabor espectacular.</p>
+            </div>
+        </div>
+        <div class="flex w-full lg:w-1/2 justify-center items-center bg-white space-y-8">
+            <div class="w-full px-8 md:px-32 lg:px-24">
+                <form class="bg-white rounded-md shadow-2xl p-5" method="POST">
+                    @csrf
+                    <h1 class="text-gray-800 font-bold text-2xl mb-1">INICIAR SESION</h1>
+                    <p class="text-sm font-normal text-gray-600 mb-8">Bienvenido</p>
+                    <div class="flex items-center border-2 mb-8 py-2 px-3 rounded-2xl">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+                                d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
+                        </svg>
+                        <input id="email" class="pl-2 w-full outline-none border-none" type="email"
+                            name="correo_electronico" placeholder="Email Address" />
+                    </div>
+                    <div class="flex items-center border-2 mb-12 py-2 px-3 rounded-2xl">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" viewBox="0 0 20 20"
+                            fill="currentColor">
+                            <path fillRule="evenodd"
+                                d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
+                                clipRule="evenodd" />
+                        </svg>
+                        <input class="pl-2 w-full outline-none border-none" type="password" name="password"
+                            id="password" placeholder="Password" />
+                    </div>
+                    <button type="submit"
+                        class="block w-full bg-indigo-600 mt-5 py-2 rounded-2xl hover:bg-indigo-700 hover:-translate-y-1 transition-all duration-500 text-white font-semibold mb-2">
+                        Login
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+-->
 </body>
+
 </html>
-
-

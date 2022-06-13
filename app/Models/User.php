@@ -14,35 +14,40 @@ class User extends Authenticatable
 
     protected $primaryKey = 'nombre_usuario'; //que variable sera la pk
     protected $keyType = 'string';  //establecer el tipo de dato de la pk
+   // protected $table = 'usuaarios'; //para cambiar el nombre a la tabla
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
-    /*
+
+    //lo que se debe rellenar
     protected $fillable = [
-        'name',
-        'email',
+        'nombre_usuario',
+        'correo_electronico',
         'password',
-    ]; */
+        'id_rol',
+    ];
 
     /**
      * The attributes that should be hidden for serialization.
      *
      * @var array<int, string>
      */
-    /*
+
+     //ocualtar variables en el navegador
     protected $hidden = [
         'password',
         'remember_token',
-    ]; */
+    ];
 
     /**
      * The attributes that should be cast.
      *
      * @var array<string, string>
      */
+    //para trabajr con la fecha
     //protected $casts = [
       //  'email_verified_at' => 'datetime',
     //];

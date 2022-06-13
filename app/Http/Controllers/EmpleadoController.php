@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash; //para ecriptar contra
 use App\Models\Empleado;
 use App\Models\User;
 use App\Models\Rol;
@@ -39,7 +40,7 @@ class EmpleadoController extends Controller
         $us = new User;
         $us->nombre_usuario= $request->usuario;
         $us->correo_electronico = $request->correo;
-        $us->password = $request->contrasena;
+        $us->password = Hash::make($request->contrasena);
         $us->remember_token = Str::random(10);
         $us->id_rol = $request->Rol;
         $us->save();
@@ -82,7 +83,8 @@ class EmpleadoController extends Controller
 
 
     public function destroy(Empleado $Empleado){
-        $Empleado->delete();
+       // $Empleado->delete();
+        User::where('nombre_usuario',$Empleado->nombre_usuario)->delete();
         return back();
     }
 }

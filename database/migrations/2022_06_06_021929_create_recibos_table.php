@@ -22,13 +22,13 @@ return new class extends Migration
             $table->foreign('ci_cliente')
                     ->references('ci')
                     ->on('clientes')
-                    ->onDelelete('Cascade')
+                    ->onDelete('Cascade')
                     ->onUpdate('Cascade');
 
              $table->foreign('id_pedido')
                     ->references('id_pedido')
                     ->on('pedidos')
-                    ->onDelelete('Cascade')
+                    ->onDelete('Cascade')
                     ->onUpdate('Cascade');
         });
     }
