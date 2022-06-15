@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('detalle_pedidos', function (Blueprint $table) {
             $table->id('id_detalle');
             $table->integer('cantidad');
+            $table->decimal('precio');
             $table->date('fecha');
             $table->time('hora');
             $table->unsignedBigInteger('id_pedido');

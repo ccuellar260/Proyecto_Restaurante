@@ -17,8 +17,9 @@ return new class extends Migration
             $table->id('id_producto');
             $table->string('nombre');
             $table->text('descripcion');
-            $table->text('url');
             $table->decimal('precio');
+            $table->integer('cantidad');
+            $table->text('url');
             $table->unsignedBigInteger('id_tipo_plato');
 
             $table->foreign('id_tipo_plato')

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id('id_pedido');
             $table->unsignedBigInteger('nro_mesa');
             $table->unsignedBigInteger('ci_empleado');
+            $table->decimal('precio_total')->nullable()->default(0);
 
             $table->foreign('nro_mesa')
                ->references('nro_mesa')

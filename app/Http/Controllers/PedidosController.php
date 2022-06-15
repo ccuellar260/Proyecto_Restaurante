@@ -57,6 +57,10 @@ class PedidosController extends Controller
         $detalle->id_pedido= $r->pedido;
         $detalle->id_producto = $r->producto;
         $detalle->cantidad = $r->cantidad;
+        //sacar el precio que se debe cargar
+        $precio = Producto::select('precio')
+                ->where('id_pedido',$r->pedido)->first();
+        $detalle->precio = $precio * $r->cantidad;
         $detalle->fecha = '2022-06-06'; //hacer que dsevuelva fecha actua;
         $detalle->hora = '05:33:13'; //lo mismo de arriba pa la hora
         $detalle->save();
@@ -82,7 +86,7 @@ class PedidosController extends Controller
     public function editarDetalles(Pedido $pe){
         $de = DetallePedido::join('productos',                            'detalle_pedidos.id_producto','=','productos.id_producto')
                                   ->where('id_pedido',$pe->id_pedido)->get();
-                             
+
         return view('VistasPedido.editarPedidos',[
                 'detalles'=>$de,
                 'pedido'=>$pe
