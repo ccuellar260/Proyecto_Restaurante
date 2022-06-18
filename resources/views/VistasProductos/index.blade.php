@@ -25,6 +25,7 @@
                                                 <th>Nombre</th>
                                                 <th>Descripcion</th>
                                                 <th>Precio</th>
+                                                <th>Cantidad</th>
                                                 <th>Tipo</th>
                                                 <th>Acciones</th>
                                             </tr>
@@ -39,6 +40,7 @@
                                                     <td>{{$r->nombre}} |</td>
                                                     <td>{{$r->descripcion}} |</td>
                                                     <td>{{$r->precio}} |</td>
+                                                    <td>{{$r->cantidad}} |</td>
                                                     <td>{{$r->tipo}} |</td>
                                                     <td>
                                                         <a href="{{route('Producto.edit', $r->id_producto)}}" class="btn btn-warning">Editar</a>
@@ -46,7 +48,11 @@
                                                             method="POST">
                                                             @csrf
                                                             @method('DELETE')
-                                                            <button>Delete</button>
+                                                            <input type="submit"
+                                                                   value="Eliminar"
+                                                                   onclick="return confirm('Desea Eliminar?')">
+
+
                                                         </form>
                                                     </td>
                                                 </tr>

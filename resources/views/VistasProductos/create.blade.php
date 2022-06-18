@@ -32,6 +32,11 @@
                                         <input type="text" class="form-control" id="precio" name="precio" placeholder="Precio">
                                     </div>
                                     <div class="form-group">
+                                        <label for="cantidad">Cantidad= </label>
+                                        <input type="number" class="form-control" id="cantidad" name="cantidad" placeholder="0"
+                                        max="9" min="0">
+                                    </div>
+                                    <div class="form-group">
                                         <label for="tipo">Cateogira</label>
                                         <select name="tipo">
                                             @foreach($tipo as $t)

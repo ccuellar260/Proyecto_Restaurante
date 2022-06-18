@@ -11,10 +11,11 @@
 <body>
 
   <!-- component -->
-<section class="bg-white dark:bg-gray-900">
-    <div class="container px-6 py-8 mx-auto">
-        <div class="lg:flex lg:-mx-2">
 
+<section class="bg-white dark:bg-gray-900">
+    <div class=" bg-white px-2 py-8 mr-4 m-2 ">
+
+        <div class=" lg:flex lg:-mx-2">
             <!-- Para el navegador-->
             <div class="space-y-3 lg:w-1/5 lg:px-2 lg:space-y-4">
                  <!-- usando el status solo muestra una edicion-->
@@ -61,18 +62,15 @@
                 <a href="{{Route('Rol.index')}}" class="block font-medium
                 text-gray-500 dark:text-gray-300 hover:underline">Gestionar Roles</a>
 
-                <a href="{{Route('Empleado.index')}}" class="block font-medium text-gray-500 dark:text-gray-300 hover:underline">Gestionar Empleados
-                <a href="{{Route('Mesas.index')}}" class="block font-medium text-gray-500 dark:text-gray-300 hover:underline"> Gestionar Mesas</a>
+                <a href="{{Route('Empleado.index')}}"
+                   class="block font-medium text-gray-500 dark:text-gray-300 hover:underline">
+                   Gestionar Empleados</a>
 
-
+                <a href="{{Route('Mesas.index')}}" class="block font-medium text-gray-500 dark:text-gray-300 hover:underline "> Gestionar Mesas</a>
 
                 <a href="{{Route('Producto.index')}}" class="block font-medium text-gray-500 dark:text-gray-300 hover:underline">Gestion Producto</a>
 
-                <a href="{{Route('Amb.index')}}" class="block font-medium text-gray-500 dark:text-gray-300 hover:underline">Gestion de Ambiente</a>
-
-
-
-                <a href="{{Route('Amb.index')}}" class="block font-medium text-gray-500 dark:text-gray-300 hover:underline">Clientes</a>
+                <a href="{{Route('Cliente.index')}}" class="block font-medium text-gray-500 dark:text-gray-300 hover:underline">Clientes</a>
 
                 <a href="{{Route('Amb.index')}}" class="block font-medium text-gray-500 dark:text-gray-300 hover:underline">Horarios</a>
 
@@ -101,6 +99,7 @@
         </div>
     </div>
 </section>
+
 
 
 </body>

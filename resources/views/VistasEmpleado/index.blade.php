@@ -1,11 +1,20 @@
 @extends('navegador')
 @section('Contenido')
 
-    <div class="flex justify-end pr-3">
+
+    <div class="flex justify-between pr-3">
+        <div>
+            <button type="submit"
+                class="bg-blue-700 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer">
+                <a href="{{ Route('Empleado.create') }}">REGISTRAR UN EMPLEADO</a>
+            </button>
+            </div>
+        <div>
         <button type="submit"
-            class="bg-indigo-600 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer">
-            <a href="{{ Route('Empleado.create') }}">REGISTRAR UN EMPLEADO</a>
+            class="bg-blue-700 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer">
+            <a  href="{{Route('Amb.index')}}">GESTIONAR AMBIENTE </a>
         </button>
+        </div>
     </div>
 
 
@@ -62,27 +71,35 @@
                                     </td>
 
                                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
+                                    <div class="flex justify-between">
                                         <button type="button"
-                                            class="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">
+                                            class="mr-2 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">
                                             <a href="{{Route('Empleado.edit',$fila->ci)}}">
                                                 EDITAR
-                                            </a></butto>
-                                            <button type="button"
-                                                class="mr-3 text-sm bg-red-700 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">
-                                                <form action="{{ Route('Rol.destroy', $fila) }}" method="POST">
-                                                    @csrf
-                                                    <!-- token de seguridad-->
-                                                    @method('DELETE')
+                                            </a>
+                                        </butto>
 
-                                                    <!-- mostar boton eliminar-->
-                                                    <input type="submit" value="ELIMINAR" class=""
-                                                        onclick="return confirm('Desea Eliminar?')">
-                                                    <!-- volver a preguntar si desea eliminar -->
-                                                </form>
-                                            </button>
+                                        <button type="button"
+                                            class="mr-2 text-sm bg-red-700 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">
+                                            <form action="{{ Route('Rol.destroy', $fila) }}" method="POST">
+                                                @csrf
+                                                <!-- token de seguridad-->
+                                                @method('DELETE')
 
-
-                                         </td>
+                                                <!-- mostar boton eliminar-->
+                                                <input type="submit" value="ELIMINAR" class=""
+                                                    onclick="return confirm('Desea Eliminar?')">
+                                                <!-- volver a preguntar si desea eliminar -->
+                                            </form>
+                                        </button>
+                                        <button type="button"
+                                            class="mr-2 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">
+                                            <a href="{{Route('Empleado.edit',$fila->ci)}}">
+                                                ASIGNAR MESA
+                                            </a>
+                                        </butto>
+                                    </div>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>

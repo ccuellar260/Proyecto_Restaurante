@@ -19,7 +19,7 @@ class ProductoController extends Controller
     {
         $tabla = DB::table('productos')
         ->join('tipo_productos','productos.id_tipo_plato','=','tipo_productos.id_tipo_plato')
-        ->select('productos.id_producto','productos.nombre','productos.descripcion','productos.url','productos.precio','tipo_productos.Categoria as tipo')
+        ->select('productos.id_producto','productos.nombre','productos.descripcion','productos.url','productos.precio','productos.cantidad','tipo_productos.Categoria as tipo')
         ->get();
         return view('VistasProductos.index', compact('tabla'));
     }
@@ -49,6 +49,7 @@ class ProductoController extends Controller
         $producto->descripcion = $request->descripcion;
         $producto->url = $request->url;
         $producto->precio = $request->precio;
+        $producto->cantidad = $request->cantidad;
         $producto->id_tipo_plato = $request->tipo;
         $producto->save();
         return redirect()->Route('Producto.index');

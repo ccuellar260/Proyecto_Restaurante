@@ -13,12 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('pedidos', function (Blueprint $table) {
-            $table->id('id_pedido');
+        Schema::create('asignar_mesas', function (Blueprint $table) {
+            $table->id();
             $table->unsignedBigInteger('nro_mesa');
             $table->unsignedBigInteger('ci_empleado');
-            $table->string('estado');
-            $table->decimal('precio_total')->nullable()->default(0);
 
             $table->foreign('nro_mesa')
                ->references('nro_mesa')
@@ -26,11 +24,12 @@ return new class extends Migration
                ->onDelete('Cascade')
                ->onUpdate('Cascade');
 
-            $table->foreign('ci_empleado')
+             $table->foreign('ci_empleado')
                ->references('ci')
                ->on('empleados')
                ->onDelete('Cascade')
                ->onUpdate('Cascade');
+
         });
     }
 
@@ -41,6 +40,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pedidos');
+        Schema::dropIfExists('asignar_mesas');
     }
 };

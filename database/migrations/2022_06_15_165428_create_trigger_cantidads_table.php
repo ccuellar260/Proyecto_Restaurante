@@ -27,6 +27,5 @@ return new class extends Migration
     public function down()
     {
         DB::unprepared('DROP TRIGGER "TriggerCantidad"');
-    
     }
 };

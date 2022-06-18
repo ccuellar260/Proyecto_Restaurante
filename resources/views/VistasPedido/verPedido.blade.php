@@ -4,7 +4,8 @@
     <p>Pedidos hecho por ci:{{$pedido->ci_empleado}} </p>
     <p>Mesa Nro: {{$pedido->nro_mesa}}</p>
     <p>Nro de pedido{{$pedido->id_pedido}}</p>
-
+    <p>esta registrado? buscar ci </p>
+    <button><a href="">Crear Cliente</a></button>
 
     <div class="bg-white p-2 rounded-md w-full">
         <div>

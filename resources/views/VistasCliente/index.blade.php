@@ -3,7 +3,7 @@
     <div class="flex justify-end pr-3">
         <button type="submit"
             class="bg-indigo-600 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer">
-            <a href="{{ Route('Amb.Create') }}">CREAR UN AMBIENTE</a>
+            <a href="{{ Route('Cliente.Create') }}">CREAR UN CLIENTE</a>
         </button>
     </div>
 
@@ -16,19 +16,19 @@
                             <tr>
                                 <th
                                     class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                                    NOMBRE
+                                    CI
                                 </th>
                                 <th
                                     class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                                    DESCRIPCION
+                                    NOMBRE_COMPLETO
                                 </th>
                                 <th
                                     class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                                    CAPACIDAD
+                                    TELEFONO
                                 </th>
                                 <th
                                     class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                                    ESTADO
+                                    NIT
                                 </th>
                                 <th
                                     class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
@@ -37,29 +37,29 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($ambientes as $a)
+                            @foreach ($clientes as $c)
                                 <tr>
                                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
-                                        <p class="text-gray-900 whitespace-no-wrap">{{ $a->nombre }}</p>
+                                        <p class="text-gray-900 whitespace-no-wrap">{{ $c->ci }}</p>
                                     </td>
                                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
-                                        <p class="text-gray-900 whitespace-no-wrap"> {{ $a->descripcion }} </p>
+                                        <p class="text-gray-900 whitespace-no-wrap"> {{ $c->nombre_completo }} </p>
                                     </td>
                                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
-                                        <p class="text-gray-900 whitespace-no-wrap">{{ $a->capacidad }}</p>
+                                        <p class="text-gray-900 whitespace-no-wrap">{{ $c->telefono }}</p>
                                     </td>
                                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
-                                        <p class="text-gray-900 whitespace-no-wrap">{{ $a->estado }}</p>
+                                        <p class="text-gray-900 whitespace-no-wrap">{{ $c->nit }}</p>
                                     </td>
                                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
                                         <button type="button"
                                             class="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">
-                                            <a href="{{ Route('Amb.edit', $a->id_ambiente) }}">
+                                            <a href="{{ Route('Cliente.edit', $c->ci) }}">
                                                 EDITAR
                                             </a></butto>
                                             <button type="button"
                                                 class="mr-3 text-sm bg-red-700 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">
-                                                <form action="{{ Route('Amb.Destroy', $a->id_ambiente) }}" method="POST">
+                                                <form action="{{ Route('Cliente.Destroy', $c->ci) }}" method="POST">
                                                     @csrf
                                                     <!-- token de seguridad-->
                                                     @method('DELETE')

@@ -8,6 +8,7 @@ use App\Http\Controllers\PedidosController;
 use App\Http\Controllers\AmbienteController;
 use App\Http\Controllers\MesaController;
 use App\Http\Controllers\ProductoController;
+use App\Http\Controllers\ClienteController;
 
 //clase para usar validatioException
 use App\Http\Controllers\Auth\AuthController;
@@ -27,7 +28,7 @@ use Illuminate\Validation\ValidationException;
 Route::get('/', function () {
 
     return view('welcome',);
-})->middleware('auth');
+})->middleware('auth');//si no estoy logueado retorname a login
 
            //nombre clase, nombre de metodo  //-> name es el nombre de ruta
 Route::resource('Rol', RolController::class)->except(['show'])
@@ -59,19 +60,21 @@ Route::delete('Ambiente/Dell/{ambiente}',[AmbienteController::class,'destroy'])
 
 //Realizar Pedidos
 Route::get('Pedidos/{user}',[PedidosController::class,'index'])
-     ->name('Pedido');
+     ->name('Pedido')->middleware('auth');
 Route::post('Pedidos',[PedidosController::class,'storePedido'])
      ->name('Pedidos.StorePedido');
 Route::get('Pedidos/{pedido}/CrearPedido}',[PedidosController::class,
      'crear_pedido'])->name('Pedido.Create');
 Route::post('Pedidos/Detallles',[PedidosController::class,'storeDetalles'])
-     ->name('Pedido.storeDetalles');
+     ->name('Pedido.storeDetalles')->middleware('ProductoCantidad');
 Route::delete('Pedidos/{pedido}',[PedidosController::class,'destroy'])
      ->name('Pedido.destroy');
 Route::get('Pedido/{pe}/Detalle',[PedidosController::class,'mostrarDetalle'])
-     ->name('Pedido.smostrarDetalles');
+     ->name('Pedido.mostrarDetalles');
 Route::get('Pedido/{pe}/edit',[PedidosController::class,'editarDetalles'])
-->name('Pedido.editarDetalles');
+     ->name('Pedido.editarDetalles');
+Route::get('Pedido/{pe}/Pago',[PedidosController::class,'RealizarPago'])
+    ->name('Pedido.RealizarPago');
 
 
 
@@ -87,9 +90,27 @@ Route::get('Login',[AuthController::class,'login'])
 Route::post('Login',[AuthController::class,'loginStore'])
      ->name('LoginStore');
 Route::get('Dashboard',[AuthController::class,'dashboard'])
-     ->name('Dashboard')->middleware('auth');
+     ->name('Dashboard')->middleware('auth');//si no estoy logueado retorname a login
 Route::post('Logout',[AuthController::class,'logout'])
      ->name('Logout');
 
+
+//gestion recibo
+
+
+
+//Gestion de clientes
+Route::get('Cliente',[ClienteController::class,'index'])
+     ->name('Cliente.index');
+Route::get('Cliente/Create',[ClienteController::class,'create'])
+     ->name('Cliente.Create');
+Route::post('Cliente/Create',[ClienteController::class,'store'])
+     ->name('Cliente.Store');
+Route::get('Cliente/Edit/{ci}',[ClienteController::class,'edit'])
+     ->name('Cliente.edit');
+Route::put('Cliente/Edit/{cliente}',[ClienteController::class,'update'])
+     ->name('Cliente.Update');
+Route::delete('Cliente/Dell/{cliente}',[ClienteController::class,'destroy'])
+     ->name('Cliente.Destroy');
 
 

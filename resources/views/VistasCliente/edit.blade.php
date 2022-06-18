@@ -6,12 +6,12 @@
         <!-- Learn More: https://formbold.com -->
         <div class="mx-auto w-full max-w-[550px]">
             <h1 class="text-center font-bold text-3xl mb-5">EDITAR AMBIENTE</h1>
-            <form action="{{Route('Amb.Update',$ambiente->id_ambiente)}}" method="POST">
+            <form action="{{Route('Cliente.Update',$cliente->ci)}}" method="POST">
                 @csrf
                 @method('PUT')
                 <div class="mb-5">
                     <label for="name" class="mb-3 block text-base font-medium text-[#07074D]">
-                        Nombre
+                        Ci
                     </label>
                     <input type="text" name="nombre" id="name" value="{{$ambiente->nombre}}"
                         class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />

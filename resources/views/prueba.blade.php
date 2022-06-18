@@ -1,132 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Login</title>
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <style>
-        .login {
-            background: url('{{ asset('img/chancho al palo.jpg') }}');
-            background-repeat: no-repeat;
-            background-size: cover;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <title>Document</title>
 </head>
-
 <body>
-    <div class="h-screen font-sans login bg-cover">
-        <div class="container mx-auto h-full flex flex-1 justify-center items-center">
-            <div class="w-full max-w-lg">
-                <div class="leading-loose">
-                    <form class="max-w-sm m-4 p-10 bg-stone-900 bg-opacity-50 rounded shadow-xl" method="POST"
-                        action="{{ route('Login') }}">
-                        @csrf
+    <div class="flex h-screen bg-gray-800" >
 
-                        <p>
-                            <!-- usando el status solo muestra una edicion-->
-                            @if (session('statusLogout')) <!--Existe el atributo status?-->
-                            <br>   <!-- mostarr lo que esta en status-->
-                            {{session('statusLogout')}}
-                           @endif
-                        </p>
-                        <p class="text-white font-medium text-center text-lg font-bold">INICIO DE SESION</p>
+        <!-- Desktop sidebar -->
+        <aside class="z-20 flex-shrink-0 hidden w-60 pl-2 overflow-y-auto bg-gray-800 md:block">
+            <div>
+                <div class="text-white">
+                    <div class="flex p-2  bg-gray-800">
+                        <div class="flex py-3 px-2 items-center">
+                            <p class="text-2xl text-green-500 font-semibold">SA</p <p class="ml-2 font-semibold italic">
+                            DASHBOARD</p>
+                        </div>
+                    </div>
+                    <div class="flex justify-center">
                         <div class="">
-                            <label class="block text-sm text-white" for="email">Introdusca su correo </label>
-                            <input
-                                class="w-full px-5 py-1 text-gray-700 bg-gray-300 rounded focus:outline-none focus:bg-white"
-                                type="email"  required autofocus id="email" name="correo_electronico"
-                                value='{{old('correo_electronico')}}'
-                                placeholder="Ejemplo007@gmail.com"
-                                aria-label="email" required>
-                                @error('correo_electronico') {{$message}}@enderror
-                                <br>
+                            <img class="hidden h-24 w-24 rounded-full sm:block object-cover mr-2 border-4 border-green-400"
+                                src="https://image.flaticon.com/icons/png/512/149/149071.png" alt="">
+                            <p class="font-bold text-base  text-gray-400 pt-2 text-center w-24">Safwan</p>
                         </div>
-                        <div class="mt-2">
-                            <label class="block  text-sm text-white">Introdusca su contrasena </label>
-                            <input
-                                class="w-full px-5 py-1 text-gray-700 bg-gray-300 rounded focus:outline-none focus:bg-white"
-                                type="password" id="password" name="password" placeholder="Contrasena"
+                    </div>
+                    <div>
+                        <ul class="mt-6 leading-10">
+                            <li class="relative px-2 py-1 ">
+                                <a class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 cursor-pointer hover:text-green-500"
+                                    href=" #">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                                    </svg>
+                                    <span class="ml-4">DASHBOARD</span>
+                                </a>
+                            </li>
+                            <li class="relative px-2 py-1" x-data="{ Open : false  }">
+                                <div class="inline-flex items-center justify-between w-full text-base font-semibold transition-colors duration-150 text-gray-500  hover:text-yellow-400 cursor-pointer"
+                                    x-on:click="Open = !Open">
+                                    <span
+                                        class="inline-flex items-center  text-sm font-semibold text-white hover:text-green-400">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                            viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M8 4H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-2m-4-1v8m0 0l3-3m-3 3L9 8m-5 5h2.586a1 1 0 01.707.293l2.414 2.414a1 1 0 00.707.293h3.172a1 1 0 00.707-.293l2.414-2.414a1 1 0 01.707-.293H20" />
+                                        </svg>
+                                        <span class="ml-4">ITEM</span>
+                                    </span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" x-show="!Open"
+                                        class="ml-1  text-white w-4 h-4" fill="none" viewBox="0 0 24 24"
+                                        stroke="currentColor" style="display: none;">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M15 19l-7-7 7-7" />
+                                    </svg>
 
-                                arial-label="password" required>
-                                @error('password') {{$message}}@enderror
+                                    <svg xmlns="http://www.w3.org/2000/svg" x-show="Open"
+                                        class="ml-1  text-white w-4 h-4" fill="none" viewBox="0 0 24 24"
+                                        stroke="currentColor" style="display: none;">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M19 9l-7 7-7-7" />
+                                    </svg>
+                                </div>
 
-                        </div>
+                                <div x-show.transition="Open" style="display:none;">
+                                    <ul x-transition:enter="transition-all ease-in-out duration-300"
+                                        x-transition:enter-start="opacity-25 max-h-0"
+                                        x-transition:enter-end="opacity-100 max-h-xl"
+                                        x-transition:leave="transition-all ease-in-out duration-300"
+                                        x-transition:leave-start="opacity-100 max-h-xl"
+                                        x-transition:leave-end="opacity-0 max-h-0"
+                                        class="p-2 mt-2 space-y-2 overflow-hidden text-sm font-medium  rounded-md shadow-inner  bg-green-400"
+                                        aria-label="submenu">
 
-                        <div class="mt-2">
-                            <label>
-                                <input type="checkbox" name="recordar">
-                                Recordar contrasena
-                            </label> <br>
-                        </div>
-
-
-                        <div class="mt-4 items-center flex justify-between">
-                            <button
-                                class="px-4 py-1 text-white font-light tracking-wider bg-gray-900 hover:bg-gray-800 rounded"
-                                type="submit">Entrar</button>
-                        </div>
-
-
-                    </form>
-
+                                        <li class="px-2 py-1 text-white transition-colors duration-150">
+                                            <div class="px-1 hover:text-gray-800 hover:bg-gray-100 rounded-md">
+                                                <div class="flex items-center">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+                                                        viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            stroke-width="2"
+                                                            d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                                                    </svg>
+                                                    <a href="#"
+                                                        class="w-full ml-2  text-sm font-semibold text-white hover:text-gray-800">Item
+                                                        1</a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </div>
+        </aside>
+
+
+
     </div>
-
-
-
-
-
-
-    <!--<div class="h-screen flex">
-        <div class="hidden lg:flex w-full lg:w-1/2 login_img_section justify-around items-center">
-            <div class="bg-black opacity-20 inset-0 z-0"></div>
-            <div class="w-full mx-auto px-20 flex-col items-center space-y-6">
-                <h1 class="text-white font-bold text-4xl font-sans">RESTAURANT-KUREGRILL</h1>
-                <p class="text-white mt-1">El chancho al palo comenzó a prepararse en los años 80 en una familia
-                    apasionada a la comida campestre. En cada reunión, o celebración, este platillo era elaborado de una
-                    manera muy peculiar que asa la carne al palo. dando un sabor espectacular.</p>
-            </div>
-        </div>
-        <div class="flex w-full lg:w-1/2 justify-center items-center bg-white space-y-8">
-            <div class="w-full px-8 md:px-32 lg:px-24">
-                <form class="bg-white rounded-md shadow-2xl p-5" method="POST">
-                    @csrf
-                    <h1 class="text-gray-800 font-bold text-2xl mb-1">INICIAR SESION</h1>
-                    <p class="text-sm font-normal text-gray-600 mb-8">Bienvenido</p>
-                    <div class="flex items-center border-2 mb-8 py-2 px-3 rounded-2xl">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none"
-                            viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
-                                d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
-                        </svg>
-                        <input id="email" class="pl-2 w-full outline-none border-none" type="email"
-                            name="correo_electronico" placeholder="Email Address" />
-                    </div>
-                    <div class="flex items-center border-2 mb-12 py-2 px-3 rounded-2xl">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" viewBox="0 0 20 20"
-                            fill="currentColor">
-                            <path fillRule="evenodd"
-                                d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
-                                clipRule="evenodd" />
-                        </svg>
-                        <input class="pl-2 w-full outline-none border-none" type="password" name="password"
-                            id="password" placeholder="Password" />
-                    </div>
-                    <button type="submit"
-                        class="block w-full bg-indigo-600 mt-5 py-2 rounded-2xl hover:bg-indigo-700 hover:-translate-y-1 transition-all duration-500 text-white font-semibold mb-2">
-                        Login
-                    </button>
-                </form>
-            </div>
-        </div>
-    </div>
-
--->
 </body>
-
 </html>

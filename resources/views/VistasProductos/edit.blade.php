@@ -33,6 +33,10 @@
                                     <input type="text" name="precio" value="{{$Producto->precio}}" id="Precio" class="form-control">
                                     <br>
 
+                                    <label for="cantidad">Cantidad</label>
+                                    <input type="number" name="cantidad" value="{{$Producto->cantidad}}" id="cantidad" class="form-control">
+                                    <br>
+
                                     <label for="tipo">Categoria</label>
                                     <select name="tipo">
                                         @foreach ($tipo as $r)

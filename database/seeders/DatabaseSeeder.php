@@ -91,6 +91,7 @@ class DatabaseSeeder extends Seeder
         $e->ci = 8994432;
         $e->nombre_completo = 'cristian ceullar';
         $e->telefono = 110;
+        $e->foto = 'https://scontent.fsrz1-2.fna.fbcdn.net/v/t1.6435-9/80696374_748798835606543_4948905216759037952_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=174925&_nc_ohc=5H4yKOwPuQwAX_4qBwD&_nc_ht=scontent.fsrz1-2.fna&oh=00_AT_mT1-DZzU9ff9-UtrviuL_mfttDdLZoHcqPmUpBM9bFA&oe=62CF3E76';
         $e->nombre_usuario = User::inRandomOrder()->first()->nombre_usuario;
 
         $e->save();

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id('ci');
             $table->string('nombre_completo');
             $table->integer('telefono')->nullable();
+            $table->text('foto')->nullable();
             $table->string('nombre_usuario')->unique();
             $table->foreign('nombre_usuario')
                 ->references('nombre_usuario')
@@ -24,7 +25,7 @@ return new class extends Migration
                 ->onDelete('Cascade')
                 ->onCascade('Cascade');
         });
-        
+
     }
 
     /**

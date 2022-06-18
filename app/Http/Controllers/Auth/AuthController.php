@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Hash; //para qeu era??
 use App\Models\User;
+use App\Models\Empleado;
+use App\Models\Rol;
 
 class AuthController extends Controller
 {
@@ -93,7 +95,12 @@ class AuthController extends Controller
 
 
    Public function dashboard(){
-        return view('VistasAuth.dashboard');
+    $user = Auth::user()->nombre_usuario;
+    $empleado = Empleado::where('nombre_usuario',$user)->first();
+
+    $rol= Rol::where('id_rol',Auth::user()->id_rol)->first();
+
+        return view('VistasAuth.dashboard',compact('empleado','rol'));
    }
 
    public function logout(Request $r){

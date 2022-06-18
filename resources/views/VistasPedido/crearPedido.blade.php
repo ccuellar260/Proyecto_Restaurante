@@ -9,6 +9,9 @@
             </p>
                     <!-- titulo de la derecha -->
                     <div class="flex items-center">
+
+
+
                         <p class="text-gray-500 dark:text-gray-300">
                             <form action="{{Route('Pedido.destroy',$pedido)}}"
                             method="POST">
@@ -18,7 +21,8 @@
                             class="border border-gray-500 bg-red-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-red-800 focus:bg-gray-700
                             focus:outline-none focus:shadow-outline"
                             type="submit"
-                            value="Cancelar Pedido">
+                            value="Cancelar Pedido"
+                            onclick="return confirm('Desea Eliminar?')">
                             </form> <br>
                         </p>
 
@@ -39,15 +43,50 @@
                 src="{{$p->url}}" alt="T-Shirt">
                 <h4 class="mt-2 text-lg font-medium text-gray-700     dark:text-gray-200">{{$p->nombre}}</h4>
                 <la class="text-blue-500">${{$p->precio}}</la>
-                <label class="mt-2 text-lg font-medium text-gray-700     dark:text-gray-200">Cantidad:
-                <input
-                    class="shadow  border rounded  py-1 px-1 text-gray-700 leading-tight focus:outline-none' focus:shadow-outline"
+
+                <p >
+                    <!-- usando el status solo muestra un mensaje-->
+                    @if (session("status{$p->id_producto}")) <!--Existe el atributo status?-->
+                      <!-- mostarr lo que esta en status-->
+                    {{session("status{$p->id_producto}")}}
+                    @else
+                         @if ($p->cantidad!= 0)
+                            <label class="mt-2 text-lg font-medium text-gray-700
+                                    dark:text-gray-200">
+                                    Disponible: {{$p->cantidad}}
+                            </label>
+                        @else
+                            <label class="mt-2 text-lg font-medium text-gray-700
+                                          dark:text-gray-200">
+                            AGOTADO!!
+                            </label>
+                        @endif
+                    @endif
+                </p>
+
+                <label class="mt-2 text-lg font-medium text-gray-700
+                              dark:text-gray-200">
+                              Cantidad:
+                    <input
+                    class="shadow  border rounded  py-1 px-1 text-gray-700
+                           leading-tight focus:outline-none' focus:shadow-outline"
                     type="number"
                     name ='cantidad'
+                    id="cantidad"
                     min="0", max="9"
                     value="0" >
                 </label>
 
+
+
+
+
+                <input type="hidden" name="fecha"
+                value="{{date('Y-m-d')}}">
+                <input type="hidden" name="hora"
+                value="{{date('H:i:s')}}">
+                <input type="hidden" name="precio"
+                value="{{$p->precio}}">
                 <input type="hidden" name="producto"
                        value="{{$p->id_producto}}">
                 <input type="hidden" name="pedido"
@@ -55,6 +94,7 @@
 
 
                 <!-- Botton de adicionar al carro-->
+
                 <button class="flex items-center justify-center w-full px-2 py-2
                         mt-4 font-medium tracking-wide text-white capitalize transition-colors duration-200 transform bg-gray-800 rounded-md hover:bg-gray-700 focus:outline-none focus:bg-gray-700"
                         type="submit"
@@ -66,7 +106,12 @@
                     <span class="mx-1" > Hacer Pedido </span>
                 </button>
 
+
             </div>
+
+
+
+
         </form>
         @endforeach
 

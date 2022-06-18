@@ -40,7 +40,11 @@
                                                             method="POST">
                                                             @csrf
                                                             @method('DELETE')
-                                                            <button>Eliminar</button>
+                                                            
+                                                            <input type="submit" value="ELIMINAR" class=""
+                                                            onclick="return confirm('Desea Eliminar?')">
+                                                        <!-- volver a preguntar si desea eliminar -->
+
                                                         </form>
                                                     </td>
                                                 </tr>
