@@ -72,9 +72,12 @@
 
                 <a href="{{Route('Cliente.index')}}" class="block font-medium text-gray-500 dark:text-gray-300 hover:underline">Clientes</a>
 
-                <a href="{{Route('Amb.index')}}" class="block font-medium text-gray-500 dark:text-gray-300 hover:underline">Horarios</a>
+                <a href="{{Route('Turno.index')}}" class="block font-medium text-gray-500
+                dark:text-gray-300 hover:underline">Horarios</a>
 
-                <a href="{{Route('Amb.index')}}" class="block font-medium text-gray-500 dark:text-gray-300 hover:underline">
+                <a href="{{Route('Reserva.index')}}"
+                        class="block font-medium text-gray-500 dark:text-gray-300
+                        hover:underline">
                 Reservas</a>
 
 

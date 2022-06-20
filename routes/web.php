@@ -9,6 +9,8 @@ use App\Http\Controllers\AmbienteController;
 use App\Http\Controllers\MesaController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\ReservaController;
+use App\Http\Controllers\TurnoController;
 
 //clase para usar validatioException
 use App\Http\Controllers\Auth\AuthController;
@@ -81,7 +83,6 @@ Route::get('Pedido/{pe}/Pago',[PedidosController::class,'RealizarPago'])
     ->name('Pedido.RealizarPago');
 
 
-
 //ritas de prueba
 Route::view('prueba','prueba')->name('prueba');
 Route::view('formulario','formulario')->name('formulario');
@@ -117,4 +118,14 @@ Route::put('Cliente/Edit/{cliente}',[ClienteController::class,'update'])
 Route::delete('Cliente/Dell/{cliente}',[ClienteController::class,'destroy'])
      ->name('Cliente.Destroy');
 
+
+//qeu onda putoo!! Reservas
+Route::resource('Reserva', ReservaController::class)->except(['show'])
+     ->middleware('auth');
+Route::get('Reserva/{reserva}',[ReservaController::class,'verReserva'])
+     ->name('Reserva.verReserva');
+
+     //qeu onda putoo!! Turno
+Route::resource('Turno', TurnoController::class)->except(['show'])
+     ->middleware('auth');
 
