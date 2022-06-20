@@ -10,10 +10,7 @@
             </button>
             </div>
         <div>
-        <button type="submit"
-            class="bg-blue-700 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer">
-            <a  href="{{Route('Amb.index')}}">GESTIONAR AMBIENTE </a>
-        </button>
+HOLA QUE HACE
         </div>
     </div>
 
@@ -94,7 +91,7 @@
                                         </button>
                                         <button type="button"
                                             class="mr-2 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">
-                                            <a href="{{Route('Empleado.edit',$fila->ci)}}">
+                                            <a href="{{Route('Empleado.asignarMesa',$fila->ci)}}">
                                                 ASIGNAR MESA
                                             </a>
                                         </butto>

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Hash; //para ecriptar contra
 use App\Models\Empleado;
 use App\Models\User;
 use App\Models\Rol;
+use App\Models\Mesa;
 use Illuminate\Support\Str;
 
 class EmpleadoController extends Controller
@@ -94,10 +95,17 @@ class EmpleadoController extends Controller
     }
 
     public function asignarMesa(Empleado $ci){
-        $mesa = Mesa::get();
-
+        //mostrar mesas igual a null, que no tengan empleado
+        $mesas = Mesa::whereNull('ci_empleado')->get();
         return view('VistasEmpleado.asignarMesa',['empleado'=> $ci,
-                    'mesa'=>$mesa
+                    'mesas'=>$mesas
                     ]);
+    }
+
+    public function StoreAsignarMesa($ci,Request $r){
+        $mesa = Mesa::where('nro_mesa',$r->mesa)->first();
+        $mesa->ci_empleado = $ci;
+        $mesa->save();
+        return  redirect()->Route('Empleado.asignarMesa',$ci);
     }
 }

@@ -1,7 +1,17 @@
 @extends('navegador')
 
 @section('Contenido')
-    <!-- mostrr solo pedidos disponibles -->
+
+
+    <div class=" space-x-8">
+        <!--  <button class="bg-indigo-600 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer">
+          poner reporte
+        </button>-->
+           <button type=""
+               class="bg-indigo-600 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer">
+              <a href="{{Route('Pedido.consultar')}}">Consultar pedido</a> 
+           </button>
+    </div>
 
 
     <form action="{{ Route('Pedidos.StorePedido') }}" method="POST">
@@ -26,9 +36,12 @@
                     Realizar pedido
                 </button>
             </div>
-        </div>
 
+        </div>
     </form>
+
+
+
 
     <div class="bg-white p-2 rounded-md w-full">
         <div>

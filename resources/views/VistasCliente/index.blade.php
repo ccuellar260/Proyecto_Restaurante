@@ -37,7 +37,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($clientes as $c)
+                            @foreach ($cliente as $c)
                                 <tr>
                                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
                                         <p class="text-gray-900 whitespace-no-wrap">{{ $c->ci }}</p>
@@ -49,7 +49,7 @@
                                         <p class="text-gray-900 whitespace-no-wrap">{{ $c->telefono }}</p>
                                     </td>
                                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
-                                        <p class="text-gray-900 whitespace-no-wrap">{{ $c->nit }}</p>
+                                        <p class="text-gray-900 whitespace-no-wrap">{{ $c->NIT }}</p>
                                     </td>
                                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
                                         <button type="button"

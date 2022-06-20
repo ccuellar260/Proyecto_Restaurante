@@ -39,6 +39,8 @@ Route::resource('Mesas', MesaController::class)->except(['show'])
 ->middleware('auth')->middleware('Admin');
 Route::get('Empleado/asignarMesa/{ci}', [EmpleadoController::class,'asignarMesa'])
 ->name('Empleado.asignarMesa')->middleware('auth')->middleware('Admin');
+Route::post('Empleado/asignarMesa/{ci}', [EmpleadoController::class,'StoreAsignarMesa'])
+->name('Empleado.StoreAsignarMesa')->middleware('auth')->middleware('Admin');
 
 Route::resource('Producto', ProductoController::class)->except(['show'])
 ->middleware('auth')->middleware('Admin');
@@ -61,6 +63,8 @@ Route::delete('Ambiente/Dell/{ambiente}',[AmbienteController::class,'destroy'])
 //Realizar Pedidos
 Route::get('Pedidos/{user}',[PedidosController::class,'index'])
      ->name('Pedido')->middleware('auth');
+Route::get('Pedidos',[PedidosController::class,'consultarPedidos'])
+     ->name('Pedido.consultar')->middleware('auth');
 Route::post('Pedidos',[PedidosController::class,'storePedido'])
      ->name('Pedidos.StorePedido');
 Route::get('Pedidos/{pedido}/CrearPedido}',[PedidosController::class,

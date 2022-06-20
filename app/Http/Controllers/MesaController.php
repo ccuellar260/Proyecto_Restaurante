@@ -35,6 +35,7 @@ class MesaController extends Controller
         $table->estado = $request->estado;
         $table->id_tipo_mesa = $request->mesa;
         $table->id_ambiente = $request->Ubicacion;
+    //    $table->ci_empleado = $request->empleado;
         $table->save();
 
         return redirect()->route('Mesas.index');
@@ -42,6 +43,12 @@ class MesaController extends Controller
 
 
     public function edit(Mesa $Mesa){
+
+        $Mesa = Mesa::join('tipo_mesas',
+                      'tipo_mesas.id_tipo_mesa','=','mesas.id_tipo_mesa')
+                      ->join('ambientes as a','a.id_ambiente','=','mesas.id_ambiente')
+                      ->where('nro_mesa',$Mesa->nro_mesa)->first();
+
         $tipo = DB::table('tipo_mesas')->get();
         $ambiente = DB::table('ambientes')->get();
 

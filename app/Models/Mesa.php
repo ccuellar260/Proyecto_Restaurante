@@ -22,10 +22,7 @@ class Mesa extends Model
    return $this->hasMany(Pedido::class);
     }
 
-    public function asignacion_mesas(){
-        //hasMany{tien mucho} //metodo para dar la primari key
-       return $this->hasMany(AsignarMesa::class);
-        }
+
 
 
     public function ambientes(){

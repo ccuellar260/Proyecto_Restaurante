@@ -16,7 +16,8 @@
                                 <form action="{{Route('Mesas.store')}}" method="POST">
                                     @csrf
                                     <label for="estado">Estado</label>
-                                    <input type="text" name="estado" id="estado" class="form-control">
+                                    <input type="text" name="estado" id="estado" class="form-control"
+                                           value="Disponible">
                                     <br>
                                     <label for="mesa">Tamaño</label>
                                     <select name="mesa">

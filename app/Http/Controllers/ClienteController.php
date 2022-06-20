@@ -24,7 +24,7 @@ class ClienteController extends Controller
         $cliente->ci = $formulario->ci;
         $cliente->nombre_completo = $formulario->nombre_completo;
         $cliente->telefono = $formulario->telefono;
-        $cliente->nit = $formulario->nit;
+        $cliente->NIT = $formulario->NIT;
         $cliente->save();
         return redirect()->Route('Cliente.index');
     }
@@ -52,6 +52,6 @@ class ClienteController extends Controller
     public function destroy(Cliente $cliente)
     {
         $cliente->delete();
-        return redirect()->Route('CLiente.index');
+        return redirect()->Route('Cliente.index');
     }
 }

@@ -6,9 +6,18 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
+                  
                     <div class="card-header">
+                        <div>
+                            <button type="submit"
+                                class="bg-blue-700 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer">
+                                <a  href="{{Route('Amb.index')}}">GESTIONAR AMBIENTE </a>
+                            </button>
+                            </div>
                         <h3>Gestionar Reservas</h3>
+
                     </div>
+
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-12">
@@ -16,6 +25,7 @@
                                     <p>
                                         <button><a href="{{Route('Mesas.create')}}">Crear Mesa</a></button>
                                     </p>
+
                                     {{-- mostrar lista de reservas --}}
                                     <table class="table table-bordered">
                                         <thead>
@@ -24,6 +34,7 @@
                                                 <th>Estado</th>
                                                 <th>Tamaño</th>
                                                 <th>Ubicación</th>
+                                                <th>Acciones</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -34,13 +45,14 @@
                                                     <td>{{$r->mesa}} |</td>
                                                     <td>{{$r->nombre }} |</td>
                                                     <td>
-                                                        <a href="{{route('Mesas.edit', $r->nro_mesa)}}" class="btn btn-warning">Editar</a>
+                                                        <a href="{{route('Mesas.edit', $r->nro_mesa)}}"
+                                                           class="btn btn-warning">Editar</a>
 
                                                         <form action="{{Route('Mesas.destroy', $r->nro_mesa)}}"
                                                             method="POST">
                                                             @csrf
                                                             @method('DELETE')
-                                                            
+
                                                             <input type="submit" value="ELIMINAR" class=""
                                                             onclick="return confirm('Desea Eliminar?')">
                                                         <!-- volver a preguntar si desea eliminar -->

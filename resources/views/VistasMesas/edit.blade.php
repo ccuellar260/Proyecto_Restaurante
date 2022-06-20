@@ -22,16 +22,22 @@
                                     <br>
                                     <label for="mesa">Tamaño</label>
                                     <select name="mesa">
+                                        <option value="{{$mesa->id_tipo_mesa}}">{{$mesa->mesa}}</option>
                                         @foreach ($tipo as $r)
-                                        <option value="{{$r->id_tipo_mesa}}">{{$r->mesa}}</option>
+                                            @if ($r->id_tipo_mesa !=$mesa->id_tipo_mesa)
+                                            <option value="{{$r->id_tipo_mesa}}">{{$r->mesa}}</option>
+                                            @endif
                                         @endforeach
                                     </select>
                                     <br>
                                     <label for="Ubicacion">Ubicación</label>
                                     <select name="Ubicacion">
-                                    @foreach ($ambiente as $r)
-                                        <option value="{{$r->id_ambiente}}">{{$r->nombre}}</option>
-                                    @endforeach
+                                        <option value="{{$mesa->id_ambiente}}">{{$mesa->nombre}}</option>
+                                        @foreach ($ambiente as $r)
+                                            @if ($r->id_ambiente != $mesa->id_ambiente)
+                                                <option value="{{$r->id_ambiente}}">{{$r->nombre}}</option>
+                                            @endif
+                                        @endforeach
                                     </select>
                                     <br>
                                     <button type="submit">enviar</button>

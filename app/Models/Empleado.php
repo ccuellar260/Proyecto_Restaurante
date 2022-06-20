@@ -23,11 +23,6 @@ class Empleado extends Model
         return $this->hasMany(EmpleadoTurno::class);
     }
 
-    public function asignacion_mesas(){
-        //hasMany{tien mucho} //metodo para dar la primari key
-       return $this->hasMany(AsignarMesa::class);
-     }
-
     public function pedidos(){
         //hasMany{tien mucho} //metodo para dar la primari key
        return $this->hasMany(Pedido::class);

@@ -5,35 +5,35 @@
         <!-- Author: FormBold Team -->
         <!-- Learn More: https://formbold.com -->
         <div class="mx-auto w-full max-w-[550px]">
-            <h1 class="text-center font-bold text-3xl mb-5">REGISTRO DE AMBIENTES</h1>
-            <form action="{{ Route('Amb.Store') }}" method="POST">
+            <h1 class="text-center font-bold text-3xl mb-5">REGISTRO DE CLIENTES</h1>
+            <form action="{{ Route('Cliente.Store') }}" method="POST">
                 @csrf
                 <div class="mb-5">
-                    <label for="name" class="mb-3 block text-base font-medium text-[#07074D]">
-                        Nombre
+                    <label for="carnet identidad" class="mb-3 block text-base font-medium text-[#07074D]">
+                        Carnet de Identidad:
                     </label>
-                    <input type="text" name="nombre" id="name"
+                    <input type="id" name="ci" id="name"
                         class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
                 </div>
                 <div class="mb-5">
-                    <label for="email" class="mb-3 block text-base font-medium text-[#07074D]">
-                        Descripcion:
+                    <label for="nombre_completo" class="mb-3 block text-base font-medium text-[#07074D]">
+                        Nombre_Completo:
                     </label>
-                    <textarea name="descripcion" id="" cols="30" rows="4"
+                    <textarea name="nombre_completo" id="" cols="30" rows="4"
                         class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"></textarea>
                 </div>
                 <div class="mb-5">
-                    <label for="email" class="mb-3 block text-base font-medium text-[#07074D]">
-                        Capacidad:
+                    <label for="telefono" class="mb-3 block text-base font-medium text-[#07074D]">
+                        Telefono:
                     </label>
-                    <input type="number" name="capacidad" id="number" placeholder=""
+                    <input type="integer" name="telefono" id="number" placeholder=""
                         class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
                 </div>
                 <div class="mb-5">
-                    <label for="email" class="mb-3 block text-base font-medium text-[#07074D]">
-                        Estado
+                    <label for="NIT" class="mb-3 block text-base font-medium text-[#07074D]">
+                        Nit:
                     </label>
-                    <input type="text" name="estado" id="text" placeholder=""
+                    <input type="integer" name="NIT" id="text" placeholder=""
                         class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
                 </div>
                 <div>

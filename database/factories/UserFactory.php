@@ -19,12 +19,12 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
-            'nombre_usuario' => $this->faker->userName(),
-            'correo_electronico' => $this->faker->unique()->safeEmail(),
+            'nombre_usuario' => 'osvaldo.marin77',
+            'correo_electronico' => 'osvaldo.marvin@example.net',
       //      'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
-            'id_rol' => Rol::inRandomOrder()->first()->id_rol
+            'id_rol' => 1,
         //    'ci' => 899434
         ];
     }

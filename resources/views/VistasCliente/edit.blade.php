@@ -10,31 +10,31 @@
                 @csrf
                 @method('PUT')
                 <div class="mb-5">
-                    <label for="name" class="mb-3 block text-base font-medium text-[#07074D]">
+                    <label for="carnet identidad" class="mb-3 block text-base font-medium text-[#07074D]">
                         Ci
                     </label>
-                    <input type="text" name="nombre" id="name" value="{{$ambiente->nombre}}"
+                    <input type="integer" name="ci" id="name" value="{{$cliente->ci}}"
                         class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
                 </div>
                 <div class="mb-5">
-                    <label for="email" class="mb-3 block text-base font-medium text-[#07074D]">
-                        Descripcion:
+                    <label for="nombre" class="mb-3 block text-base font-medium text-[#07074D]">
+                        Nombre Completo:
                     </label>
-                    <textarea name="descripcion" id="" cols="30" rows="4"
-                        class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md">{{$ambiente->descripcion}}</textarea>
+                    <textarea name="nombre_completo" id="" cols="30" rows="4"
+                        class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md">{{$cliente->nombre_completo}}</textarea>
                 </div>
                 <div class="mb-5">
-                    <label for="email" class="mb-3 block text-base font-medium text-[#07074D]">
-                        Capacidad:
+                    <label for="telefeno" class="mb-3 block text-base font-medium text-[#07074D]">
+                        Telefeno:
                     </label>
-                    <input type="number" name="capacidad" value="{{$ambiente->capacidad}}"
+                    <input type="integer" name="telefono" value="{{$cliente->telefono}}"
                         class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
                 </div>
                 <div class="mb-5">
-                    <label for="email" class="mb-3 block text-base font-medium text-[#07074D]">
-                        Estado
+                    <label for="nit" class="mb-3 block text-base font-medium text-[#07074D]">
+                        Nit
                     </label>
-                    <input type="text" name="estado" id="text" value="{{$ambiente->estado}}"
+                    <input type="integer" name="NIT" id="" value="{{$cliente->NIT}}"
                         class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
                 </div>
                 <div>
