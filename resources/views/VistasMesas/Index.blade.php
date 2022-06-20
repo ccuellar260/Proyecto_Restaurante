@@ -1,75 +1,60 @@
 @extends('navegador')
 
 @section('Contenido')
+    <div class="bg-white flex p-3 shadow-sm mt-2">
+        <h6 class="flex-grow text-2xl font-bold">Gestionar Mesa</h6>
+        <button type="button"
+            class="mr-2 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">
+            <a href="{{Route('Mesas.create')}}">
+                CREAR MESA
+            </a>
+        </button>
+        <button type="button"
+            class="mr-2 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">
+            <a href="{{Route('Amb.index')}}">
+                GESTIONAR AMBINETE
+            </a>
+        </button>
 
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card">
-                  
-                    <div class="card-header">
-                        <div>
-                            <button type="submit"
-                                class="bg-blue-700 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer">
-                                <a  href="{{Route('Amb.index')}}">GESTIONAR AMBIENTE </a>
-                            </button>
-                            </div>
-                        <h3>Gestionar Reservas</h3>
-
+    </div>
+    <div class="grid grid-cols-5 gap-4 justify-items-center mt-2">
+        @foreach ($tabla as $r)
+            <div class="w-46 h-48">
+                <div
+                    class="bg-yellow-200 w-44 h-44 hover:bg-neutral-700 rounded-full flex flex-col justify-center gap-1 items-center ">
+                    <div>
+                        <p class="text-4xl font-bold">{{ $r->nro_mesa }}</p>
                     </div>
-
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <p>
-                                        <button><a href="{{Route('Mesas.create')}}">Crear Mesa</a></button>
-                                    </p>
-
-                                    {{-- mostrar lista de reservas --}}
-                                    <table class="table table-bordered">
-                                        <thead>
-                                            <tr>
-                                                <th>Nro</th>
-                                                <th>Estado</th>
-                                                <th>Tamaño</th>
-                                                <th>Ubicación</th>
-                                                <th>Acciones</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($tabla as $r)
-                                                <tr>
-                                                    <td>{{$r->nro_mesa}} |</td>
-                                                    <td>{{$r->estado}} |</td>
-                                                    <td>{{$r->mesa}} |</td>
-                                                    <td>{{$r->nombre }} |</td>
-                                                    <td>
-                                                        <a href="{{route('Mesas.edit', $r->nro_mesa)}}"
-                                                           class="btn btn-warning">Editar</a>
-
-                                                        <form action="{{Route('Mesas.destroy', $r->nro_mesa)}}"
-                                                            method="POST">
-                                                            @csrf
-                                                            @method('DELETE')
-
-                                                            <input type="submit" value="ELIMINAR" class=""
-                                                            onclick="return confirm('Desea Eliminar?')">
-                                                        <!-- volver a preguntar si desea eliminar -->
-
-                                                        </form>
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
+                    <div>
+                        <p>{{ $r->mesa }}</p>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
+                <div class="flex justify-center mt-2">
+                    <button type="button"
+                        class="mr-2 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">
+                        <a href="{{Route('Mesas.edit', $r->nro_mesa)}}" class="pr-3 pl-3">
+                            EDITAR
+                        </a>
+                    </button>
+                    <button type="button"
+                                            class="mr-2 text-sm bg-red-700 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">
+                                            <form action="{{Route('Mesas.destroy', $r->nro_mesa)}}" method="POST">
+                                                @csrf
+                                                <!-- token de seguridad-->
+                                                @method('DELETE')
 
+                                                <!-- mostar boton eliminar-->
+                                                <input type="submit" value="ELIMINAR" class=""
+                                                    onclick="return confirm('Desea Eliminar?')">
+                                                <!-- volver a preguntar si desea eliminar -->
+                                            </form>
+                                        </button>
+
+
+
+
+                </div>
+            </div>
+        @endforeach
+    </div>
 @endsection

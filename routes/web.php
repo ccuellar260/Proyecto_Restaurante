@@ -79,8 +79,13 @@ Route::get('Pedido/{pe}/Detalle',[PedidosController::class,'mostrarDetalle'])
      ->name('Pedido.mostrarDetalles');
 Route::get('Pedido/{pe}/edit',[PedidosController::class,'editarDetalles'])
      ->name('Pedido.editarDetalles');
-Route::get('Pedido/{pe}/Pago',[PedidosController::class,'RealizarPago'])
-    ->name('Pedido.RealizarPago');
+Route::get('Pedido/{p}/crearRecibo',[PedidosController::class,'crearRecibo'])
+    ->name('Pedido.crearRecibo');
+Route::post('Pedido/{p}/storeRecibo',[PedidosController::class,'storeRecibo'])
+    ->name('Pedido.storeRecibo');
+Route::get('Pedido/{recibo}/generarRecibo',[PedidosController::class,'generarRecibo'])
+    ->name('Pedido.generarRecibo');
+
 
 
 //ritas de prueba

@@ -9,7 +9,7 @@
         </button>-->
            <button type=""
                class="bg-indigo-600 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer">
-              <a href="{{Route('Pedido.consultar')}}">Consultar pedido</a> 
+              <a href="{{Route('Pedido.consultar')}}">Consultar pedido</a>
            </button>
     </div>
 
@@ -117,7 +117,7 @@
                                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
                                         <button type="button"
                                         class="mr-2 text-sm bg-red-700 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">
-                                        <a href="{{ Route('Pedido.RealizarPago',$p->id_pedido)}}">
+                                        <a href="{{ Route('Pedido.crearRecibo',$p->id_pedido)}}">
                                               Realizar Pago
                                         </a>
                                         </button>

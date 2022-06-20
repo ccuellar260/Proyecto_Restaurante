@@ -12,6 +12,8 @@ use App\models\Mesa;
 use App\models\DetallePedido;
 use App\models\Producto;
 use App\models\User;
+use App\models\Cliente;
+use App\models\Recibo;
 
 
 class PedidosController extends Controller
@@ -120,16 +122,49 @@ class PedidosController extends Controller
                  ]);
     }
 
-    public function RealizarPago(Pedido $pe){
+    public function crearRecibo(Pedido $p){
+        $clientes = Cliente::get();
 
-         //poner mesa en ocupado
-         $mesa = Mesa::where('nro_mesa',$pe->nro_mesa)->first();
+        $detalles = DetallePedido::join('productos as p','detalle_pedidos.id_producto','=','p.id_producto')
+              ->select('detalle_pedidos.*','p.nombre','p.precio as prod_precio')
+              ->where('id_pedido',$p->id_pedido)->get();
+        return view('VistasPedido.crearRecibo',
+               compact('clientes','detalles','p'));
+    }
+
+    public function storeRecibo(Request $re,Pedido $p)
+    {       //poner mesa en disponible
+         $mesa = Mesa::where('nro_mesa',$p->nro_mesa)->first();
          $mesa->estado = 'Disponible';
          $mesa->save();
-         $pe->estado = 'Pagado';
-         $pe->save();
-         $user = Auth::user()->nombre_usuario;
+         $p->estado = 'Pagado';
+         $p->save();
+        //guardar en la base de datos
+        $recibo = new Recibo();
+        $recibo->precio_total = $p->precio_total;
+        $recibo->ci_cliente = $re->cliente;
+        $recibo->id_pedido = $p->id_pedido;
+        $recibo->save();
+        return redirect()->Route('Pedido.generarRecibo',$recibo->id_recibo);
 
-        return redirect()->Route('Pedido',$user);
     }
+
+    public function generarRecibo(Recibo $recibo)
+    {
+        // join recibo con cliente
+        $recibo = Recibo::join('clientes','clientes.ci','=', 'recibos.ci_cliente')
+                        ->join('pedidos','pedidos.id_pedido','=', 'recibos.id_pedido')
+                        ->where('pedidos.id_pedido',$recibo->id_pedido)
+                        ->where('ci', $recibo->ci_cliente)->first();
+
+        // join detallepedido con producto
+        $detalles = DetallePedido::join('productos as p','detalle_pedidos.id_producto','=','p.id_producto')
+              ->select('detalle_pedidos.*','p.nombre','p.precio as prod_precio')
+              ->where('id_pedido',$recibo->id_pedido)->get();
+          //  ->where('id_pedido',$recibo->id_pedido)
+          return view('VistasPedido.generarRecibo',
+                 compact('recibo','detalles'));
+    }
+
+
 }
