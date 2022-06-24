@@ -39,8 +39,6 @@ class PedidosController extends Controller
                     ->join('ambientes as a','a.id_ambiente','=','m.id_ambiente')
                     ->get();
 
-        dd($pedidos);
-
         return; //view('VistasPedido.consultarPedidos',compact('pedidos'));
     }
 
@@ -54,7 +52,7 @@ class PedidosController extends Controller
         $emp = $pedido->ci_empleado;
         $me = $pedido->nro_mesa;
 
-        return view('VistasPedido.crearPedido',[
+        return view('prueba',[
             'ci'=>$emp,
             'nro_mesa'=>$me,
             'pedido'=>$pedido,
@@ -64,7 +62,19 @@ class PedidosController extends Controller
         ]);
     }
 
+    public function RefreshProduc(){
+        $p = Producto::where('id_tipo_plato',1)->get();
+        foreach ($p as $f){
+            $f->cantidad = 30 ;
+            $f->save();
+        }
+        $user = Auth::user()->nombre_usuario;
+        return redirect()->Route('Pedido',compact('user'));
+    }
+
     public function storePedido(Request $r){
+
+
         $pedido = new Pedido();
         $pedido->nro_mesa = $r->mesa;
         $pedido->ci_empleado = $r->empleado;
@@ -80,14 +90,21 @@ class PedidosController extends Controller
 
     public function storeDetalles(Request $r){
 
-        $detalle = new DetallePedido();
-        $detalle->id_pedido= $r->pedido;
-        $detalle->id_producto = $r->producto;
-        $detalle->cantidad = $r->cantidad;
-        $detalle->precio = (float)$r->precio* (float)$r->cantidad;
-        $detalle->fecha =$r->fecha;
-        $detalle->hora = $r->hora;
-        $detalle->save();
+
+        $count = count($r->producto);
+
+        for ($i=0; $i < $count; $i++)
+            if($r->cantidad[$i]>0){
+
+            $detalle = new DetallePedido();
+            $detalle->id_pedido= $r->pedido;
+            $detalle->id_producto = $r->producto[$i];
+            $detalle->cantidad = $r->cantidad[$i];
+            $detalle->precio = (float)$r->precio* (float)$r->cantidad[$i];
+            $detalle->fecha =$r->fecha;
+            $detalle->hora = $r->hora;
+            $detalle->save();
+             }
 
         return redirect()->Route('Pedido.Create',$detalle->id_pedido);
     }

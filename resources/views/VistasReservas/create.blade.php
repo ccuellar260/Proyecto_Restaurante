@@ -21,7 +21,8 @@
     <div class="form-group">
         <label for="nro_mesa">Nro. de Mesa</label><br>
             @foreach ($mesas as $mesa)
-            <input type="checkbox" name="nro_mesa[]" value="{{$mesa->nro_mesa}}">{{$mesa->nro_mesa}}<br>
+            <input type="checkbox" name="nro_mesa[]" value="{{$mesa->nro_mesa}}">
+            <td>{{$mesa->nro_mesa}}</td><br>
             @endforeach
     </div>
     <div class="form-group">
@@ -32,7 +33,7 @@
             @endforeach
         </select>
     </div>
-   
+
     <button type="submit" class="btn btn-primary">Guardar</button>
     <a href="{{Route('Reserva.index')}}" class="btn btn-secondary">Volver</a>
 </form>

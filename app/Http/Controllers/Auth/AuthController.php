@@ -63,6 +63,7 @@ class AuthController extends Controller
 
     $bienvenida = 'Bienvenido '.(Auth::user()->nombre_usuario);
     //redirecciona a dashboard con una variable status
+
      return //intended, por sin entra ua una url protegida
             redirect()->intended(Route('Dashboard'))
             ->with('status',$bienvenida);

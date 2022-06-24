@@ -17,13 +17,25 @@ class ProductoCantidad
      */
     public function handle(Request $r, Closure $next)
     {
-        $producto = Producto::where('id_producto',$r->producto)->first();
-        if($r->cantidad > $producto->cantidad ){
-              //no entra, mostrar cantidad no disponible
-               return redirect()->Route('Pedido.Create',$r->pedido)->with("status{$producto->id_producto}","Solo queda {$producto->cantidad} {$producto->nombre} ");
-        }
 
+        $producto = Producto::get();
+        $count = count($r->producto);
+        for ($i=0;$i<$count;$i++){
+            if($r->cantidad[$i] > $producto[$i]->cantidad ){
+                return redirect()->Route('Pedido.Create',$r->pedido)->with("status{$producto[$i]->id_producto}","Solo queda {$producto[$i]->cantidad} {$producto[$i]->nombre} ");
+            }
+            $i=$i+1;
+        }
         return $next($r);  //si entra
+
+
+        // $producto = Producto::where('id_producto',$r->producto)->first();
+        // if($r->cantidad > $producto->cantidad ){
+        //       //no entra, mostrar cantidad no disponible
+        //        return redirect()->Route('Pedido.Create',$r->pedido)->with("status{$producto->id_producto}","Solo queda {$producto->cantidad} {$producto->nombre} ");
+        // }
+
+        // return $next($r);  //si entra
 
     }
 }

@@ -85,7 +85,8 @@ Route::post('Pedido/{p}/storeRecibo',[PedidosController::class,'storeRecibo'])
     ->name('Pedido.storeRecibo');
 Route::get('Pedido/{recibo}/generarRecibo',[PedidosController::class,'generarRecibo'])
     ->name('Pedido.generarRecibo');
-
+Route::put('Pedido/RefreshProduc',[PedidosController::class,'RefreshProduc'])
+    ->name('Pedido.RefreshProduc');
 
 
 //ritas de prueba

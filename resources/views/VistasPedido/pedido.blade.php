@@ -11,6 +11,18 @@
                class="bg-indigo-600 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer">
               <a href="{{Route('Pedido.consultar')}}">Consultar pedido</a>
            </button>
+
+           <form action="{{Route('Pedido.RefreshProduc')}}"
+           method="POST">
+           @method('PUT')
+           @csrf
+           <button type="submit"
+           class="bg-indigo-600 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer">
+
+            Actializar Platos
+       </button>
+        </form>
+
     </div>
 
 

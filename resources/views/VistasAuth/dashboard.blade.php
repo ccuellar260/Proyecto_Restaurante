@@ -1,9 +1,18 @@
 @extends('navegador')
+@section('Imagen')
+{{$empleado->foto}}
+@endsection
+
+@section('nombre')
+{{$empleado->nombre_completo}}
+@endsection
 
 @section('Contenido')
 
 
     <div class=" h-full  bg-gradient-to-r from-blue-300 to-indigo-300">
+
+
         <div class=" grid grid-cols-12 gap-0">
             <div class="col-span-12 sm:col-span-12 md:col-span-12 lg:col-span-8 xxl:col-span-8 px-6 py-6">
 
@@ -17,6 +26,8 @@
             <!-- parte derecah-->
             <div class=" col-span-12 sm:col-span-12 md:col-span-12 lg:col-span-4 xxl:col-span-4 px-6 py-6">
                 <!-- Start profile Card -->
+
+
                 <div class="bg-white rounded-xl p-4 shadow-xl">
                     <div class=" flex flex-col justify-center items-center">
                         <div class="w-32 h-32 rounded-full bg-gray-300 border-2 border-white mt-2">

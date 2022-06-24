@@ -10,12 +10,19 @@
 </head>
 
 <body class="bg-gray-100">
+
+    <?php
+    $user = Auth::user()->nombre_usuario;
+    $empleado = DB::table('empleados')
+                ->where('nombre_usuario',$user)->first();
+
+    ?>
     <div class="bg-white flex p-1 shadow-sm ">
         <h6 class="flex-grow text-2xl font-bold mt-2 ml-2">Restaurant <span class="text-red-800">KURE GRILL</span></h6>
-        <p class="mt-2 p-2">Christian Maldonado</p>
+        <p class="mt-2 p-2">{{$empleado->nombre_completo}}</p>
         <div class="mr-4 w-14 h-14 rounded-full bg-gray-300 border-2 border-white">
             <img
-            src=""
+            src="{{$empleado->foto}}";
             class="rounded-full w-auto"
             />
         </div>
@@ -148,6 +155,7 @@
             @endif
         </div>
         <div class=" mt-6 lg:mt-0 lg:px-2 lg:w-4/5 from-teal-100 via-teal-300 to-teal-500 bg-gradient-to-br">
+
             @yield('Contenido')
         </div>
     </div>
