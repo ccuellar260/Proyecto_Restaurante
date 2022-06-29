@@ -19,76 +19,104 @@ use App\models\Recibo;
 class PedidosController extends Controller
 {
 
-    public function index(User $user){
+    public function index(){
+        $user = Auth::user()->nombre_usuario;
         //mostrar solo pedidos por pagar
-        $pedidos = Pedido::where('estado','Realizar Pago')->get();
+        $pedidos = Pedido::where('estado','En Cocina')
+                    ->orWhere('estado','Pedido Listo')
+                    ->orWhere('estado','Realizar Pago')
+                     ->get();
         //mostrar mesas disponibles
-        $mesas = Mesa::where('estado','Disponible')->get();
 
         $empleado = Empleado::join('users','empleados.nombre_usuario','=','users.nombre_usuario')
-                            ->where('empleados.nombre_usuario',$user->nombre_usuario)->first();
-        return view('VistasPedido.pedido',compact('pedidos','mesas','empleado'));
+        ->where('empleados.nombre_usuario',$user)->first();
+
+        $mesas = Mesa::where('estado','Disponible')
+                     ->where('ci_empleado',$empleado->ci)->get();
+        $mesasAdmin = Mesa::where('estado','Disponible')->get();
+
+        return view('VistasPedido.pedido',compact('pedidos','mesas','empleado','mesasAdmin'));
     }
 
     public function consultarPedidos(){
         //mostrar solo pedidos por pagar
-        $pedidos = DB::table('pedidos as p')
-                    ->join('empleados as e','e.ci','=','p.ci_empleado')
-                    ->join('mesas as m','m.nro_mesa','=','p.nro_mesa')
-                    ->join('tipo_mesas as t','t.id_tipo_mesa','=','m.id_tipo_mesa')
-                    ->join('ambientes as a','a.id_ambiente','=','m.id_ambiente')
-                    ->get();
+        // $pagados = DB::table('pedidos as p')
+        //             ->join('recibos as r','r.id_pedido','=','p.id_pedido')
+        //             ->join('clientes as c','c.ci','=','r.ci_cliente')
+        //             ->join('empleados as e','e.ci','=','p.ci_empleado')
+        //             ->join('mesas as m','m.nro_mesa','=','p.nro_mesa')
+        //             ->join('tipo_mesas as t','t.id_tipo_mesa','=','m.id_tipo_mesa')
+        //             ->join('ambientes as a','a.id_ambiente','=','m.id_ambiente')
+        //             ->select('r.id_recibo','c.*')
+        //             ->get();
 
-        return; //view('VistasPedido.consultarPedidos',compact('pedidos'));
+        $pagados = DB::table('pedidos as p')
+                     ->join('recibos as r','r.id_pedido','=','p.id_pedido')
+                     ->join('clientes as c','c.ci','=','r.ci_cliente')
+                     ->join('empleados as e','e.ci','=','p.ci_empleado')
+                     ->select('r.id_recibo','c.nombre_completo as cliente',
+                              'c.ci as ci_cliente','e.ci as ci_empleado',
+                              'e.nombre_completo as empleado','p.*')
+                     ->get();
+
+        $por_pagar = DB::table('pedidos as p')
+                    ->join('empleados as e','e.ci','=','p.ci_empleado')
+                    ->where('estado','Realizar Pago')->get();
+
+
+
+        return view('VistasPedido.consultarPedidos',compact('pagados','por_pagar'));
     }
 
-    public function crear_pedido(Pedido $pedido){
-
+    public function crear_pedido(Request $r){
         //$producto = Producto::get();
         //metodo where (recibe el atributo,recibo la variable de comparacion)
         $platos = Producto::where('id_tipo_plato',1)->get();
         $bebidas = Producto::where('id_tipo_plato',2)->get();
         $postres = Producto::where('id_tipo_plato',3)->get();
-        $emp = $pedido->ci_empleado;
-        $me = $pedido->nro_mesa;
+      //  $user = Auth::user()->nombre_usuario;
+     //   $empleado = Empleado::where('nombre_usuario',$user)->first();
+        $emp = $r->empleado;
+        $me = $r->mesa;
 
-        return view('prueba',[
+        return view('VistasPedido.crearPedido',[
             'ci'=>$emp,
             'nro_mesa'=>$me,
-            'pedido'=>$pedido,
             'platos'=>$platos,
             'bebidas'=>$bebidas,
             'postres'=>$postres
         ]);
     }
 
-    public function RefreshProduc(){
-        $p = Producto::where('id_tipo_plato',1)->get();
-        foreach ($p as $f){
-            $f->cantidad = 30 ;
-            $f->save();
-        }
-        $user = Auth::user()->nombre_usuario;
-        return redirect()->Route('Pedido',compact('user'));
+    private $fecha_marcadad = '2022-06-25';
+    public function RestCantPlatos(){
+        echo $this->fecha_marcadad.'<br>';
+        echo (date('Y-m-d').'<br>');
+        if ( $this->fecha_marcadad != date('Y-m-d')) {
+            echo ' verdadero';
+        }else { echo 'falso';}
+
+        dd();
+        // $p = Producto::where('id_tipo_plato',1)->get();
+        // foreach ($p as $f){
+        //     $f->cantidad = 30 ;
+        //     $f->save();
+        // }
+        // $user = Auth::user()->nombre_usuario;
+        return redirect()->Route('Pedido.index');
     }
 
     public function storePedido(Request $r){
-
-
         $pedido = new Pedido();
         $pedido->nro_mesa = $r->mesa;
         $pedido->ci_empleado = $r->empleado;
-        $pedido->estado = 'Realizar Pago';
+        $pedido->estado = 'En Cocina';
         $pedido->save();
 
         //poner mesa en ocupado
         $mesa = Mesa::where('nro_mesa',$r->mesa)->first();
         $mesa->estado = 'Ocupado';
         $mesa->save();
-        return redirect()->Route('Pedido.Create',$pedido);
-    }
-
-    public function storeDetalles(Request $r){
 
 
         $count = count($r->producto);
@@ -97,22 +125,27 @@ class PedidosController extends Controller
             if($r->cantidad[$i]>0){
 
             $detalle = new DetallePedido();
-            $detalle->id_pedido= $r->pedido;
+            $detalle->id_pedido= $pedido->id_pedido;
             $detalle->id_producto = $r->producto[$i];
             $detalle->cantidad = $r->cantidad[$i];
-            $detalle->precio = (float)$r->precio* (float)$r->cantidad[$i];
-            $detalle->fecha =$r->fecha;
-            $detalle->hora = $r->hora;
+            $detalle->precio = (float)$r->precio[$i]* (float)$r->cantidad[$i];
+            $detalle->fecha = date('Y-m-d');
+            $detalle->hora = date('H:i:s');
             $detalle->save();
              }
+        return redirect()->Route('Pedido.index');
+    }
 
-        return redirect()->Route('Pedido.Create',$detalle->id_pedido);
+    //cambair estados
+    public function StoreRealizarPago(Pedido $pedido){
+        $pedido->estado = 'Realizar Pago';
+        $pedido->save();
+        return redirect()->Route('Pedido.index');
     }
 
     public function destroy(Pedido $pedido){
-        $user = Auth::user()->nombre_usuario;
         $pedido->delete();
-        return redirect()->Route('Pedido',$user);
+        return redirect()->Route('Pedido.index');
     }
 
     public function mostrarDetalle(Pedido $pe){
@@ -130,7 +163,7 @@ class PedidosController extends Controller
 
 
 
-        $de = DetallePedido::join('productos',                            'detalle_pedidos.id_producto','=','productos.id_producto')
+        $de = DetallePedido::join('productos','detalle_pedidos.id_producto','=','productos.id_producto')
                                   ->where('id_pedido',$pe->id_pedido)->get();
 
         return view('VistasPedido.editarPedidos',[
@@ -138,7 +171,8 @@ class PedidosController extends Controller
                 'pedido'=>$pe
                  ]);
     }
-
+    
+///////////////////////////////////recibos//////////////////////////////////////////////
     public function crearRecibo(Pedido $p){
         $clientes = Cliente::get();
 
@@ -182,6 +216,5 @@ class PedidosController extends Controller
           return view('VistasPedido.generarRecibo',
                  compact('recibo','detalles'));
     }
-
 
 }

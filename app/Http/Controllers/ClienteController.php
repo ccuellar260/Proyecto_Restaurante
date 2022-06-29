@@ -44,7 +44,7 @@ class ClienteController extends Controller
         $cliente->ci = $formulario->ci;
         $cliente->nombre_completo = $formulario->nombre_completo;
         $cliente->telefono = $formulario->telefono;
-        $cliente->nit = $formulario->nit;
+        $cliente->NIT = $formulario->NIT;
         $cliente->save();
         return redirect()->Route('Cliente.index');
     }

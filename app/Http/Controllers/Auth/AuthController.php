@@ -10,6 +10,10 @@ use Illuminate\Support\Facades\Hash; //para qeu era??
 use App\Models\User;
 use App\Models\Empleado;
 use App\Models\Rol;
+use App\Models\marcar_turno;
+use App\Models\EmpleadoTurno;
+use App\Models\Turno;
+
 
 class AuthController extends Controller
 {
@@ -17,8 +21,6 @@ class AuthController extends Controller
     public function login(){
         return view('VistasAuth.login');
     }
-
-
 
    public function loginStore(Request $r){
        //del request solo sacame correo y contrasena
@@ -98,11 +100,15 @@ class AuthController extends Controller
    Public function dashboard(){
     $user = Auth::user()->nombre_usuario;
     $empleado = Empleado::where('nombre_usuario',$user)->first();
+    $marcaciones = marcar_turno::where('id_empleado',$empleado->ci)->get();
+    $empleado_turno = EmpleadoTurno::where('id_empleado',$empleado->ci)->first();
+    $turno = Turno::where('id_turno',$empleado_turno->id_turno)->first();
+
 
     $rol= Rol::where('id_rol',Auth::user()->id_rol)->first();
 
-        return view('VistasAuth.dashboard',compact('empleado','rol'));
-   }
+    return view('VistasAuth.dashboard',compact('empleado','rol','marcaciones','turno'));
+  }
 
    public function logout(Request $r){
         Auth::logout();
@@ -115,4 +121,22 @@ class AuthController extends Controller
 
         return redirect()->Route('Login')->with('statusLogout',"Haz cerrado session");
    }
+   public function marcarEntrada(marcar_turno $marcar_turno){
+    $user = Auth::user()->nombre_usuario;
+    $empleado = Empleado::where('nombre_usuario',$user)->first();
+    $marcar_turno->id_empleado = $empleado->ci;
+    $marcar_turno->fecha = date('Y-m-d');
+    $marcar_turno->marcar_entrada = date('H:i:s');
+    $marcar_turno->save();
+    return redirect()->Route('Dashboard')->with('status',"Has marcado tu entrada");
+   }
+
+   public function marcarSalida(Request $r,marcar_turno $marcado){
+    //dd($marcado);
+    $marcado->marcar_salida = date('H:i:s');
+    $marcado->save();
+    return redirect()->Route('Dashboard')->with('status',"Has marcado tu salida");
+   }
+
+
 }

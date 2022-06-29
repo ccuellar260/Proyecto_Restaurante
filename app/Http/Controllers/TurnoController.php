@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Turno;
+use App\Models\Empleado;
+use App\Models\EmpleadoTurno;
+use App\Models\marcar_turno;
+
 use Illuminate\Http\Request;
 
 
@@ -105,5 +109,21 @@ class TurnoController extends Controller
         $turno->delete();
         return redirect()->route('Turno.index');
 
+    }
+
+    public function Asignar(){
+        $turnos = Turno::get();
+        $empleados = Empleado::get();
+        return view('VistasTurno.asignar', compact('turnos', 'empleados'));
+
+    }
+
+    public function AsignarTurno(Request $request){
+        //dd($request);
+        $asignar = new EmpleadoTurno();
+        $asignar->id_turno = $request->id_turno;
+        $asignar->id_empleado = $request->id_empleado;
+        $asignar->save();
+        return redirect()->route('Turno.index');
     }
 }

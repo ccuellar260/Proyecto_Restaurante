@@ -11,9 +11,11 @@
         {{-- mostrar todos los clientes --}}
         <label for="cliente">Clientes: </label>
     <select name="cliente" id="cliente">
+       
         @foreach ($clientes as $c )
             <option value="{{$c->ci}}">{{$c->nombre_completo}}</option>
         @endforeach
+
     </select> <br>
     <button type="submit">Generar Recibo</button>
  </form>

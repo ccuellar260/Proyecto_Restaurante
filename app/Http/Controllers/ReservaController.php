@@ -40,7 +40,9 @@ class ReservaController extends Controller
      */
     public function create()
     {
-        $mesas = Mesa::where('estado','Disponible')->get();
+        $mesas = DB::table('mesas')
+                    ->join('tipo_mesas','mesas.id_tipo_mesa','=','tipo_mesas.id_tipo_mesa')
+                    ->where('estado','Disponible')->get();
      //   $empleados = Empleado::get();
         $clientes = Cliente::get();
         $reservas = DB::table('reservas')

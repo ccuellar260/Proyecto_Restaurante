@@ -36,11 +36,15 @@ Route::get('/', function () {
 Route::resource('Rol', RolController::class)->except(['show'])
 ->middleware('auth');
 
-Route::resource('Empleado', EmpleadoController::class)->except(['show'])->middleware('auth')->middleware('Admin');
+Route::resource('Empleado', EmpleadoController::class)->except(['show','update'])->middleware('auth'); //->middleware('Admin')
 Route::resource('Mesas', MesaController::class)->except(['show'])
 ->middleware('auth')->middleware('Admin');
+
+Route::get('Mesas/listas', [MesaController::class,'listas'])->name('listas');
 Route::get('Empleado/asignarMesa/{ci}', [EmpleadoController::class,'asignarMesa'])
 ->name('Empleado.asignarMesa')->middleware('auth')->middleware('Admin');
+Route::put('Empleado/{Empleado}', [EmpleadoController::class,'update'])
+->name('Empleado.update')->middleware('auth')->middleware('ConfirmarContra');
 Route::post('Empleado/asignarMesa/{ci}', [EmpleadoController::class,'StoreAsignarMesa'])
 ->name('Empleado.StoreAsignarMesa')->middleware('auth')->middleware('Admin');
 
@@ -63,16 +67,17 @@ Route::delete('Ambiente/Dell/{ambiente}',[AmbienteController::class,'destroy'])
       ->name('Amb.Destroy');
 
 //Realizar Pedidos
-Route::get('Pedidos/{user}',[PedidosController::class,'index'])
-     ->name('Pedido')->middleware('auth');
-Route::get('Pedidos',[PedidosController::class,'consultarPedidos'])
+Route::get('Pedidos',[PedidosController::class,'index'])
+     ->name('Pedido.index')->middleware('auth');
+Route::get('Consultar\Pedidos',[PedidosController::class,'consultarPedidos'])
      ->name('Pedido.consultar')->middleware('auth');
-Route::post('Pedidos',[PedidosController::class,'storePedido'])
-     ->name('Pedidos.StorePedido');
-Route::get('Pedidos/{pedido}/CrearPedido}',[PedidosController::class,
-     'crear_pedido'])->name('Pedido.Create');
-Route::post('Pedidos/Detallles',[PedidosController::class,'storeDetalles'])
-     ->name('Pedido.storeDetalles')->middleware('ProductoCantidad');
+Route::post('Pedidos/CrearPedido',[PedidosController::class,
+     'crear_pedido'])->name('Pedido.CrearPedido');
+Route::post('Pedidos/Detallles',[PedidosController::class,'storePedido'])
+     ->name('Pedido.storePedido')->middleware('ProductoCantidad');
+Route::put('Pedidos/storePedidoListo/{p}',[PedidosController::class,'storePedidoListo'])
+     ->name('Pedido.storePedidoListo');
+
 Route::delete('Pedidos/{pedido}',[PedidosController::class,'destroy'])
      ->name('Pedido.destroy');
 Route::get('Pedido/{pe}/Detalle',[PedidosController::class,'mostrarDetalle'])
@@ -85,8 +90,11 @@ Route::post('Pedido/{p}/storeRecibo',[PedidosController::class,'storeRecibo'])
     ->name('Pedido.storeRecibo');
 Route::get('Pedido/{recibo}/generarRecibo',[PedidosController::class,'generarRecibo'])
     ->name('Pedido.generarRecibo');
-Route::put('Pedido/RefreshProduc',[PedidosController::class,'RefreshProduc'])
-    ->name('Pedido.RefreshProduc');
+Route::put('Pedido/RefreshProduc',[PedidosController::class,'RestCantPlatos'])
+    ->name('Pedido.RestCantPlatos');
+//store pedidos
+Route::put('Pedido/StoreRealizarPago/{pedido}',[PedidosController::class,'StoreRealizarPago'])
+    ->name('Pedido.StoreRealizarPago');
 
 
 //ritas de prueba
@@ -125,13 +133,25 @@ Route::delete('Cliente/Dell/{cliente}',[ClienteController::class,'destroy'])
      ->name('Cliente.Destroy');
 
 
-//qeu onda putoo!! Reservas
+//Reservas
 Route::resource('Reserva', ReservaController::class)->except(['show'])
      ->middleware('auth');
 Route::get('Reserva/{reserva}',[ReservaController::class,'verReserva'])
      ->name('Reserva.verReserva');
 
-     //qeu onda putoo!! Turno
+//Turno
 Route::resource('Turno', TurnoController::class)->except(['show'])
      ->middleware('auth');
 
+Route::get('Turno/Asignar', [TurnoController::class, 'Asignar'])
+     ->name('Turno.Asignar');
+
+Route::post('Turno/AsignarTurno', [TurnoController::class, 'AsignarTurno'])
+     ->name('Turno.AsignarTurno');
+
+//marcar entrada y salida
+Route::post('marcarEntrada', [AuthController::class, 'marcarEntrada'])
+     ->name('marcarEntrada');
+
+Route::put('marcarSalida/{marcado}', [AuthController::class, 'marcarSalida'])
+     ->name('marcarSalida');

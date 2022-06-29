@@ -17,12 +17,12 @@ class ProductoCantidad
      */
     public function handle(Request $r, Closure $next)
     {
-
+        
         $producto = Producto::get();
         $count = count($r->producto);
         for ($i=0;$i<$count;$i++){
-            if($r->cantidad[$i] > $producto[$i]->cantidad ){
-                return redirect()->Route('Pedido.Create',$r->pedido)->with("status{$producto[$i]->id_producto}","Solo queda {$producto[$i]->cantidad} {$producto[$i]->nombre} ");
+            if($r->cantidad[$i] > $producto[$i]->cantidadMomento ){
+                return redirect()->Route('Pedido.CrearPedido')->with("status{$producto[$i]->id_producto}","Solo queda {$producto[$i]->cantidadMomento} puto  {$producto[$i]->nombre} ");
             }
             $i=$i+1;
         }

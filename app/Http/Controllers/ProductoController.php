@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Producto;
+use App\Models\TipoProducto;
+
 use Illuminate\Support\Facades\DB;
 
 
@@ -17,10 +19,11 @@ class ProductoController extends Controller
      */
     public function index()
     {
+
         $tabla = DB::table('productos')
         ->join('tipo_productos','productos.id_tipo_plato','=','tipo_productos.id_tipo_plato')
-        ->select('productos.id_producto','productos.nombre','productos.descripcion','productos.url','productos.precio','productos.cantidad','tipo_productos.Categoria as tipo')
         ->get();
+
         return view('VistasProductos.index', compact('tabla'));
     }
 

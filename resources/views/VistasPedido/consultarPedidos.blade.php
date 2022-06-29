@@ -1,12 +1,144 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-que onda puto!!!!
-</body>
-</html>
+@extends('navegador')
+
+@section('Contenido')
+    {{-- Realizar un buscador --}}
+    <div class="grid gap-2 grid-cols-2 ">
+        <div class="bg-white p-2 rounded-md w-full">
+            <div>
+                <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
+                    <div class="inline-block min-w-full shadow rounded-lg overflow-hidden">
+                        <h3 class="text-center py-2 font-bold">PEDIDOS PAGADOS</h3>
+                        <table class="min-w-full leading-normal">
+                            <thead>
+                                <tr>
+                                    <th
+                                        class="px-1 py-3 border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                        RECIBO
+                                    </th>
+                                    <th
+                                        class="px-1 py-3 border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                        PEDIDO
+                                    </th>
+                                    <th
+                                        class="px-1 py-3 border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                        MESA
+                                    </th>
+                                    <th
+                                        class="px-7 py-3 border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                        CLIENTE
+                                    </th>
+                                    <th
+                                        class="px-7 py-3 border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                        MESERO
+                                    </th>
+
+                                    <th
+                                        class="px-2 py-3 border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                        DETALLES
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($pagados as $p)
+                                    <tr>
+                                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
+                                            <p class="text-gray-900 whitespace-no-wrap"> {{ $p->id_recibo }}</p>
+                                        </td>
+                                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
+                                            <p class="text-gray-900 whitespace-no-wrap">{{ $p->id_pedido }}</p>
+                                        </td>
+                                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
+                                            <p class="text-gray-900 whitespace-no-wrap">{{ $p->nro_mesa }}</p>
+                                        </td>
+                                        <td class="px-1 py-5 border-b border-gray-200 bg-white text-sm text-center">
+                                            <p class="text-gray-900 whitespace-no-wrap">{{ $p->ci_cliente }}
+                                                <br>{{ $p->cliente }}
+                                            </p>
+                                        </td>
+                                        <td class="px-1 py-5 border-b border-gray-200 bg-white text-sm text-center">
+                                            <p class="text-gray-900 whitespace-no-wrap">{{ $p->ci_empleado }}
+                                                <br>{{ $p->empleado }}
+                                            </p>
+                                        </td>
+                                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
+                                            <p class="text-gray-900 whitespace-no-wrap"><a href=""><svg
+                                                        xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                                    </svg></a>
+                                            </p>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white p-2 rounded-md w-full">
+            <div>
+                <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
+                    <div class="inline-block min-w-full shadow rounded-lg overflow-hidden">
+                        <h3 class="text-center py-2 font-bold">PEDIDOS POR PAGAR</h3>
+                        <table class="min-w-full leading-normal">
+                            <thead>
+                                <tr>
+                                    <th
+                                        class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                        PEDIDO
+                                    </th>
+                                    <th
+                                        class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                        MESA
+                                    </th>
+                                    <th
+                                        class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                        MESERO
+                                    </th>
+                                    <th
+                                        class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                        DETALLE
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($por_pagar as $p)
+                                    <tr>
+                                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
+                                            <p class="text-gray-900 whitespace-no-wrap"> {{ $p->id_pedido }}</p>
+                                        </td>
+                                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
+                                            <p class="text-gray-900 whitespace-no-wrap">{{ $p->nro_mesa }}</p>
+                                        </td>
+                                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
+                                            <p class="text-gray-900 whitespace-no-wrap">{{ $p->ci_empleado }}
+                                                <br> {{ $p->nombre_completo }}
+                                            </p>
+                                        </td>
+                                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
+                                            <p class="text-gray-900 whitespace-no-wrap"><a href=""><svg
+                                                        xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                                    </svg></a>
+                                            </p>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+@endsection
