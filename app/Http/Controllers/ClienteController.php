@@ -20,6 +20,13 @@ class ClienteController extends Controller
 
     public function store(Request $formulario)
     {
+        $formulario->validate([
+             'ci' =>'numeric',
+             'nombre_completo'=>'required',
+             'telefono' =>'nullable|numeric',
+             'NIT'=>'nullable|numeric'
+         ]);
+
         $cliente = new Cliente();
         $cliente->ci = $formulario->ci;
         $cliente->nombre_completo = $formulario->nombre_completo;
@@ -41,6 +48,14 @@ class ClienteController extends Controller
 
     public function update(Request $formulario, Cliente $cliente)
     {
+
+        $formulario->validate([
+            'ci' =>'numeric',
+            'nombre_completo'=>'required',
+            'telefono' =>'nullable|numeric',
+            'NIT'=>'nullable|numeric'
+        ]);
+
         $cliente->ci = $formulario->ci;
         $cliente->nombre_completo = $formulario->nombre_completo;
         $cliente->telefono = $formulario->telefono;

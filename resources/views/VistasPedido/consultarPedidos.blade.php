@@ -2,10 +2,33 @@
 
 @section('Contenido')
     {{-- Realizar un buscador --}}
-    <div class="grid gap-2 grid-cols-2 ">
-        <div class="bg-white p-2 rounded-md w-full">
-            <div>
-                <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
+<div class="bg-white p-2 rounded-md w-full">
+    <form action="" method="GET">
+        <div class="flex items-center ">
+            <div class="py-4 pl-2">
+                <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full pl-2 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                type="text" placeholder="Pedido" name="pedido">
+            </div>
+            <div class="py-4 pl-2">
+                <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full pl-2 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                type="text" placeholder="Mesero" name="mesero">
+            </div>
+            <div class="py-4 pl-2 ">
+                <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full pl-2 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                type="text" placeholder="Cliente" name="cliente">
+            </div>
+            <div class="pl-2">
+                <button class="btn-outline-primary" type="submit" >
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                </button>
+            </div>
+          </div>
+    </form>
+
+         <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
+
                     <div class="inline-block min-w-full shadow rounded-lg overflow-hidden">
                         <h3 class="text-center py-2 font-bold">PEDIDOS PAGADOS</h3>
                         <table class="min-w-full leading-normal">
@@ -77,8 +100,6 @@
                         </table>
                     </div>
                 </div>
-            </div>
-        </div>
 
         <div class="bg-white p-2 rounded-md w-full">
             <div>
@@ -139,6 +160,7 @@
                 </div>
             </div>
         </div>
+</div>
 
-    </div>
+
 @endsection

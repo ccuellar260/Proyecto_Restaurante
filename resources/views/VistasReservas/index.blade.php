@@ -3,7 +3,7 @@
 
 @section('Contenido')
 
-<div class="flex justify-between pl-3 mb">
+<div class="flex justify-between pl-3 mb-3">
     <div>
     </div>
     <div>

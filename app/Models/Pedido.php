@@ -32,4 +32,9 @@ class Pedido extends Model
     //belongsTo{perteneces a} //metodo para recibir la forieng key
   return $this->belongsTo(Empleado::class);
  }
+
+ //SCOPE  , puede recibir de una a muchas varibles
+ public function scopeName($query,$name){
+ 
+ }
 }

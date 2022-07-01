@@ -2,70 +2,128 @@
 
 @section('Contenido')
 
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h3>Gestionar Productos</h3>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <p>
-                                        <button><a href="{{Route('Producto.create')}}">Crear Producto</a></button>
-                                    </p>
-                                    {{-- mostrar lista de reservas --}}
-                                    <table class="table table-bordered">
-                                        <thead>
-                                            <tr>
-                                                <th>Foto</th>
-                                                <th>Nro</th>
-                                                <th>Nombre</th>
-                                                <th>Descripcion</th>
-                                                <th>Precio</th>
-                                                <th>Cantidad</th>
-                                                <th>Tipo</th>
-                                                <th>Acciones</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($tabla as $r)
-                                                <tr>
-                                                    <td>
-                                                        <img src="{{$r->url}}"  width="30" height="30">
-                                                    </td>
-                                                    <td>{{$r->id_producto}} |</td>
-                                                    <td>{{$r->nombre}} |</td>
-                                                    <td>{{$r->descripcion}} |</td>
-                                                    <td>{{$r->precio}} |</td>
-                                                    <td>{{$r->cantidadMomento}} |</td>
-                                                    <td>{{$r->Categoria}} |</td>
-                                                    <td>
-                                                        <a href="{{route('Producto.edit', $r->id_producto)}}" class="btn btn-warning">Editar</a>
-                                                        <form action="{{Route('Producto.destroy', $r->id_producto)}}"
-                                                            method="POST">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <input type="submit"
-                                                                   value="Eliminar"
-                                                                   onclick="return confirm('Desea Eliminar?')">
+
+<div class="flex justify-between pl-3 mb-3">
+    <div>
+    </div>
+    <div>
+    <button type="submit"
+        class="bg-blue-700 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer">
+        <a  href="{{Route('Producto.create')}}">CREAR PRODUCTO </a>
+    </button>
+    </div>
+</div>
+
+<div class="bg-white p-2 rounded-md w-full">
+    <div>
+        <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
+            <div class="inline-block min-w-full shadow rounded-lg overflow-hidden">
+                <table class="min-w-full leading-normal">
+                    <thead>
+                        <tr>
+                            <th
+                                class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                Foto
+                            </th>
+                            <th
+                                class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                Nro
+                            </th>
+                            <th
+                                class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                Nombre
+                            </th>
+
+                            <th
+                                class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                Descripción
+                            </th>
+
+                            <th
+                                class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                Precio
+                            </th>
+
+                            <th
+                                class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                Cantidad
+                            </th>
+
+                            <th
+                                class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                Tipo
+                            </th>
+
+                            <th
+                                class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                ACCIONES
+                            </th>
 
 
-                                                        </form>
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach ($tabla as $r)
+                            <tr>
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
+                                    <img  width="80" src="{{$r->url}}">
+                                </td>
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
+                                    <p class="text-gray-900 whitespace-no-wrap"> {{$r->id_producto}} </p>
+                                </td>
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
+                                    <p class="text-gray-900 whitespace-no-wrap">{{$r->nombre}}</p>
+                                </td>
+
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
+                                    <p class="text-gray-900 whitespace-no-wrap">{{$r->descripcion}}</p>
+                                </td>
+
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
+                                    <p class="text-gray-900 whitespace-no-wrap">{{$r->precio}}</p>
+                                </td>
+
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
+                                    <p class="text-gray-900 whitespace-no-wrap">{{$r->cantidadMomento}}</p>
+                                </td>
+
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
+                                    <p class="text-gray-900 whitespace-no-wrap">{{$r->Categoria}}</p>
+                                </td>
+
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
+                                <div class="flex justify-between">
+
+                                    <button type="button"
+                                        class="mr-2 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">
+                                        <a href="{{route('Producto.edit', $r->id_producto)}}">
+                                            EDITAR
+                                        </a>
+                                    </button>
+
+                                    <button type="button"
+                                        class="mr-2 text-sm bg-red-700 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">
+                                        <form action="{{Route('Producto.destroy', $r->id_producto)}}}" method="POST">
+                                            @csrf
+                                            <!-- token de seguridad-->
+                                            @method('DELETE')
+
+                                            <!-- mostar boton eliminar-->
+                                            <input type="submit" value="ELIMINAR" class=""
+                                                onclick="return confirm('Desea Eliminar?')">
+                                            <!-- volver a preguntar si desea eliminar -->
+                                        </form>
+                                    </button>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
-
+</div>
 @endsection
+

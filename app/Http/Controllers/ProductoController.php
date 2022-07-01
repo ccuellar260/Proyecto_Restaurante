@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Producto;
 use App\Models\TipoProducto;
-
 use Illuminate\Support\Facades\DB;
 
 
@@ -112,5 +111,21 @@ class ProductoController extends Controller
     {
         $Producto->delete();
         return redirect()->Route('Producto.index');
+    }
+
+    public $fecha_marcadad = '2022-06-25';
+    public function RestCantPlatos(){
+        if ( $this->fecha_marcadad != date('Y-m-d')) {
+            echo ' verdadero';
+            //cambiar de cantidad momento
+            $productos = Producto::get();
+            foreach ($productos as $p ) {
+            $p->cantidadMomento = $p->cantidadActualizar;
+            $p->save();
+            }
+            //vovler a marac la fecha
+            $this->fecha_marcadad =  date('Y-m-d');
+       }
+        return;
     }
 }

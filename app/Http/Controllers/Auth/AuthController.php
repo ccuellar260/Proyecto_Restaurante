@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash; //para qeu era??
+use Illuminate\Support\Facades\Hash; //para encriptar contrasenas
 use App\Models\User;
 use App\Models\Empleado;
 use App\Models\Rol;

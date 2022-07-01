@@ -9,7 +9,7 @@
             <form action="{{ Route('Empleado.update',$fila->ci) }}" method="POST">
                 @csrf
                 @method('PUT')
-                <div class="w-20 h-20 rounded-full bg-cover bg-center bg-no-repeat absolute bottom-0 -mb-10 ml-12 shadow flex items-center justify-center">
+                {{-- <div class="w-20 h-20 rounded-full bg-cover bg-center bg-no-repeat absolute bottom-0 -mb-10 ml-12 shadow flex items-center justify-center">
                     <img src="{{ $fila->foto }}" alt=""
                         class="absolute z-0 h-full w-full object-cover rounded-full shadow top-0 left-0 bottom-0 right-0" />
                     <div class="absolute bg-black opacity-50 top-0 right-0 bottom-0 left-0 rounded-full z-0"></div>
@@ -24,7 +24,7 @@
                         </svg>
                         <p class="text-xs text-gray-100">Edit Picture</p>
                     </div>
-                </div>
+                </div> --}}
                 <div class="mb-5">
                     <label for="usuario" class="mb-3 block text-base font-medium text-[#07074D]">
                         Usuario:
@@ -40,29 +40,45 @@
                     <input type="email" name="correo" value="{{ $fila->correo_electronico }}" id="correo" placeholder=""
                         class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
                 </div>
+
+
                 <div class="mb-5">
                     <label for="contra_new" class="mb-3 block text-base font-medium text-[#07074D]">
                         Contrasena Nueva:
-
                     </label>
                     <input type="password" name="contra_new" value="" id="contrasena" placeholder="password"
                         class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                        @if (session("contra_vacia_contra_new")) <!--Existe el atributo status?-->
+                        <!-- mostarr lo que esta en status-->
+                        <label class="text-red-500"> <b>*{{session('contra_vacia_contra_new')}}</b> </label>
+                        @endif
+
                 </div>
+
+
                 <div class="mb-5">
                     <label for="contra_new2" class="mb-3 block text-base font-medium text-[#07074D]">
                         Repita Contrasena Nueva:
-
                     </label>
                     <input type="password" name="contra_new2" value="" id="contrasena" placeholder="password"
                         class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                        @if (session("contra_vacia_contra_new2")) <!--Existe el atributo status?-->
+                        <!-- mostarr lo que esta en status-->
+                        <label class="text-red-500"> <b>*{{session('contra_vacia_contra_new2')}}</b> </label>
+                         @elseif (session("Contra_Nocoincide"))
+                                <label class="text-red-500"> <b>*{{session('Contra_Nocoincide')}}</b> </label>
+                          @endif
                 </div>
+
+
+
                 <div class="mb-5">
                     <label for="ci" class="mb-3 block text-base font-medium text-[#07074D]">
                         Numero de carnet:
 
                     </label>
                     <input type="number" name="ci" value="{{ $fila->ci }}" id="email" placeholder=""
-                        class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                        class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"  readonly  />
                 </div>
                 <div class="mb-5">
                     <label for="nombre_completo" class="mb-3 block text-base font-medium text-[#07074D]">
@@ -89,11 +105,15 @@
                 </div>
                 <div class="mb-5">
                     <label for="contra_antigua" class="mb-3 block text-base font-medium text-[#07074D]">
-                        Confirmar Datos con Contrasena Antigua:
+                        Confirmar Datos con la Contrasena Actual:
 
                     </label>
                     <input type="password" name="contra_antigua" value="" id="contrasena" placeholder="password"
                         class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                        @if (session("Contra_incorrecta")) <!--Existe el atributo status?-->
+                        <!-- mostarr lo que esta en status-->
+                        <label class="text-red-500"> <b>*{{session('Contra_incorrecta')}}</b> </label>
+                         @endif
                 </div>
                 <div class="flex justify-between">
                     <div>

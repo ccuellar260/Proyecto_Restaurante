@@ -1,60 +1,66 @@
 @extends('navegador')
 
 @section('Contenido')
-<div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header">
-                    <h3>Gestionar Producto</h3>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                {{-- mostrar lista de reservas --}}
-                                <form action="{{Route('Producto.store')}}" method="POST">
-                                    @csrf
-                                    <div class="form-group">
-                                        <label for="nombre">Nombre</label>
-                                        <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="descripcion">Descripcion</label><br>
-                                        <textarea name="descripcion" id="descripcion" cols="30" rows="10" placeholder="Detalle el producto Aqui"></textarea>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="url">Imagen</label>
-                                        <input type="text" class="form-control" id="url" name="url" placeholder="Imagen">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="precio">Precio</label>
-                                        <input type="text" class="form-control" id="precio" name="precio" placeholder="Precio">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="cantidad">Cantidad= </label>
-                                        <input type="number" class="form-control" id="cantidad" name="cantidad" placeholder="0"
-                                        max="9" min="0">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="tipo">Cateogira</label>
-                                        <select name="tipo">
-                                            @foreach($tipo as $t)
-                                                <option value="{{$t->id_tipo_plato}}">{{$t->Categoria}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <br>
-                                    <button type="submit">enviar</button>
-                                </form>
-                            </div>
-                        </div>
+<div class="max-w-2xl mx-auto bg-white p-12">
+        <div class="mx-auto w-full max-w-[550px]">
+            <h1 class="text-center font-bold text-3xl mb-5">REGISTRO DE PRODUCTO</h1>
+            <form action="{{ Route('Producto.store') }}" method="POST">
+                @csrf
+                <div class="grid gap-4 grid-cols-2">
+                    <div class="mb-1">
+                        <label for="nombre" class="mb-3 block text-base font-medium text-[#07074D]">
+                            Nombre Completo:
+                        </label>
+                        <input type="text" name="nombre" id="nombre"
+                            class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                    </div>
+                    <div class="mb-1">
+                        <label for="precio" class="mb-3 block text-base font-medium text-[#07074D]">
+                            Precio:
+                        </label>
+                        <input type="text" name="precio" id="precio" placeholder=""
+                            class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                    </div>
+                    <div class="mb-1">
+                        <label for="cantidad" class="mb-3 block text-base font-medium text-[#07074D]">
+                            Cantidad:
+                        </label>
+                        <input type="number" name="cantidad" id="cantidad" placeholder=""
+                            class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                    </div>
+                    <div class="mb-1">
+                        <label for="precio" class="mb-3 block text-base font-medium text-[#07074D]">
+                            Categoria:
+                        </label>
+                        <select name="tipo"
+                            class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md">
+                            @foreach ($tipo as $t)
+                                <option value="{{ $t->id_tipo_plato }}">{{ $t->Categoria }}</option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
-            </div>
+                <div class="mb-5">
+                    <label for="url" class="mb-3 block text-base font-medium text-[#07074D]">
+                        Imagen:
+                    </label>
+                    <input type="text" name="url" id="url" placeholder=""
+                        class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                </div>
+                <div class="mb-1">
+                    <label for="descripcion" class="mb-3 block text-base font-medium text-[#07074D]">
+                        Descripcion:
+                    </label>
+                    <textarea name="descripcion" id="descripcion" cols="30" rows="4"
+                        class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"></textarea>
+                </div>
+                <div>
+                    <button type="submit"
+                        class="hover:shadow-form rounded-md bg-[#6A64F1] py-3 px-8 text-base font-semibold text-white outline-none">
+                        Enviar
+                    </button>
+                </div>
+            </form>
         </div>
-    </div>
 </div>
-
-
 @endsection

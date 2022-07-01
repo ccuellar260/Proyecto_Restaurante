@@ -69,9 +69,11 @@ Route::delete('Ambiente/Dell/{ambiente}',[AmbienteController::class,'destroy'])
 //Realizar Pedidos
 Route::get('Pedidos',[PedidosController::class,'index'])
      ->name('Pedido.index')->middleware('auth');
-Route::get('Consultar\Pedidos',[PedidosController::class,'consultarPedidos'])
+Route::get('Consultar/Pedidos',[PedidosController::class,'consultarPedidos'])
      ->name('Pedido.consultar')->middleware('auth');
-Route::post('Pedidos/CrearPedido',[PedidosController::class,
+Route::post('Pedidos/storexd',[PedidosController::class,
+     'storexd'])->name('Pedido.storexd');
+Route::get('Pedidos/CrearPedido/{mesa}',[PedidosController::class,
      'crear_pedido'])->name('Pedido.CrearPedido');
 Route::post('Pedidos/Detallles',[PedidosController::class,'storePedido'])
      ->name('Pedido.storePedido')->middleware('ProductoCantidad');
