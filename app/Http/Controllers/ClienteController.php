@@ -31,11 +31,8 @@ class ClienteController extends Controller
              'NIT'=>'nullable|numeric'
          ]);
 
-<<<<<<< HEAD
         event(new BClienteCreateEvent($formulario));
 
-=======
->>>>>>> fe32e685ca59aee0fd6e2347bace21f31456b2c9
         $cliente = new Cliente();
         $cliente->ci = $formulario->ci;
         $cliente->nombre_completo = $formulario->nombre_completo;
@@ -66,11 +63,8 @@ class ClienteController extends Controller
             'NIT'=>'nullable|numeric'
         ]);
 
-<<<<<<< HEAD
         event(new BClienteEditEvent($cliente));
 
-=======
->>>>>>> fe32e685ca59aee0fd6e2347bace21f31456b2c9
         $cliente->ci = $formulario->ci;
         $cliente->nombre_completo = $formulario->nombre_completo;
         $cliente->telefono = $formulario->telefono;
@@ -87,10 +81,5 @@ class ClienteController extends Controller
         $cliente->delete();
         return redirect()->Route('Cliente.index');
     }
-}
-        event(new BClienteDeleteEvent($cliente));
 
-        $cliente->delete();
-        return redirect()->Route('Cliente.index');
-    }
 }

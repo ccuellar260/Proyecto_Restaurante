@@ -128,7 +128,6 @@ class ProductoController extends Controller
        }
         return;
     }
-<<<<<<< HEAD
 
     public function consultas (){
        $productos = Producto::get();
@@ -139,6 +138,4 @@ class ProductoController extends Controller
        dd($suma);
        return view('VistasProductos.consultas',compact('productos'));
     }
-=======
->>>>>>> fe32e685ca59aee0fd6e2347bace21f31456b2c9
 }
