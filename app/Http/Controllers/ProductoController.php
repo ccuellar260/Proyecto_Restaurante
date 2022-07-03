@@ -2,9 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\BProductoEditEvent;
+use App\Events\BProductoDeleteEvent;
+use App\Events\BProductoCreateEvent;
+
 use App\Models\Producto;
 use App\Models\TipoProducto;
 use Illuminate\Support\Facades\DB;
+
+use App\Models\DetallePedido;
 
 
 use Illuminate\Http\Request;
@@ -51,9 +57,13 @@ class ProductoController extends Controller
         $producto->descripcion = $request->descripcion;
         $producto->url = $request->url;
         $producto->precio = $request->precio;
-        $producto->cantidad = $request->cantidad;
+        $producto->cantidadMomento = $request->cantidad;
+        $producto->cantidadActualizar = $request->cantidad;
         $producto->id_tipo_plato = $request->tipo;
         $producto->save();
+
+        event(new BProductoCreateEvent($producto));
+
         return redirect()->Route('Producto.index');
     }
 
@@ -97,6 +107,9 @@ class ProductoController extends Controller
         $Producto->id_tipo_plato = $request->tipo;
         $Producto->save();
 
+
+        event(new BProductoEditEvent($Producto));
+
         return redirect()->Route('Producto.index');
 
     }
@@ -109,6 +122,8 @@ class ProductoController extends Controller
      */
     public function destroy(Producto $Producto)
     {
+        event(new BProductoDeleteEvent($Producto));
+
         $Producto->delete();
         return redirect()->Route('Producto.index');
     }
@@ -133,9 +148,12 @@ class ProductoController extends Controller
        $productos = Producto::get();
        //mostrar las cantidad de veces que se vendio tal producto
       // $pedidos = Pedido::get();
-       $suma = DB::table('detalle_pedidos')
-       ->sum('cantidad');//
+       $suma = DetallePedido::sum('cantidad')->groupBy('id_producto')->get();
        dd($suma);
+    //    $sum = DB::table('detalle_pedidos')
+    //    ->select(DB::raw('sum('cantidad') as Total, id_producto'))
+    //    ->groupBy('id_producto')
+    //    ->get();
        return view('VistasProductos.consultas',compact('productos'));
     }
 }

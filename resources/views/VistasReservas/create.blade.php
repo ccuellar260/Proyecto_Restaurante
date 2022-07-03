@@ -21,13 +21,7 @@
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         placeholder="Doe" required>
                 </div>
-                <div>
-                    <label for="cantidad"
-                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Cantidad</label>
-                    <input type="number" id="cantidad" name="cantidad"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        placeholder="" required>
-                </div>
+
                 <div>
                     <label for="ci_cliente"
                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Cliente</label>
@@ -44,8 +38,8 @@
                 <div class="form-group">
                     <label for="nro_mesa">Nro. de Mesa</label><br>
                     <div class="grid gap-3 grid-cols-1">
-                        @foreach ($mesas as $mesa)
-                            @if ($mesa->mesa == 'Mesa para 2 personas')
+                        {{-- @foreach ($mesas as $mesa)
+                             @if ($mesa->mesa == 'Mesa para 2 personas')
                                     Mesa para 2 personas <br>
                                 <input type="checkbox" name="nro_mesa[]" value="{{ $mesa->nro_mesa }}"> {{ $mesa->nro_mesa }}<br>
                             @elseif ($mesa->mesa == 'Mesa para 4 personas')
@@ -55,7 +49,30 @@
                                     Mesa para 6 personas <br>
                                 <input type="checkbox" name="nro_mesa[]" value="{{ $mesa->nro_mesa }}"> {{ $mesa->nro_mesa }}<br>
                             @endif
+                        @endforeach --}}
+
+                        <label for=""> Mesa para 2 personas</label>
+                        @foreach ($mesas as $mesa)
+                        @if ($mesa->mesa == 'Mesa para 2 personas')
+                        <input type="checkbox" name="nro_mesa[]" value="{{ $mesa->nro_mesa }}"> {{ $mesa->nro_mesa }}
+                        @endif
                         @endforeach
+
+                        <br> <label for=""> 'Mesa para 4 personas'</label>
+                        @foreach ($mesas as $mesa)
+                        @if ($mesa->mesa == 'Mesa para 4 personas')
+                        <label for=""></label>
+                        <input type="checkbox" id = 'n[]' name="nro_mesa[]" value="{{ $mesa->nro_mesa }} ">
+                        @endif
+                        @endforeach
+
+                        <br> <label for=""> 'Mesa para 6 personas'</label>
+                        @foreach ($mesas as $mesa)
+                        @if ($mesa->mesa == 'Mesa para 6 personas')
+                        <input type="checkbox" name="nro_mesa[]" value="{{ $mesa->nro_mesa }}"> {{ $mesa->nro_mesa }}
+                        @endif
+                        @endforeach
+
                     </div>
                 </div>
                 <br>

@@ -49,8 +49,7 @@ class ReservaController extends Controller
         ->join('clientes','reservas.ci_cliente','=','clientes.ci')
         ->join('empleados','reservas.ci_empleado','=','empleados.ci')
         ->join('detalles_reservas','reservas.id_reserva','=','detalles_reservas.id_reserva')
-        ->select('detalles_reservas.cantidad',
-        'reservas.id_reserva','reservas.fecha_reserva as fecha','reservas.hora_reserva as hora',
+        ->select('reservas.id_reserva','reservas.fecha_reserva as fecha','reservas.hora_reserva as hora',
         'clientes.nombre_completo as nombre_cliente','clientes.ci as ci_cliente',
         'empleados.nombre_completo as nombre_empleado','empleados.ci as ci_empleado')
         ->get();
@@ -77,7 +76,6 @@ class ReservaController extends Controller
             $detalles = new DetallesReserva();
             $detalles->id_reserva = $reserva->id_reserva;
             $detalles->nro_mesa = $r;
-            $detalles->cantidad = $request->cantidad;
             $detalles->save();
             $mesa = Mesa::where('nro_mesa',$r)->first();
             $mesa->estado = 'Reserva';
@@ -106,7 +104,7 @@ class ReservaController extends Controller
      */
     public function edit(Reserva $Reserva)
     {
-        //dd($Reserva);
+
         $todos = DB::table('reservas')
         ->join('clientes','reservas.ci_cliente','=','clientes.ci')
         ->join('empleados','reservas.ci_empleado','=','empleados.ci')
@@ -115,17 +113,18 @@ class ReservaController extends Controller
         'clientes.ci as ci_cliente',
         'empleados.nombre_completo as nombre_empleado')
         ->first();
+       // dd($todos);
 
         $mesas = Mesa::get();
+       // dd($mesas);
 
         $detalles = DB::table('detalles_reservas')
-        ->join('mesas','detalles_reservas.nro_mesa','=','mesas.nro_mesa')
-        ->select('detalles_reservas.id_reserva',
-                'detalles_reservas.nro_mesa',
-                'detalles_reservas.cantidad')
+        //->join('mesas','detalles_reservas.nro_mesa','=','mesas.nro_mesa')
+       ->select('detalles_reservas.id_reserva',
+               'detalles_reservas.nro_mesa')
         ->where('detalles_reservas.id_reserva','=',$Reserva->id_reserva)
         ->get();
-        //dd($detalles);
+       // dd($detalles);
         return view('VistasReservas.edit', compact('todos','mesas','detalles'));
     }
 

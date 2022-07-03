@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('nombre_completo');
             $table->integer('telefono')->nullable();
             $table->text('foto')->nullable();
-            $table->string('nombre_usuario')->unique();
+            $table->string('nombre_usuario');
             $table->string('correo_electronico');
             $table->integer('id_rol');
         });

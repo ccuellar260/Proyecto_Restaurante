@@ -32,8 +32,21 @@
                 <div class="form-group">
                     <label for="nro_mesa">Mesa</label>
                     <br>
-                    @foreach ($detalles as $detalle)
-                        <input type="checkbox" name="nro_mesa">{{ $detalle->nro_mesa }}
+                    @foreach ($mesas as $m)
+                        @php
+                            $ban=false;
+                        @endphp
+                       @foreach ($detalles as $d)
+                          @if ($m->nro_mesa == $d->nro_mesa)
+                                 @php
+                                     $ban= true;
+                                 @endphp
+                                <input type="checkbox" name="nro_mesa[]" checked>{{ $m->nro_mesa }}
+                          @endif
+                       @endforeach
+                       @if ($ban == false)
+                            <input type="checkbox" name="nro_mesa[]">{{ $m->nro_mesa }}
+                       @endif
                         <br>
                     @endforeach
                 </div>

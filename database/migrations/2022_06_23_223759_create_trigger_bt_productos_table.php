@@ -26,20 +26,20 @@ return new class extends Migration
         FOR EACH ROW update productos set cantidadMomento = cantidadMomento - new.cantidad where id_producto = new.id_producto
        ');
 
-        DB::unprepared("
-        CREATE TRIGGER `TInsertProducto` AFTER INSERT ON `productos`
-        FOR EACH ROW INSERT INTO bitacora_productos(user,accion,id_producto,nombre,precio,cantidad)
-        VALUES ('chris','insertar',new.id_producto,new.nombre,new.precio,new.cantidadMomento)");
+        // DB::unprepared("
+        // CREATE TRIGGER `TInsertProducto` AFTER INSERT ON `productos`
+        // FOR EACH ROW INSERT INTO bitacora_productos(user,accion,id_producto,nombre,precio,cantidad)
+        // VALUES ('chris','insertar',new.id_producto,new.nombre,new.precio,new.cantidadMomento)");
 
-        DB::unprepared("
-        CREATE TRIGGER `TEditProducto` AFTER UPDATE ON `productos`
-        FOR EACH ROW INSERT INTO bitacora_productos(user,accion,id_producto,nombre,precio,cantidad)
-        VALUES ('chris','edit',old.id_producto,old.nombre,old.precio,old.cantidadMomento)");
+        // DB::unprepared("
+        // CREATE TRIGGER `TEditProducto` AFTER UPDATE ON `productos`
+        // FOR EACH ROW INSERT INTO bitacora_productos(user,accion,id_producto,nombre,precio,cantidad)
+        // VALUES ('chris','edit',old.id_producto,old.nombre,old.precio,old.cantidadMomento)");
 
-        DB::unprepared("
-        CREATE TRIGGER `TDeleteProducto` AFTER DELETE ON `productos`
-        FOR EACH ROW INSERT INTO bitacora_productos(user,accion,id_producto,nombre,precio,cantidad)
-        VALUES ('chris','delete',old.id_producto,old.nombre,old.precio,old.cantidadMomento)");
+        // DB::unprepared("
+        // CREATE TRIGGER `TDeleteProducto` AFTER DELETE ON `productos`
+        // FOR EACH ROW INSERT INTO bitacora_productos(user,accion,id_producto,nombre,precio,cantidad)
+        // VALUES ('chris','delete',old.id_producto,old.nombre,old.precio,old.cantidadMomento)");
 
 
         DB::unprepared("

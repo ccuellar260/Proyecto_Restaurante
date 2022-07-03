@@ -36,10 +36,10 @@ class BEmpleadoEditListener
         $empleado->ci = $event->bempleadoedit->ci;
         $empleado->nombre_completo = $event->bempleadoedit->nombre_completo;
         $empleado->telefono = $event->bempleadoedit->telefono;
-        $empleado->foto = $event->bempleadoedit->foto;
+        $empleado->foto = 'sin foto';
         $empleado->nombre_usuario = $event->bempleadoedit->nombre_usuario;
-        $empleado->correo_electronico = $event->bempleadoedit->correo_electronico;
-        $empleado->id_rol = $event->bempleadoedit->id_rol;
+        $empleado->correo_electronico = $event->bempleadoedit->correo;
+        $empleado->id_rol = $event->bempleadoedit->rol;
         $empleado->save();
     }
 }

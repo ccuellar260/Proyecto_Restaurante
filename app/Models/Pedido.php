@@ -35,10 +35,5 @@ class Pedido extends Model
 
  //SCOPE  , puede recibir de una a muchas varibles
  public function scopeName($query,$name){
-<<<<<<< HEAD
-
-=======
- 
->>>>>>> fe32e685ca59aee0fd6e2347bace21f31456b2c9
  }
 }

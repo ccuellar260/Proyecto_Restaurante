@@ -17,11 +17,16 @@ return new class extends Migration
             $table->id();
             $table->string('user');
             $table->string('accion');
+            $table->date('fecha');
+            $table->time('hora');
             $table->unsignedBigInteger('id_producto');
             $table->string('nombre');
+            $table->text('descripcion');
             $table->decimal('precio');
-            $table->integer('cantidad');
-           
+            $table->integer('cantidadActualizar');
+            $table->text('url');
+            $table->unsignedBigInteger('id_tipo_plato');
+
         });
     }
 

@@ -17,7 +17,6 @@ return new class extends Migration
             $table->id('id_detalle');
             $table->unsignedBigInteger('id_reserva');
             $table->unsignedBigInteger('nro_mesa');
-            $table->integer('cantidad');
 
             $table->foreign('id_reserva')
                ->references('id_reserva')

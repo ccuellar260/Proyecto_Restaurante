@@ -90,7 +90,7 @@
 
                                                 <button type="button"
                                                     class="mr-2 text-sm bg-red-700 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">
-                                                    <form action="{{ Route('Rol.destroy', $fila) }}" method="POST">
+                                                    <form action="{{ Route('Empleado.destroy', $fila->ci) }}" method="POST">
                                                         @csrf
                                                         <!-- token de seguridad-->
                                                         @method('DELETE')

@@ -16,6 +16,13 @@ use App\Listeners\BEmpleadoCreateListener;
 use App\Listeners\BEmpleadoEditListener;
 use App\Listeners\BEmpleadoDeleteListener;
 
+use App\Events\BProductoCreateEvent;
+use App\Events\BProductoEditEvent;
+use App\Events\BProductoDeleteEvent;
+use App\Listeners\BProductoCreateListener;
+use App\Listeners\BProductoEditListener;
+use App\Listeners\BProductoDeleteListener;
+
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -57,6 +64,19 @@ class EventServiceProvider extends ServiceProvider
 
         BEmpleadoDeleteEvent::class =>[
             BEmpleadoDeleteListener::class,
+        ],
+
+        // conexion eventos y listener de bitacoraproducto
+        BProductoCreateEvent::class =>[
+            BProductoCreateListener::class,
+        ],
+
+        BProductoEditEvent::class =>[
+            BProductoEditListener::class,
+        ],
+
+        BProductoDeleteEvent::class =>[
+            BProductoDeleteListener::class,
         ],
     ];
 

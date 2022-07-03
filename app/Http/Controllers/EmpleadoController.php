@@ -79,7 +79,7 @@ class EmpleadoController extends Controller
 
     public function update(Request $request,Empleado $Empleado){
 
-        event(new BEmpleadoEditEvent($empleado));
+        event(new BEmpleadoEditEvent($request));
 
         $user = User::where('nombre_usuario',$Empleado->nombre_usuario)->first();
         $user->correo_electronico = $request->correo;
@@ -94,10 +94,14 @@ class EmpleadoController extends Controller
 
     public function destroy(Empleado $Empleado){
 
-        event(new BEmpleadoDeleteEvent($empleado));
+      $user =  $tabla = User::join('empleados as e','e.nombre_usuario','=','users.nombre_usuario')
+                        ->where('e.nombre_usuario', $Empleado->nombre_usuario)->first();
 
-       // $Empleado->delete();
-        User::where('nombre_usuario',$Empleado->nombre_usuario)->delete();
+        event(new BEmpleadoDeleteEvent($user));
+
+
+        $Empleado->delete();
+
         return back();
     }
 
