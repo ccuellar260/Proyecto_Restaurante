@@ -1,6 +1,6 @@
 @extends('navegador')
 @section('Contenido')
-<div class="flex justify-end pr-3">
+<div class="flex justify-end pr-3 mb-3">
     <button type="submit"
         class="bg-indigo-600 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer">
         <a href="{{ Route('Rol.create') }}">CREAR UN ROL</a>

@@ -17,8 +17,6 @@ return new class extends Migration
             $table->id('id_detalle');
             $table->integer('cantidad');
             $table->decimal('precio');
-            $table->date('fecha');
-            $table->time('hora');
             $table->unsignedBigInteger('id_pedido');
             $table->unsignedBigInteger('id_producto');
 

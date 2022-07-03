@@ -1,72 +1,55 @@
 @extends('navegador')
 
-
 @section('Contenido')
+    <!-- This is an example component -->
+    <div class="w-2/5 mx-auto bg-white p-12">
 
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h3>Editar Reserva</h3>
-                    </div>
-                    <div class="card-body">
-                        <form action="{{ route('Reserva.update', $todos->id_reserva) }}" method="POST">
-                            @csrf
-                            @method('PUT')
-                            <div>
-                                <input type="text" name="cliente" value="{{$todos->nombre_cliente}}"><br>
-                            </div>
-                            <div class="form-group">
-                                <label for="">Fecha</label>
-                                <input type="date" name="fecha" class="form-control" value="{{ $todos->fecha }}">
-                            </div>
-                            <div class="form-group">
-                                <label for="">Hora</label>
-                                <input type="time" name="hora" class="form-control" value="{{ $todos->hora }}">
-                            </div>
-
-                            {{-- <div class="form-group">
-                                <label for="">Estado</label>
-                                <select name="estado" class="form-control">
-                                    <option value="Pendiente" {{ $reserva->estado == 'Pendiente' ? 'selected' : '' }}>Pendiente</option>
-                                    <option value="Confirmado" {{ $reserva->estado == 'Confirmado' ? 'selected' : '' }}>Confirmado</option>
-                                    <option value="Cancelado" {{ $reserva->estado == 'Cancelado' ? 'selected' : '' }}>Cancelado</option>
-                                </select>
-                            </div> --}}
-                            <div class="form-group">
-                                <label for="nro_mesa">Mesa</label>
-                                @foreach ($detalles as $detalle)
-                                    <input type="checkbox" name="nro_mesa">{{$detalle->nro_mesa}}<br>
-                                    {{-- <select name="nro_mesa" class="form-control">
-                                            <option value="{{$detalle->nro_mesa}}">{{$detalle->nro_mesa}}</option>
-                                    </select> --}}
-                                @endforeach
-                                <div class="form-group">
-                                    <label for="">Cantidad de Mesas</label>
-                                    <input type="number" name="cantidad_personas" class="form-control" value="{{ $detalle->cantidad }}">
-                                </div>
-                                    {{--
-                                    @foreach($mesas as $mesa)
-                                        <option value="{{ $mesa->nro_mesa }}">{{ $mesa->nro_mesa }}</option>
-                                    @endforeach --}}
-
-                            </div>
-
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-primary">Guardar</button>
-                            </div>
-                            <div>
-                                <a href="{{ route('Reserva.index') }}" class="btn btn-secondary">Volver</a>
-                            </div>
-                        </form>
-                    </div>
+        <form action="{{ route('Reserva.update', $todos->id_reserva) }}" method="POST">
+            @csrf
+            @method('PUT')
+            <div class="grid gap-6 mb-6 lg:grid-cols-1">
+                <div>
+                    <label for=""
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Nombre</label>
+                    <input type="text" name="cliente"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="" value="{{ $todos->nombre_cliente }}">
                 </div>
+                <div>
+                    <label for=""
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Fecha</label>
+                    <input type="date" name="fecha"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="John" value="{{ $todos->fecha }}">
+                </div>
+                <div>
+                    <label for=""
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Hora</label>
+                    <input type="time" name="hora"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="Doe" value="{{ $todos->hora }}">
+                </div>
+                <div class="form-group">
+                    <label for="nro_mesa">Mesa</label>
+                    <br>
+                    @foreach ($detalles as $detalle)
+                        <input type="checkbox" name="nro_mesa">{{ $detalle->nro_mesa }}
+                        <br>
+                    @endforeach
+                </div>
+                <br>
             </div>
-        </div>
+            <div class="grid gap-6 grid-cols-2">
+                <a href="{{ Route('Reserva.index') }}"
+                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                    volver
+                </a>
+                <button type="submit"
+                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                    Guardar
+                </button>
+            </div>
+        </form>
+
     </div>
-
-
-
-
 @endsection

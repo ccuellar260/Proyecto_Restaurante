@@ -18,7 +18,8 @@ return new class extends Migration
             $table->string('nombre');
             $table->text('descripcion');
             $table->decimal('precio');
-            $table->integer('cantidad');
+            $table->integer('cantidadMomento');
+            $table->integer('cantidadActualizar');
             $table->text('url');
             $table->unsignedBigInteger('id_tipo_plato');
 

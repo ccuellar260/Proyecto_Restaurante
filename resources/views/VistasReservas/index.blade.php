@@ -3,7 +3,7 @@
 
 @section('Contenido')
 
-<div class="flex justify-between pr-3">
+<div class="flex justify-between pl-3 mb-3">
     <div>
     </div>
     <div>
@@ -13,10 +13,6 @@
     </button>
     </div>
 </div>
-
-
-
-
 
 <div class="bg-white p-2 rounded-md w-full">
     <div>

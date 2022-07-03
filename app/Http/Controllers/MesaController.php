@@ -22,6 +22,17 @@ class MesaController extends Controller
         //['tabla'=>$tabla, 'ambiente'=>$ambiente]
     }
 
+    public function listas(){
+
+        $tabla = DB::table('mesas')
+            ->join('ambientes','mesas.id_ambiente','=','ambientes.id_ambiente')
+            ->join('tipo_mesas','mesas.id_tipo_mesa','=','tipo_mesas.id_tipo_mesa')
+            ->select('mesas.nro_mesa','mesas.estado','ambientes.nombre as nombre','tipo_mesas.mesa as mesa')
+            ->get();
+
+        return view('VistasMesas.listaMesas',compact('tabla'));
+    }
+
 
     public function create(){
         $tipo = DB::table('tipo_mesas')->get();

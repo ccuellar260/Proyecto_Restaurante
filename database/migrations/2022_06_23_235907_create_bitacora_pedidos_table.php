@@ -15,7 +15,8 @@ return new class extends Migration
     {
         Schema::create('bitacora_pedidos', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            //$table->timestamps();usar now();
+            //hora de la accion
             $table->string('user');
             $table->string('accion');
             $table->unsignedBigInteger('id_pedido');

@@ -2,6 +2,20 @@
 
 namespace App\Providers;
 
+use App\Events\BClienteCreateEvent;
+use App\Events\BClienteEditEvent;
+use App\Events\BClienteDeleteEvent;
+use App\Listeners\BClienteCreateListener;
+use App\Listeners\BClienteEditListener;
+use App\Listeners\BClienteDeleteListener;
+
+use App\Events\BEmpleadoCreateEvent;
+use App\Events\BEmpleadoEditEvent;
+use App\Events\BEmpleadoDeleteEvent;
+use App\Listeners\BEmpleadoCreateListener;
+use App\Listeners\BEmpleadoEditListener;
+use App\Listeners\BEmpleadoDeleteListener;
+
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -17,6 +31,32 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         Registered::class => [
             SendEmailVerificationNotification::class,
+        ],
+
+        //conexion eventos y listener de bitacora cliente
+        BClienteCreateEvent::class =>[
+            BClienteCreateListener::class,
+        ],
+
+        BClienteEditEvent::class =>[
+            BClienteEditListener::class,
+        ],
+
+        BClienteDeleteEvent::class =>[
+            BClienteDeleteListener::class,
+        ],
+
+        // conexion eventos y listener de bitacora empleados
+        BEmpleadoCreateEvent::class =>[
+            BEmpleadoCreateListener::class,
+        ],
+
+        BEmpleadoEditEvent::class =>[
+            BEmpleadoEditListener::class,
+        ],
+
+        BEmpleadoDeleteEvent::class =>[
+            BEmpleadoDeleteListener::class,
         ],
     ];
 

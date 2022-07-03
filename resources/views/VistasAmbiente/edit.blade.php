@@ -4,7 +4,7 @@
     <div class="flex items-center justify-center p-12">
         <!-- Author: FormBold Team -->
         <!-- Learn More: https://formbold.com -->
-        <div class="mx-auto w-full max-w-[550px]">
+        <div class="mx-auto w-full max-w-[550px] bg-white px-8 py-6 rounded-md">
             <h1 class="text-center font-bold text-3xl mb-5">EDITAR AMBIENTE</h1>
             <form action="{{Route('Amb.Update',$ambiente->id_ambiente)}}" method="POST">
                 @csrf

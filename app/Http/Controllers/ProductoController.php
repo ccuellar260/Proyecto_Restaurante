@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Producto;
+use App\Models\TipoProducto;
 use Illuminate\Support\Facades\DB;
 
 
@@ -17,10 +18,11 @@ class ProductoController extends Controller
      */
     public function index()
     {
+
         $tabla = DB::table('productos')
         ->join('tipo_productos','productos.id_tipo_plato','=','tipo_productos.id_tipo_plato')
-        ->select('productos.id_producto','productos.nombre','productos.descripcion','productos.url','productos.precio','productos.cantidad','tipo_productos.Categoria as tipo')
         ->get();
+
         return view('VistasProductos.index', compact('tabla'));
     }
 
@@ -109,5 +111,31 @@ class ProductoController extends Controller
     {
         $Producto->delete();
         return redirect()->Route('Producto.index');
+    }
+
+    public $fecha_marcadad = '2022-06-25';
+    public function RestCantPlatos(){
+        if ( $this->fecha_marcadad != date('Y-m-d')) {
+            echo ' verdadero';
+            //cambiar de cantidad momento
+            $productos = Producto::get();
+            foreach ($productos as $p ) {
+            $p->cantidadMomento = $p->cantidadActualizar;
+            $p->save();
+            }
+            //vovler a marac la fecha
+            $this->fecha_marcadad =  date('Y-m-d');
+       }
+        return;
+    }
+
+    public function consultas (){
+       $productos = Producto::get();
+       //mostrar las cantidad de veces que se vendio tal producto
+      // $pedidos = Pedido::get();
+       $suma = DB::table('detalle_pedidos')
+       ->sum('cantidad');//
+       dd($suma);
+       return view('VistasProductos.consultas',compact('productos'));
     }
 }

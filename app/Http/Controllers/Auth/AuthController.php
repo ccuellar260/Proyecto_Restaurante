@@ -6,10 +6,15 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash; //para qeu era??
+use Illuminate\Support\Facades\Hash; //para encriptar contrasenas
 use App\Models\User;
 use App\Models\Empleado;
 use App\Models\Rol;
+use App\Models\marcar_turno;
+use App\Models\EmpleadoTurno;
+use App\Models\Turno;
+use App\Models\BitacoraSesion;
+
 
 class AuthController extends Controller
 {
@@ -17,8 +22,6 @@ class AuthController extends Controller
     public function login(){
         return view('VistasAuth.login');
     }
-
-
 
    public function loginStore(Request $r){
        //del request solo sacame correo y contrasena
@@ -59,6 +62,19 @@ class AuthController extends Controller
     //generar el token csrf
     $r->session()->regenerate();
 
+    // se esta registrando la bitacora de inicio de sesion del usuario
+$usuario = Auth::user()->nombre_usuario;
+    $usuario = User::where('nombre_usuario', $usuario)->first();
+
+    $bUser = new BitacoraSesion();
+    $bUser->estado = 'login';
+    $bUser->nombre_usuario = $usuario->nombre_usuario;
+    $bUser->id_rol = $usuario->id_rol;
+    $bUser->fecha = now();
+    $bUser->hora = now();
+    $bUser->correo_electronico = $usuario->correo_electronico;
+    $bUser->save();
+    //////////////////////////////////////////////////////////////////
 
 
     $bienvenida = 'Bienvenido '.(Auth::user()->nombre_usuario);
@@ -98,13 +114,32 @@ class AuthController extends Controller
    Public function dashboard(){
     $user = Auth::user()->nombre_usuario;
     $empleado = Empleado::where('nombre_usuario',$user)->first();
+    $marcaciones = marcar_turno::where('id_empleado',$empleado->ci)->get();
+    $empleado_turno = EmpleadoTurno::where('id_empleado',$empleado->ci)->first();
+    $turno = Turno::where('id_turno',$empleado_turno->id_turno)->first();
+
 
     $rol= Rol::where('id_rol',Auth::user()->id_rol)->first();
 
-        return view('VistasAuth.dashboard',compact('empleado','rol'));
-   }
+    return view('VistasAuth.dashboard',compact('empleado','rol','marcaciones','turno'));
+  }
 
    public function logout(Request $r){
+
+        //ta registrando la bitacora de cerrando seccion del usuario
+        $usuario = Auth::user()->nombre_usuario;
+        $usuario = User::where('nombre_usuario', $usuario)->first();
+
+        $bUser = new BitacoraSesion();
+        $bUser->estado = 'logout';
+        $bUser->nombre_usuario = $usuario->nombre_usuario;
+        $bUser->id_rol = $usuario->id_rol;
+        $bUser->fecha = now();
+        $bUser->hora = now();
+        $bUser->correo_electronico = $usuario->correo_electronico;
+        $bUser->save();
+        //////////////////////////////////////////////////////////////////
+
         Auth::logout();
 
         //invalidacion la seccion
@@ -115,4 +150,22 @@ class AuthController extends Controller
 
         return redirect()->Route('Login')->with('statusLogout',"Haz cerrado session");
    }
+   public function marcarEntrada(marcar_turno $marcar_turno){
+    $user = Auth::user()->nombre_usuario;
+    $empleado = Empleado::where('nombre_usuario',$user)->first();
+    $marcar_turno->id_empleado = $empleado->ci;
+    $marcar_turno->fecha = date('Y-m-d');
+    $marcar_turno->marcar_entrada = date('H:i:s');
+    $marcar_turno->save();
+    return redirect()->Route('Dashboard')->with('status',"Has marcado tu entrada");
+   }
+
+   public function marcarSalida(Request $r,marcar_turno $marcado){
+    //dd($marcado);
+    $marcado->marcar_salida = date('H:i:s');
+    $marcado->save();
+    return redirect()->Route('Dashboard')->with('status',"Has marcado tu salida");
+   }
+
+
 }

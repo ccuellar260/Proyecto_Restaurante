@@ -57,6 +57,7 @@ class Kernel extends HttpKernel
         'Admin' => \App\Http\Middleware\Admin::class,
         'Mesero' => \App\Http\Middleware\Mesero::class,
         'Cocino' => \App\Http\Middleware\Cocino::class,
+        'ConfirmarContra' => \App\Http\Middleware\ConfirmarContr::class,
         'ProductoCantidad' => \App\Http\Middleware\ProductoCantidad::class,
         'auth' => \App\Http\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,

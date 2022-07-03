@@ -18,6 +18,8 @@ return new class extends Migration
             $table->unsignedBigInteger('nro_mesa');
             $table->unsignedBigInteger('ci_empleado');
             $table->string('estado');
+            $table->date('fecha');
+            $table->time('hora');
             $table->decimal('precio_total')->nullable()->default(0);
 
             $table->foreign('nro_mesa')

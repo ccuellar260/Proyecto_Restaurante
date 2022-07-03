@@ -128,7 +128,8 @@ class DatabaseSeeder extends Seeder
         $e->descripcion = 'asdfg';
         $e->url = 'https://chipabythedozen.com/wp-content/uploads/2020/07/pique-de-macho-2-1-700x531.png';
         $e->precio = '15';
-        $e->cantidad = 40;
+        $e->cantidadMomento = 40;
+        $e->cantidadActualizar = 40;
         $e->id_tipo_plato = 1;
         $e->save();
 
@@ -138,7 +139,8 @@ class DatabaseSeeder extends Seeder
         $e->descripcion = 'asdfg';
         $e->url = 'https://sofia.com.bo/wp-content/uploads/2021/06/chicharron_cerdo_yo_chef.jpg';
         $e->precio = '20';
-        $e->cantidad = 40;
+        $e->cantidadMomento = 40;
+        $e->cantidadActualizar = 40;
         $e->id_tipo_plato = 1;
         $e->save();
 
@@ -148,7 +150,8 @@ class DatabaseSeeder extends Seeder
         $e->descripcion = 'asdfgh';
         $e->url = 'https://comidasbolivianas.org/wp-content/uploads/2020/09/sopa-de-mani-comida-boliviana-480x270.jpg';
         $e->precio = '10';
-        $e->cantidad = 40;
+        $e->cantidadMomento = 40;
+        $e->cantidadActualizar = 40;
         $e->id_tipo_plato = 1;
         $e->save();
 
@@ -158,7 +161,8 @@ class DatabaseSeeder extends Seeder
         $e->descripcion = 'asdfgty';
         $e->url = 'https://loccopizzaoporto.es/wp-content/uploads/2019/03/Coca-Cola-Bottle-2L-1-1.jpg';
         $e->precio = '10';
-        $e->cantidad = 30;
+        $e->cantidadMomento = 30;
+        $e->cantidadActualizar = 30;
         $e->id_tipo_plato = 2;
         $e->save();
 
@@ -168,7 +172,8 @@ class DatabaseSeeder extends Seeder
         $e->descripcion = 'asdfgh';
         $e->url = 'https://i1.wp.com/veryperu.com/wp-content/uploads/2020/06/2.5-lts-2.jpg';
         $e->precio = '10';
-        $e->cantidad = 30;
+        $e->cantidadMomento = 30;
+        $e->cantidadActualizar = 30;
         $e->id_tipo_plato = 2;
         $e->save();
 
@@ -178,7 +183,8 @@ class DatabaseSeeder extends Seeder
         $e->descripcion = 'asdfghj';
         $e->url = 'https://www.lavanguardia.com/files/image_948_465/files/fp/uploads/2020/09/08/5f5751abd0d13.r_d.633-427-8027.jpeg';
         $e->precio = '3';
-        $e->cantidad = 10;
+        $e->cantidadMomento = 10;
+        $e->cantidadActualizar = 10;
         $e->id_tipo_plato = 3;
         $e->save();
 
@@ -188,7 +194,8 @@ class DatabaseSeeder extends Seeder
         $e->descripcion = 'asdfg';
         $e->url = 'https://www.recetasderechupete.com/wp-content/uploads/2020/11/Pudin-de-pan-casero-2-768x514.jpg';
         $e->precio = '3';
-        $e->cantidad = 10;
+        $e->cantidadMomento = 10;
+        $e->cantidadActualizar = 10;
         $e->id_tipo_plato = 3;
         $e->save();
     }

@@ -15,9 +15,6 @@ return new class extends Migration
     {
         Schema::create('empleado_turnos', function (Blueprint $table) {
             $table->id();
-            $table->time('hora_entrada');
-            $table->time('hora_salida');
-            $table->timestamp('fecha')->created_at();//la fecha deneria ser id
 
             $table->unsignedBigInteger('id_empleado');
             $table->unsignedBigInteger('id_turno');
