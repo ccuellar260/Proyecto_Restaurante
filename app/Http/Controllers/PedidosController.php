@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth; //para saber con que usuario estamos logueados
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Builder;
 
 use App\models\Pedido;
 use App\models\Empleado;
@@ -80,8 +81,11 @@ class PedidosController extends Controller
         $pedido->nro_mesa = $r->mesa;
         $pedido->ci_empleado = $r->empleado;
         $pedido->estado = 'En Cocina';
+<<<<<<< HEAD
         $pedido->fecha = date('Y-m-d');
         $pedido->hora = date('H:i:s');
+=======
+>>>>>>> fe32e685ca59aee0fd6e2347bace21f31456b2c9
         $pedido->save();
 
         //poner mesa en ocupado
@@ -97,6 +101,11 @@ class PedidosController extends Controller
             $detalle->id_producto = $r->producto[$i];
             $detalle->cantidad = $r->cantidad[$i];
             $detalle->precio = (float)$r->precio[$i]* (float)$r->cantidad[$i];
+<<<<<<< HEAD
+=======
+            $detalle->fecha = date('Y-m-d');
+            $detalle->hora = date('H:i:s');
+>>>>>>> fe32e685ca59aee0fd6e2347bace21f31456b2c9
             $detalle->save();
              }
         return redirect()->Route('Pedido.index');
@@ -138,6 +147,7 @@ class PedidosController extends Controller
                  ]);
     }
 //-- Consultar Pedidos -----------------------------------------------------------//
+<<<<<<< HEAD
     public function consultarPedidos(){
 
     //     $pagados = DB::table('pedidos as p')
@@ -207,6 +217,46 @@ class PedidosController extends Controller
         // ->where('estado','Realizar Pago')
         // ->orWhere('estado','En Cocina')->get();
        return view('VistasPedido.consultarPedidos',compact('pedidos',));
+=======
+    public function consultarPedidos(Request $r){
+
+//        $pedidos =  DB::table('pedidos as p')
+//        ->join('empleados as e','e.ci','=','p.ci_empleado')
+//    //    ->where('id_pedido',3)
+//        ->where('e.nombre_completo','LIKE','M'.'%')
+//        ->get();
+//        dd($pedidos);
+
+
+
+        $pagados = DB::table('pedidos as p')
+                 //   ->with(['empleados'])
+                    ->join('recibos as r','r.id_pedido','=','p.id_pedido')
+                    ->join('clientes as c','c.ci','=','r.ci_cliente')
+                    ->join('empleados as e','e.ci','=','p.ci_empleado')
+                    ->select('r.id_recibo','c.nombre_completo as cliente',
+                            'c.ci as ci_cliente','e.ci as ci_empleado',
+                            'e.nombre_completo as empleado','p.*')
+
+
+
+                                //  ->orWhereHas('pedidos',function($r) {
+                                //         return $q->where('p.id_pedido',Request('pedido'));
+                                //     });
+                                // })->get();
+                                ->when(Request('mesero'),function($q){
+                                    return $q->where('e.nombre_completo','like','%'.Request('mesero').'%')
+                                             ->orWhere('e.ci','like','%'.Request('mesero').'%')
+                                             ->orWhere('e.nombre_usuario','like','%'.Request('mesero').'%');
+                                            })->get();
+
+        $por_pagar = DB::table('pedidos as p')
+                    ->join('empleados as e','e.ci','=','p.ci_empleado')
+                    ->where('estado','Realizar Pago')
+                    ->orWhere('estado','En Cocina')->get();
+        return view('VistasPedido.consultarPedidos',compact('pagados','por_pagar'));
+       //return view('prueba',compact('pedidos'));
+>>>>>>> fe32e685ca59aee0fd6e2347bace21f31456b2c9
 
     }
 

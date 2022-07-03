@@ -78,6 +78,7 @@ class EmpleadoController extends Controller
     }
 
     public function update(Request $request,Empleado $Empleado){
+<<<<<<< HEAD
 
         event(new BEmpleadoEditEvent($empleado));
 
@@ -90,6 +91,17 @@ class EmpleadoController extends Controller
         $Empleado->telefono = $request->telefono;
         $Empleado->save();
         return redirect()->Route('Empleado.index');
+=======
+    $user = User::where('nombre_usuario',$Empleado->nombre_usuario)->first();
+    $user->correo_electronico = $request->correo;
+    $user->save();
+
+   // $Empleado->ci = $request->ci;
+    $Empleado->nombre_completo = $request->nombre_completo;
+    $Empleado->telefono = $request->telefono;
+    $Empleado->save();
+    return redirect()->Route('Empleado.index');
+>>>>>>> fe32e685ca59aee0fd6e2347bace21f31456b2c9
 }
 
     public function destroy(Empleado $Empleado){

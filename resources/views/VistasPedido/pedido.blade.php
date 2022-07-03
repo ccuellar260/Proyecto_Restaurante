@@ -4,6 +4,7 @@
     <form action="{{ Route('Pedido.storexd') }}" method="POST">
         @csrf
         <div class="flex items-center justify-between p-4">
+<<<<<<< HEAD
             <label class="text-black dark:text-gray-300"> Empleado:</label>
             <input class="text-black bg-sky-200" type="text" name="empleado" readonly value="{{ $empleado->ci }}">
             <br>
@@ -49,6 +50,28 @@
                 <!--  <button class="bg-indigo-600 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer">
                                                    poner reporte
                                                     </button>-->
+=======
+            <label class="text-gray-500 dark:text-gray-300"> Empleado:</label>
+            <input class="text-gray-500" type="text" name="empleado" readonly value="{{ $empleado->ci }}">
+            <br>
+            <label class="text-gray-500 dark:text-gray-300" for="">Seleccion el Nro Mesa:</label>
+            <select name="mesa" id="">
+                @if (Auth()->user()->id_rol == 1)
+                    @foreach ($mesasAdmin as $m)
+                        <option value="{{ $m->nro_mesa }}">{{ $m->nro_mesa }}</option>
+                    @endforeach
+                @else
+                    @foreach ($mesas as $m)
+                        <option value="{{ $m->nro_mesa }}">{{ $m->nro_mesa }}</option>
+                    @endforeach
+                @endif
+            </select>
+
+            <div class="lg:ml-40 ml-10 space-x-8">
+                <!--  <button class="bg-indigo-600 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer">
+                                           poner reporte
+                                            </button>-->
+>>>>>>> fe32e685ca59aee0fd6e2347bace21f31456b2c9
                 <button type="submit"
                     class="bg-indigo-600 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer">
                     Realizar pedido
@@ -63,6 +86,19 @@
             class="bg-indigo-600 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer">
             <a href="{{ Route('Pedido.consultar') }}">Consultar pedido</a>
         </button>
+<<<<<<< HEAD
+=======
+
+        <form action="{{ Route('Pedido.RestCantPlatos') }}" method="POST">
+            @method('PUT')
+            @csrf
+            <button type="submit"
+                class="bg-indigo-600 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer">
+
+                Actializar Platos
+            </button>
+        </form>
+>>>>>>> fe32e685ca59aee0fd6e2347bace21f31456b2c9
     </div>
 
 
@@ -191,6 +227,7 @@
                                                             <div class="inline-block relative">
                                                                 <select name="cliente" id="cliente"
                                                                     class="
+<<<<<<< HEAD
                                                                             inline-block
                                                                             w-56
                                                                             md:w-56
@@ -210,6 +247,27 @@
                                                                             focus:outline-none
                                                                             focus:shadow-outline
                                                                         ">
+=======
+                inline-block
+                w-56
+                md:w-56
+                bg-gray-900
+                text-white text-base
+                md:text-xl
+                font-bold
+                h-full
+                appearance-none
+                px-4
+                py-1
+                pr-8
+                rounded-lg
+                shadow
+                leading-tight
+                outline-none
+                focus:outline-none
+                focus:shadow-outline
+              ">
+>>>>>>> fe32e685ca59aee0fd6e2347bace21f31456b2c9
                                                                     @foreach ($clientes as $c)
                                                                         <option class="bg-gray-900 text-white"
                                                                             value="{{ $c->ci }}">
@@ -219,6 +277,7 @@
                                                                 </select>
                                                                 <div
                                                                     class="
+<<<<<<< HEAD
                                                                             pointer-events-none
                                                                             absolute
                                                                             inset-y-0
@@ -228,6 +287,17 @@
                                                                             px-2
                                                                             text-white
                                                                         ">
+=======
+                pointer-events-none
+                absolute
+                inset-y-0
+                right-0
+                flex
+                items-center
+                px-2
+                text-white
+              ">
+>>>>>>> fe32e685ca59aee0fd6e2347bace21f31456b2c9
                                                                     <svg xmlns="http://www.w3.org/2000/svg"
                                                                         fill="currentColor" stroke="none"
                                                                         viewBox="0 0 24 24" class="w-4 h-4 fill-current">

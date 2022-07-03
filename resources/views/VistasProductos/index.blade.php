@@ -5,10 +5,13 @@
 
 <div class="flex justify-between pl-3 mb-3">
     <div>
+<<<<<<< HEAD
         <button type="submit"
         class="bg-blue-700 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer">
         <a  href="{{Route('Producto.consultas')}}">CONSULTAS DE PRODUCTO </a>
         </button>
+=======
+>>>>>>> fe32e685ca59aee0fd6e2347bace21f31456b2c9
     </div>
     <div>
     <button type="submit"

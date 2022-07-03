@@ -3,12 +3,8 @@
 @section('Contenido')
     <div class="w-full  h-screen">
         <div class="bg-gradient-to-b to-blue-600 h-80"></div>
-<<<<<<< HEAD
-        <div class="max-w-3xl mx-auto px-6 sm:px-6 lg:px-8 mb-8">
-=======
         <div class="max-w-5xl mx-auto px-6 sm:px-6 lg:px-8 mb-8">
->>>>>>> fe32e685ca59aee0fd6e2347bace21f31456b2c9
-            <div class="bg-gray-900 w-full shadow rounded p-2 sm:p-12 -mt-72">
+            <div class="bg-gray-900 w-full shadow rounded p-8 sm:p-12 -mt-72">
                 <p class="text-3xl font-bold leading-7 text-center text-white">Registro de Roles</p>
                 <form action="{{Route('Rol.update',$fila->id_rol)}}" method="post">
                     @csrf

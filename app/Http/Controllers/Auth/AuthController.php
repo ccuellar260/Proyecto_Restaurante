@@ -13,7 +13,10 @@ use App\Models\Rol;
 use App\Models\marcar_turno;
 use App\Models\EmpleadoTurno;
 use App\Models\Turno;
+<<<<<<< HEAD
 use App\Models\BitacoraSesion;
+=======
+>>>>>>> fe32e685ca59aee0fd6e2347bace21f31456b2c9
 
 
 class AuthController extends Controller

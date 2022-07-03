@@ -3,25 +3,35 @@
 @section('Contenido')
     {{-- Realizar un buscador --}}
 <div class="bg-white p-2 rounded-md w-full">
+<<<<<<< HEAD
     <h3>CHOTO</h3>
     <form action="" method="GET">
         <div class="flex items-center ">
             <div class="py-4 pl-2">
                 <label for="fecha">Pedido</label>
+=======
+    <form action="" method="GET">
+        <div class="flex items-center ">
+            <div class="py-4 pl-2">
+>>>>>>> fe32e685ca59aee0fd6e2347bace21f31456b2c9
                 <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full pl-2 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 type="text" placeholder="Pedido" name="pedido">
             </div>
             <div class="py-4 pl-2">
+<<<<<<< HEAD
                 <label for="fecha">Nro Mesa</label>
                 <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full pl-2 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 type="text" placeholder="Nro Mesa" name="mesa">
             </div>
             <div class="py-4 pl-2">
                 <label for="fecha">Mesero</label>
+=======
+>>>>>>> fe32e685ca59aee0fd6e2347bace21f31456b2c9
                 <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full pl-2 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 type="text" placeholder="Mesero" name="mesero">
             </div>
             <div class="py-4 pl-2 ">
+<<<<<<< HEAD
                 <label for="fecha">Cliente</label>
                 <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full pl-2 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 type="text" placeholder="Cliente" name="cliente">
@@ -31,6 +41,11 @@
                 <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full pl-2 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 type="date" placeholder="Fecha" name="fecha" id="fecha">
             </div>
+=======
+                <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full pl-2 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                type="text" placeholder="Cliente" name="cliente">
+            </div>
+>>>>>>> fe32e685ca59aee0fd6e2347bace21f31456b2c9
             <div class="pl-2">
                 <button class="btn-outline-primary" type="submit" >
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -42,8 +57,14 @@
     </form>
 
          <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
+<<<<<<< HEAD
                     <div class="inline-block min-w-full shadow rounded-lg overflow-hidden">
                         <h3 class="text-center py-2 font-bold">HISTORIAL DE TODOS LOS PEDIDOS</h3>
+=======
+
+                    <div class="inline-block min-w-full shadow rounded-lg overflow-hidden">
+                        <h3 class="text-center py-2 font-bold">PEDIDOS PAGADOS</h3>
+>>>>>>> fe32e685ca59aee0fd6e2347bace21f31456b2c9
                         <table class="min-w-full leading-normal">
                             <thead>
                                 <tr>
@@ -75,7 +96,11 @@
                                 </tr>
                             </thead>
                             <tbody>
+<<<<<<< HEAD
                                 @foreach ($pedidos as $p)
+=======
+                                @foreach ($pagados as $p)
+>>>>>>> fe32e685ca59aee0fd6e2347bace21f31456b2c9
                                     <tr>
                                         <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
                                             <p class="text-gray-900 whitespace-no-wrap"> {{ $p->id_recibo }}</p>
@@ -97,11 +122,15 @@
                                             </p>
                                         </td>
                                         <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
+<<<<<<< HEAD
                                             <button type="button"
                                                 class="mr-3 text-sm text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">
 
                                                 <p class="text-gray-900 whitespace-no-wrap mr-3">
                                                         <a href="{{ Route('Pedido.mostrarDetalles', $p->id_pedido) }}"><svg
+=======
+                                            <p class="text-gray-900 whitespace-no-wrap"><a href=""><svg
+>>>>>>> fe32e685ca59aee0fd6e2347bace21f31456b2c9
                                                         xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                                                         viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -109,9 +138,13 @@
                                                         <path stroke-linecap="round" stroke-linejoin="round"
                                                             d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                                                     </svg></a>
+<<<<<<< HEAD
                                                 </p>
                                             <button
 
+=======
+                                            </p>
+>>>>>>> fe32e685ca59aee0fd6e2347bace21f31456b2c9
                                         </td>
                                     </tr>
                                 @endforeach
@@ -120,7 +153,69 @@
                     </div>
                 </div>
 
+<<<<<<< HEAD
 
+=======
+        <div class="bg-white p-2 rounded-md w-full">
+            <div>
+                <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
+                    <div class="inline-block min-w-full shadow rounded-lg overflow-hidden">
+                        <h3 class="text-center py-2 font-bold">PEDIDOS POR PAGAR</h3>
+                        <table class="min-w-full leading-normal">
+                            <thead>
+                                <tr>
+                                    <th
+                                        class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                        PEDIDO
+                                    </th>
+                                    <th
+                                        class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                        MESA
+                                    </th>
+                                    <th
+                                        class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                        MESERO
+                                    </th>
+                                    <th
+                                        class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                        DETALLE
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($por_pagar as $p)
+                                    <tr>
+                                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
+                                            <p class="text-gray-900 whitespace-no-wrap"> {{ $p->id_pedido }}</p>
+                                        </td>
+                                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
+                                            <p class="text-gray-900 whitespace-no-wrap">{{ $p->nro_mesa }}</p>
+                                        </td>
+                                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
+                                            <p class="text-gray-900 whitespace-no-wrap">{{ $p->ci_empleado }}
+                                                <br> {{ $p->nombre_completo }}
+                                            </p>
+                                        </td>
+                                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
+                                            <p class="text-gray-900 whitespace-no-wrap"><a href=""><svg
+                                                        xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                                    </svg></a>
+                                            </p>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+>>>>>>> fe32e685ca59aee0fd6e2347bace21f31456b2c9
 </div>
 
 

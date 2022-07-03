@@ -2,6 +2,7 @@
 
 @section('Contenido')
 
+<<<<<<< HEAD
 <div class="max-w-2xl mx-auto bg-white p-12">
 
         <form action="{{ Route('Reserva.store') }}" method="post">
@@ -29,6 +30,28 @@
         </form>
 
     </div>
+=======
+            <h1>ASIGNAR MESA</h1>
+            <form action="{{Route('Empleado.StoreAsignarMesa',$empleado->ci)}}" method="POST">
+                @csrf
+                <input type="hidden" name="nombre_completo" value='{{ $empleado->nombre_completo }}' id="nombre_completo"
+                        placeholder="">
+                <div>
+                    {{-- <p>mostrar mesa disponible para empelado, los que son igual a null</p> --}}
+                    <br>
+                    <label for="mesa">Nro. de Mesas Disponibles</label><br>
+                            @foreach ($mesas as $m)
+                                <input type="checkbox" name="mesa[]" value="{{ $m->nro_mesa }}">
+                                <td>{{ $m->nro_mesa }}</td><br>
+                            @endforeach
+
+
+
+                    <button type="submit">Guardar</button>
+                </div>
+            </form>
+
+>>>>>>> fe32e685ca59aee0fd6e2347bace21f31456b2c9
 @endsection
 
 
