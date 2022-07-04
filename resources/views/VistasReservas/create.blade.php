@@ -38,7 +38,7 @@
                 <div class="form-group">
                     <label for="nro_mesa">Nro. de Mesa</label><br>
                     <div class="grid gap-3 grid-cols-1">
-                        {{-- @foreach ($mesas as $mesa)
+                        @foreach ($mesas as $mesa)
                              @if ($mesa->mesa == 'Mesa para 2 personas')
                                     Mesa para 2 personas <br>
                                 <input type="checkbox" name="nro_mesa[]" value="{{ $mesa->nro_mesa }}"> {{ $mesa->nro_mesa }}<br>
@@ -49,29 +49,29 @@
                                     Mesa para 6 personas <br>
                                 <input type="checkbox" name="nro_mesa[]" value="{{ $mesa->nro_mesa }}"> {{ $mesa->nro_mesa }}<br>
                             @endif
-                        @endforeach --}}
-
+                        @endforeach
+{{--
                         <label for=""> Mesa para 2 personas</label>
                         @foreach ($mesas as $mesa)
                         @if ($mesa->mesa == 'Mesa para 2 personas')
                         <input type="checkbox" name="nro_mesa[]" value="{{ $mesa->nro_mesa }}"> {{ $mesa->nro_mesa }}
                         @endif
-                        @endforeach
+                        @endforeach --}}
 
-                        <br> <label for=""> 'Mesa para 4 personas'</label>
+                        {{-- <br> <label for=""> 'Mesa para 4 personas'</label>
                         @foreach ($mesas as $mesa)
                         @if ($mesa->mesa == 'Mesa para 4 personas')
-                        <label for=""></label>
-                        <input type="checkbox" id = 'n[]' name="nro_mesa[]" value="{{ $mesa->nro_mesa }} ">
+                        <label for="{{ $mesa->nro_mesa }}">{{ $mesa->nro_mesa }}</label>
+                        <input type="checkbox" id = '{{ $mesa->nro_mesa }}' name="nro_mesa[]" value="{{ $mesa->nro_mesa }} ">
                         @endif
-                        @endforeach
-
+                        @endforeach --}}
+{{--
                         <br> <label for=""> 'Mesa para 6 personas'</label>
                         @foreach ($mesas as $mesa)
                         @if ($mesa->mesa == 'Mesa para 6 personas')
                         <input type="checkbox" name="nro_mesa[]" value="{{ $mesa->nro_mesa }}"> {{ $mesa->nro_mesa }}
                         @endif
-                        @endforeach
+                        @endforeach --}}
 
                     </div>
                 </div>

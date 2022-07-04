@@ -41,6 +41,5 @@ class BProductoEditListener
         $producto->url = $event->bproductoedit->url;
         $producto->id_tipo_plato = $event->bproductoedit->id_tipo_plato;
         $producto->save();
-
     }
 }

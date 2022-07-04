@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\BReservaEditEvent;
+use App\Events\BReservaDeleteEvent;
+use App\Events\BReservaCreateEvent;
+
 use App\Models\Cliente;
 use App\Models\DetallesReserva;
 use App\Models\Empleado;
@@ -53,6 +57,7 @@ class ReservaController extends Controller
         'clientes.nombre_completo as nombre_cliente','clientes.ci as ci_cliente',
         'empleados.nombre_completo as nombre_empleado','empleados.ci as ci_empleado')
         ->get();
+
         return view('VistasReservas.create', compact('reservas','mesas','clientes'));
     }
 
@@ -71,6 +76,8 @@ class ReservaController extends Controller
         $reserva->ci_cliente = $request->ci_cliente;
         $reserva->ci_empleado = 8994432;
         $reserva->save();
+
+        event(new BReservaCreateEvent($reserva));
 
         foreach ($request->nro_mesa as $r) {
             $detalles = new DetallesReserva();
@@ -137,7 +144,36 @@ class ReservaController extends Controller
      */
     public function update(Request $request, Reserva $Reserva)
     {
-        dd($request);
+        //dd($request);
+       // dd($Reserva);
+        $Reserva->fecha = $request->fecha;
+        $Reserva->hora = $request->hora;
+        $nuevo = $request->nro_mesa;
+        $viejo = DB::table('detalles_reservas')->where('id_reserva',$Reserva->id_reserva)->get();
+        //hacer un for
+        //e ir remplazando, o ir creando un nuevo detalle
+       // dd($detalle);
+
+        $countDetalle = count($viejo);
+        $countRequest = count($nuevo);
+       // dd($nuevo->nro_mesa);
+        //dd($viejo);
+
+        //quien es mayor
+        if($countRequest >= $countDetalle)
+        $count = $countRequest;
+        else $count = $countDetalle;
+
+
+        for ($i=0; $i <$count; $i++) {
+            if ( $i <$countRequest){
+                echo strval($nuevo[$i]). '-' ;
+            }else {
+                echo ('llegue a vacio');
+            }
+        }
+       // dd('termine el for');
+
     }
 
     /**
@@ -149,6 +185,9 @@ class ReservaController extends Controller
     public function destroy($id)
     {
         $reserva = Reserva::find($id);
+
+        event(new BReservaDeleteEvent($reserva));
+
         $reserva->delete();
         return redirect()->route('Reserva.index');
     }

@@ -27,7 +27,7 @@ class BProductoCreateListener
      * @return void
      */
     public function handle($event)
-    {dd($event);
+    {
         $producto = new BitacoraProducto();
         $producto->user = Auth::user()->nombre_usuario;
         $producto->accion = 'insertar';
@@ -40,5 +40,6 @@ class BProductoCreateListener
         $producto->cantidadActualizar = $event->bproductocreate->cantidadActualizar;
         $producto->url = $event->bproductocreate->url;
         $producto->id_tipo_plato = $event->bproductocreate->id_tipo_plato;
+        $producto->save();
     }
 }

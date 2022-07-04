@@ -23,6 +23,13 @@ use App\Listeners\BProductoCreateListener;
 use App\Listeners\BProductoEditListener;
 use App\Listeners\BProductoDeleteListener;
 
+use App\Events\BReservaCreateEvent;
+use App\Events\BReservaEditEvent;
+use App\Events\BReservaDeleteEvent;
+use App\Listeners\BReservaCreateListener;
+use App\Listeners\BReservaEditListener;
+use App\Listeners\BReservaDeleteListener;
+
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -66,7 +73,7 @@ class EventServiceProvider extends ServiceProvider
             BEmpleadoDeleteListener::class,
         ],
 
-        // conexion eventos y listener de bitacoraproducto
+        // conexion eventos y listener de bitacora producto
         BProductoCreateEvent::class =>[
             BProductoCreateListener::class,
         ],
@@ -77,6 +84,19 @@ class EventServiceProvider extends ServiceProvider
 
         BProductoDeleteEvent::class =>[
             BProductoDeleteListener::class,
+        ],
+
+       // conexion eventos y listener de bitacora reserva
+        BReservaCreateEvent::class =>[
+            BReservaCreateListener::class,
+        ],
+
+        BReservaEditEvent::class =>[
+            BReservaEditListener::class,
+        ],
+
+        BReservaDeleteEvent::class =>[
+            BReservaDeleteListener::class,
         ],
     ];
 

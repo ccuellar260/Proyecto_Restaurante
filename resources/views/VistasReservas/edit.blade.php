@@ -41,11 +41,11 @@
                                  @php
                                      $ban= true;
                                  @endphp
-                                <input type="checkbox" name="nro_mesa[]" checked>{{ $m->nro_mesa }}
+                                <input type="checkbox" name="nro_mesa[]" checked value="{{ $m->nro_mesa }}">{{ $m->nro_mesa }}
                           @endif
                        @endforeach
                        @if ($ban == false)
-                            <input type="checkbox" name="nro_mesa[]">{{ $m->nro_mesa }}
+                            <input type="checkbox" name="nro_mesa[]" value="{{ $m->nro_mesa }}" >{{ $m->nro_mesa }}
                        @endif
                         <br>
                     @endforeach
