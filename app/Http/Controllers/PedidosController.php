@@ -27,19 +27,20 @@ class PedidosController extends Controller
 
         $user = Auth::user()->nombre_usuario;
         //mostrar solo pedidos por pagar
-        $pedidos = Pedido::where('estado','En Cocina')
+        $pedidos =DB::table('pedidos')
+                    ->where('estado','En Cocina')
                     ->orWhere('estado','Pedido Listo')
                     ->orWhere('estado','Realizar Pago')
                      ->get();
         //mostrar mesas disponibles
-        $empleado = Empleado::join('users','empleados.nombre_usuario','=','users.nombre_usuario')
+        $empleado = DB::table('empleados')->join('users','empleados.nombre_usuario','=','users.nombre_usuario')
         ->where('empleados.nombre_usuario',$user)->first();
 
-        $mesas = Mesa::where('estado','Disponible')
+        $mesas = DB::table('mesas')->where('estado','Disponible')
                      ->where('ci_empleado',$empleado->ci)->get();
-        $mesasAdmin = Mesa::where('estado','Disponible')->get();
+        $mesasAdmin = DB::table('mesas')->where('estado','Disponible')->get();
 
-        $clientes = Cliente::get();
+        $clientes = DB::table('clientes')->get();
         return view('VistasPedido.pedido',compact('pedidos','mesas','empleado','mesasAdmin','clientes'));
     }
 
