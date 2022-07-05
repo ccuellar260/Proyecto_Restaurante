@@ -18,7 +18,7 @@ class MesaController extends Controller
             ->select('mesas.nro_mesa','mesas.estado','ambientes.nombre as nombre','tipo_mesas.mesa as mesa')
             ->get();
 
-        return view('VistasMesas.index',compact('tabla'));
+        return view('VistasMesas.Index',compact('tabla'));
         //['tabla'=>$tabla, 'ambiente'=>$ambiente]
     }
 

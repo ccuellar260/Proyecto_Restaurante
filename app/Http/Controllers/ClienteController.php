@@ -7,7 +7,7 @@ use App\Events\BClienteDeleteEvent;
 use App\Events\BClienteCreateEvent;
 
 use Illuminate\Http\Request;
-use App\Models\CLiente;
+use App\Models\Cliente;
 
 class ClienteController extends Controller
 {
