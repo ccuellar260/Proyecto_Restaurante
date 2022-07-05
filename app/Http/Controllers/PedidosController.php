@@ -51,16 +51,16 @@ class PedidosController extends Controller
     }
 
     public function crear_pedido(Mesa $mesa){
-        dd( $mesa);
+        //dd( $mesa);
         //$producto = Producto::get();
         //metodo where (recibe el atributo,recibo la variable de comparacion)
-        $platos = Producto::where('id_tipo_plato',1)->get();
-        $bebidas = Producto::where('id_tipo_plato',2)->get();
-        $postres = Producto::where('id_tipo_plato',3)->get();
+        $platos = DB::table('productos')->where('id_tipo_plato',1)->get();
+        $bebidas = DB::table('productos')->where('id_tipo_plato',2)->get();
+        $postres = DB::table('productos')->where('id_tipo_plato',3)->get();
       //  $user = Auth::user()->nombre_usuario;
      //   $empleado = Empleado::where('nombre_usuario',$user)->first();
      $user = Auth::user()->nombre_usuario;
-     $empleado = Empleado::where('nombre_usuario',$user)->first();
+     $empleado = DB::table('empleados')->where('nombre_usuario',$user)->first();
         $emp = $empleado->ci;
         $me= $mesa->nro_mesa;
 
