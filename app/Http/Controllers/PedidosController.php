@@ -51,7 +51,7 @@ class PedidosController extends Controller
     }
 
     public function crear_pedido(Mesa $mesa){
-        //dd( $mesa);
+        dd( $mesa);
         //$producto = Producto::get();
         //metodo where (recibe el atributo,recibo la variable de comparacion)
         $platos = DB::table('productos')->where('id_tipo_plato',1)->get();
