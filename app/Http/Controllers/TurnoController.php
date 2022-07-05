@@ -112,8 +112,8 @@ class TurnoController extends Controller
     }
 
     public function Asignar(){
-        $turnos = Turno::get();
-        $empleados = Empleado::get();
+        $turnos = DB::table('turnos')->get();
+        $empleados = DB::table('empleados')->get();
         return view('VistasTurno.asignar', compact('turnos', 'empleados'));
 
     }
