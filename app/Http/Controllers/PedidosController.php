@@ -7,14 +7,14 @@ use Illuminate\Support\Facades\Auth; //para saber con que usuario estamos loguea
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Builder;
 
-use App\models\Pedido;
-use App\models\Empleado;
-use App\models\Mesa;
-use App\models\DetallePedido;
-use App\models\Producto;
-use App\models\User;
-use App\models\Cliente;
-use App\models\Recibo;
+use App\Models\Pedido;
+use App\Models\Empleado;
+use App\Models\Mesa;
+use App\Models\DetallePedido;
+use App\Models\Producto;
+use App\Models\User;
+use App\Models\Cliente;
+use App\Models\Recibo;
 
 
 
