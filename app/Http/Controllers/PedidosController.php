@@ -265,7 +265,7 @@ class PedidosController extends Controller
     //-- bitacora pedidos -----------------------------------------------------------//
     public function bitacoraPedidos(){
 
-        $reserva = DB::table('bitacora_pedidos as bp')
+        $pedido = DB::table('bitacora_pedidos as bp')
                         // ->when(Request('id'),function($q){
                         //     return $q->where('bp.id',Request('id'));
                         // })
@@ -297,15 +297,15 @@ class PedidosController extends Controller
                             return $q->where('bp.fecha',Request('fecha'));
                         })
                         ->when(Request('hora'),function($q){
-                            return $q->where('bp.hora',Request('a'));
+                            return $q->where('bp.hora',Request('hora'));
                         })
-                        ->when(Request('fecha'),function($q){
-                            return $q->where('bp.fecha',Request('fecha'));
+                        ->when(Request('precio_total'),function($q){
+                            return $q->where('bp.precio_total',Request('precio_total'));
                         })
                         ->get();
 
 
-        return view('VistasReservas.bitacoraReservas',compact('reserva'));
+        return view('VistasPedidos.bitacoraPedidos',compact('pedido'));
 
     }
 }
