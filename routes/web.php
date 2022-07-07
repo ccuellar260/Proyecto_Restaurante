@@ -165,6 +165,8 @@ Route::get('Bitacora/Clientes',[ClienteController::class,'bitacoraClientes'])
     ->name('Cliente.bitacora')->middleware('auth');
 Route::get('Bitacora/Empleados',[EmpleadoController::class,'bitacoraEmpleados'])
     ->name('Empleado.bitacora')->middleware('auth');
+Route::get('Bitacora/Pedidos',[PedidosController::class,'bitacoraPedidos'])
+    ->name('Pedido.bitacora')->middleware('auth');
 Route::get('Bitacora/Productos',[ProductoController::class,'bitacoraProductos'])
     ->name('Producto.bitacora')->middleware('auth');
 Route::get('Bitacora/Reservas',[ReservaController::class,'bitacoraReservas'])

@@ -111,7 +111,6 @@ class ReservaController extends Controller
      */
     public function edit(Reserva $Reserva)
     {
-
         $todos = DB::table('reservas')
         ->join('clientes','reservas.ci_cliente','=','clientes.ci')
         ->join('empleados','reservas.ci_empleado','=','empleados.ci')
@@ -119,11 +118,12 @@ class ReservaController extends Controller
         'reservas.hora_reserva as hora','clientes.nombre_completo as nombre_cliente',
         'clientes.ci as ci_cliente',
         'empleados.nombre_completo as nombre_empleado')
+        ->where('id_reserva',$Reserva->id_reserva)
         ->first();
        // dd($todos);
 
         $mesas = Mesa::get();
-       // dd($mesas);
+
 
         $detalles = DB::table('detalles_reservas')
         //->join('mesas','detalles_reservas.nro_mesa','=','mesas.nro_mesa')
@@ -131,7 +131,7 @@ class ReservaController extends Controller
                'detalles_reservas.nro_mesa')
         ->where('detalles_reservas.id_reserva','=',$Reserva->id_reserva)
         ->get();
-       // dd($detalles);
+     //  dd($detalles);
         return view('VistasReservas.edit', compact('todos','mesas','detalles'));
     }
 
@@ -145,34 +145,54 @@ class ReservaController extends Controller
     public function update(Request $request, Reserva $Reserva)
     {
         //dd($request);
-       // dd($Reserva);
         $Reserva->fecha = $request->fecha;
         $Reserva->hora = $request->hora;
-        $nuevo = $request->nro_mesa;
-        $viejo = DB::table('detalles_reservas')->where('id_reserva',$Reserva->id_reserva)->get();
-        //hacer un for
-        //e ir remplazando, o ir creando un nuevo detalle
-       // dd($detalle);
-
-        $countDetalle = count($viejo);
-        $countRequest = count($nuevo);
-       // dd($nuevo->nro_mesa);
-        //dd($viejo);
-
-        //quien es mayor
-        if($countRequest >= $countDetalle)
-        $count = $countRequest;
-        else $count = $countDetalle;
+        $mesa_new = $request->nro_mesa;
+        $mesa_old = DB::table('detalles_reservas')
+                    ->where('id_reserva',$Reserva->id_reserva)
+                    ->get();
+        //dd($mesa_old);
+        $macado= [];
+        //marcador para mesa new
+        for ($i=0; $i < count($mesa_new); $i++) {
+            $macado[$i] = 'no marcado';
+        }
 
 
-        for ($i=0; $i <$count; $i++) {
-            if ( $i <$countRequest){
-                echo strval($nuevo[$i]). '-' ;
-            }else {
-                echo ('llegue a vacio');
+        foreach ($mesa_old as $old ) {
+            $ban = false;
+            //esta mesa esta adentro de aqui
+            for ($i=0; $i < count($mesa_new) ; $i++) {
+                if($old->nro_mesa == $mesa_new[$i]){
+                    $macado[$i] = 'marcado';
+                    $ban = true;
+                    break;
+                }
+            }
+            if ($ban == false) {
+                $mesa = Mesa::where('nro_mesa',$old->nro_mesa)->first();
+                $mesa->estado = 'Disponible';
+                $mesa->save();
+                $old = DetallesReserva::find($old->id_detalle);
+                $old->delete();
+            }
+
+        }
+
+        //dd($mesa_new);
+        for ($i=0; $i < count($mesa_new) ; $i++) {
+            if( $macado[$i] == 'no marcado'){
+                $d = new DetallesReserva();
+                $d->id_reserva = $Reserva->id_reserva;
+                $d->nro_mesa = $mesa_new[$i];
+                $d->save();
+                $mesa = Mesa::where('nro_mesa',$mesa_new[$i])->first();
+                $mesa->estado = 'Reserva';
+                $mesa->save();
+
             }
         }
-       // dd('termine el for');
+        return redirect()->route('Reserva.index');
 
     }
 

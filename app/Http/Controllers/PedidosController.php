@@ -305,7 +305,7 @@ class PedidosController extends Controller
                         ->get();
 
 
-        return view('VistasPedidos.bitacoraPedidos',compact('pedido'));
+        return view('VistasPedido.bitacoraPedidos',compact('pedido'));
 
     }
 }

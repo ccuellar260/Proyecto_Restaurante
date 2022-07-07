@@ -9,7 +9,6 @@
 
 @section('Contenido')
 
-
     <div class=" h-full  bg-gradient-to-r from-blue-300 to-indigo-300">
 
 
@@ -20,6 +19,7 @@
                      <h1>bienvenido {{Auth::user()->nombre_usuario}} a dashboard!!</h1>
                      <h1>bienvenido {{$empleado->nombre_completo}} a dashboard!!</h1>
                 </div>
+
                 @if (Auth()->user()->id_rol == 1)
 
                 @else
