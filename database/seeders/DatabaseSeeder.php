@@ -12,7 +12,8 @@ use App\Models\Producto;
 use App\Models\TipoMesa;
 use App\Models\Mesa;
 use App\Models\Ambiente;
-
+use App\Models\Turno;
+use App\Models\EmpleadoTurno;
 
 
 class DatabaseSeeder extends Seeder
@@ -49,6 +50,8 @@ class DatabaseSeeder extends Seeder
          \App\Models\User::factory()->create();
         // \App\Models\Empleado::factory()->create();
        $this->CargarEmpleado();
+       $this->CargarTurno();
+       $this->CargarMarcarTurno();
        $this->CargarTipoProducto();
        $this->CargarProducto();
        $this->CargarTipoMesa();
@@ -97,6 +100,27 @@ class DatabaseSeeder extends Seeder
         $e->save();
 
 
+        return;
+    }
+
+    public function CargarTurno(){
+        $e = new Turno();
+      //  $u = User::get();
+
+        $e->id_turno = 1;
+        $e->descripcion = 'Admin';
+        $e->hora_entrada = '08:00';
+        $e->hora_salida = '22:00';
+        $e->save();
+        return;
+    }
+
+    public function CargarMarcarTurno(){
+        $e = new EmpleadoTurno();
+        $e->id = 1;
+        $e->id_turno = 1;
+        $e->id_empleado = 8994432;
+        $e->save();
         return;
     }
 

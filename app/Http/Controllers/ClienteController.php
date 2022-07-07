@@ -8,6 +8,7 @@ use App\Events\BClienteCreateEvent;
 
 use Illuminate\Http\Request;
 use App\Models\Cliente;
+use Illuminate\Support\Facades\DB;
 
 class ClienteController extends Controller
 {
@@ -81,5 +82,42 @@ class ClienteController extends Controller
         $cliente->delete();
         return redirect()->Route('Cliente.index');
     }
+
+    //-- bitacora clientes -----------------------------------------------------------//
+    public function bitacoraClientes(){
+
+        $cliente = DB::table('bitacora_clientes as bc')
+                        // ->when(Request('id'),function($q){
+                        //     return $q->where('bc.id',Request('id'));
+                        // })
+                        ->when(Request('user'),function($q){
+                            return $q->where('bc.user',Request('user'));
+                        })
+                        ->when(Request('accion'),function($q){
+                            return $q->where('bc.accion',Request('accion'));
+                        })
+                        ->when(Request('fecha'),function($q){
+                            return $q->where('bc.fecha',Request('fecha'));
+                        })
+                        ->when(Request('hora'),function($q){
+                            return $q->where('bc.hora',Request('hora'));
+                        })
+                        ->when(Request('ci'),function($q){
+                            return $q->where('bc.ci',Request('ci'));
+                        })
+                        ->when(Request('nombre_completo'),function($q){
+                            return $q->where('bc.nombre_completo',Request('nombre_completo'));
+                        })
+                        ->when(Request('telefono'),function($q){
+                            return $q->where('bc.telefono',Request('telefono'));
+                        })
+                        ->when(Request('NIT'),function($q){
+                            return $q->where('bc.NIT',Request('NIT'));
+                        })
+                        ->get();
+
+           return view('VistasCliente.bitacoraClientes',compact('cliente'));
+
+        }
 
 }

@@ -7,6 +7,11 @@ use Illuminate\Support\Facades\Auth; //para saber con que usuario estamos loguea
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Builder;
 
+//eventos depedido
+use App\Events\BPedidoEditEvent;
+use App\Events\BPedidoDeleteEvent;
+use App\Events\BPedidoCreateEvent;
+
 use App\Models\Pedido;
 use App\Models\Empleado;
 use App\Models\Mesa;
@@ -86,6 +91,9 @@ class PedidosController extends Controller
         $pedido->hora = date('H:i:s');
         $pedido->save();
 
+        // agregamos la informacion a bitacora peidio
+        event(new BPedidoCreateEvent($pedido));
+
         //poner mesa en ocupado
         $mesa = Mesa::where('nro_mesa',$r->mesa)->first();
         $mesa->estado = 'Ocupado';
@@ -101,17 +109,23 @@ class PedidosController extends Controller
             $detalle->precio = (float)$r->precio[$i]* (float)$r->cantidad[$i];
             $detalle->save();
              }
+
         return redirect()->Route('Pedido.index');
     }
 
     //cambair estados
     public function StoreRealizarPago(Pedido $pedido){
+
         $pedido->estado = 'Realizar Pago';
         $pedido->save();
         return redirect()->Route('Pedido.index');
     }
 
     public function destroy(Pedido $pedido){
+
+        // hay q ver q atributos envia $pedido para enviar a la bitacora pedido
+        // event (new BPedidoDeleteEvent($pedido));
+
         $pedido->delete();
         return redirect()->Route('Pedido.index');
     }
@@ -128,8 +142,6 @@ class PedidosController extends Controller
     }
 
     public function editarDetalles(Pedido $pe){
-
-
 
         $de = DetallePedido::join('productos','detalle_pedidos.id_producto','=','productos.id_producto')
                                   ->where('id_pedido',$pe->id_pedido)->get();
@@ -250,4 +262,50 @@ class PedidosController extends Controller
                  compact('recibo','detalles'));
     }
 
+    //-- bitacora pedidos -----------------------------------------------------------//
+    public function bitacoraPedidos(){
+
+        $reserva = DB::table('bitacora_pedidos as bp')
+                        // ->when(Request('id'),function($q){
+                        //     return $q->where('bp.id',Request('id'));
+                        // })
+                        ->when(Request('user'),function($q){
+                            return $q->where('bp.user',Request('user'));
+                        })
+                        ->when(Request('accion'),function($q){
+                            return $q->where('bp.accion',Request('accion'));
+                        })
+                        ->when(Request('fecha_bpedido'),function($q){
+                            return $q->where('bp.fecha_bpedido',Request('fecha_bpedido'));
+                        })
+                        ->when(Request('hora_bpedido'),function($q){
+                            return $q->where('bp.hora_bpedido',Request('hora_bpedido'));
+                        })
+                        ->when(Request('id_pedido'),function($q){
+                            return $q->where('bp.id_pedido',Request('id_pedido'));
+                        })
+                        ->when(Request('nro_mesa'),function($q){
+                            return $q->where('bp.nro_mesa',Request('nro_mesa'));
+                        })
+                        ->when(Request('ci_empleado'),function($q){
+                            return $q->where('bp.ci_empleado',Request('ci_empleado'));
+                        })
+                        ->when(Request('estado'),function($q){
+                            return $q->where('bp.estado',Request('estado'));
+                        })
+                        ->when(Request('fecha'),function($q){
+                            return $q->where('bp.fecha',Request('fecha'));
+                        })
+                        ->when(Request('hora'),function($q){
+                            return $q->where('bp.hora',Request('a'));
+                        })
+                        ->when(Request('fecha'),function($q){
+                            return $q->where('bp.fecha',Request('fecha'));
+                        })
+                        ->get();
+
+
+        return view('VistasReservas.bitacoraReservas',compact('reserva'));
+
+    }
 }

@@ -1,6 +1,13 @@
 @extends('navegador')
 
 @section('Contenido')
+
+    <div class="flex justify-between p-4">
+        <button type=""
+            class="bg-indigo-600 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer">
+            <a href="{{ Route('Pedido.bitacora') }}">Bitacora Pedido</a>
+        </button>
+    </div>
     <form action="{{ Route('Pedido.storexd') }}" method="POST">
         @csrf
         <div class="flex items-center justify-between p-4">

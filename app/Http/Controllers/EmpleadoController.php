@@ -24,7 +24,6 @@ class EmpleadoController extends Controller
         $tabla = User::join('rols as r','r.id_rol','=','users.id_rol')
                 ->join('empleados as e','e.nombre_usuario','=','users.nombre_usuario')->get();
 
-                //dd($tabla);
                 $mesas = Mesa::get();
                 //dd($mesas);
         return view('VistasEmpleado.index',compact('tabla','mesas'));
@@ -81,6 +80,18 @@ class EmpleadoController extends Controller
 
         event(new BEmpleadoEditEvent($request));
 
+
+        // Probando una validacion atte: Julico
+        // Aqui dice lo siguiente:
+        // El campo correo_electronico es requerido con el formato email y es unico de la tabla usuario en el campo correo_electronico
+        // lo ultimo es una condicion para que al actualizar el correo no podamos poner el correo existente de otro usuario.
+
+        /*
+        $request->validate([
+            'correo_electronico'   =>  'required|email|unique:User,correo_electronico,'.$user->nombre_usuario.',nombre_usuario',
+        ]);
+        */
+
         $user = User::where('nombre_usuario',$Empleado->nombre_usuario)->first();
         $user->correo_electronico = $request->correo;
         $user->save();
@@ -98,8 +109,6 @@ class EmpleadoController extends Controller
                         ->where('e.nombre_usuario', $Empleado->nombre_usuario)->first();
 
         event(new BEmpleadoDeleteEvent($user));
-
-
         $Empleado->delete();
 
         return back();
@@ -129,4 +138,49 @@ class EmpleadoController extends Controller
         $mesas = Mesa::where('ci_empleado',$empleado->ci)->get();
         return view('VistasEmpleado.index',compact('mesas'));
     }
+
+    public function bitacoraEmpleados(){
+
+        $empleado = DB::table('bitacora_empleados as be')
+                        // ->when(Request('id'),function($q){
+                        //     return $q->where('be.id',Request('id'));
+                        // })
+                        ->when(Request('user'),function($q){
+                            return $q->where('be.user',Request('user'));
+                        })
+                        ->when(Request('accion'),function($q){
+                            return $q->where('be.accion',Request('accion'));
+                        })
+                        ->when(Request('fecha'),function($q){
+                            return $q->where('be.fecha',Request('fecha'));
+                        })
+                        ->when(Request('hora'),function($q){
+                            return $q->where('be.hora',Request('hora'));
+                        })
+                        ->when(Request('ci'),function($q){
+                            return $q->where('be.ci',Request('ci'));
+                        })
+                        ->when(Request('nombre_completo'),function($q){
+                            return $q->where('be.nombre_completo',Request('nombre_completo'));
+                        })
+                        ->when(Request('telefono'),function($q){
+                            return $q->where('be.telefono',Request('telefono'));
+                        })
+                        ->when(Request('foto'),function($q){
+                            return $q->where('be.foto',Request('foto'));
+                        })
+                        ->when(Request('nombre_usuario'),function($q){
+                            return $q->where('be.nombre_usuario',Request('nombre_usuario'));
+                        })
+                        ->when(Request('correo_electronico'),function($q){
+                            return $q->where('be.correo_electronico',Request('correo_electronico'));
+                        })
+                        ->when(Request('id_rol'),function($q){
+                            return $q->where('be.id_rol',Request('id_rol'));
+                        })
+                        ->get();
+
+           return view('VistasEmpleado.bitacoraEmpleados',compact('empleado'));
+
+        }
 }

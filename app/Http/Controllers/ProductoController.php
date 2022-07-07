@@ -156,4 +156,49 @@ class ProductoController extends Controller
     //    ->get();
        return view('VistasProductos.consultas',compact('productos'));
     }
+
+    public function bitacoraProductos(){
+
+        $producto = DB::table('bitacora_productos as bp')
+                        // ->when(Request('id'),function($q){
+                        //     return $q->where('bp.id',Request('id'));
+                        // })
+                        ->when(Request('user'),function($q){
+                            return $q->where('bp.user',Request('user'));
+                        })
+                        ->when(Request('accion'),function($q){
+                            return $q->where('bp.accion',Request('accion'));
+                        })
+                        ->when(Request('fecha'),function($q){
+                            return $q->where('bp.fecha',Request('fecha'));
+                        })
+                        ->when(Request('hora'),function($q){
+                            return $q->where('bp.hora',Request('hora'));
+                        })
+                        ->when(Request('producto'),function($q){
+                            return $q->where('bp.producto',Request('id_producto'));
+                        })
+                        ->when(Request('nombre'),function($q){
+                            return $q->where('bp.nombre',Request('nombre'));
+                        })
+                        ->when(Request('descripcion'),function($q){
+                            return $q->where('bp.descripcion',Request('descripcion'));
+                        })
+                        ->when(Request('precio'),function($q){
+                            return $q->where('bp.precio',Request('precio'));
+                        })
+                        ->when(Request('cantidadActualizar'),function($q){
+                            return $q->where('bp.cantidadActualizar',Request('cantidadActualizar'));
+                        })
+                        ->when(Request('url'),function($q){
+                            return $q->where('bp.url',Request('url'));
+                        })
+                        ->when(Request('id_tipo_plato'),function($q){
+                            return $q->where('bp.id_tipo_plato',Request('id_tipo_plato'));
+                        })
+                        ->get();
+
+           return view('VistasProductos.bitacoraProductos',compact('producto'));
+
+        }
 }

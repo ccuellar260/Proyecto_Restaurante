@@ -2,19 +2,24 @@
 
 @section('Contenido')
 
-
+<div class="flex justify-between p-4">
+    <button type=""
+        class="bg-indigo-600 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer">
+        <a href="{{ Route('Producto.bitacora') }}">Bitacora Producto</a>
+    </button>
+</div>
 <div class="flex justify-between pl-3 mb-3">
     <div>
         <button type="submit"
-        class="bg-blue-700 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer">
-        <a  href="{{Route('Producto.consultas')}}">CONSULTAS DE PRODUCTO </a>
+            class="bg-blue-700 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer">
+            <a  href="{{Route('Producto.consultas')}}">CONSULTAS DE PRODUCTO </a>
         </button>
     </div>
     <div>
-    <button type="submit"
-        class="bg-blue-700 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer">
-        <a  href="{{Route('Producto.create')}}">CREAR PRODUCTO </a>
-    </button>
+        <button type="submit"
+            class="bg-blue-700 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer">
+            <a  href="{{Route('Producto.create')}}">CREAR PRODUCTO </a>
+        </button>
     </div>
 </div>
 
@@ -77,7 +82,7 @@
                                     <p class="text-gray-900 whitespace-no-wrap"> {{$r->id_producto}} </p>
                                 </td>
                                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
-                                    <p class="text-gray-900 whitespace-no-wrap">{{$r->nombre}}</p>
+                                    <p class="text-gray-900 whitespace-no-wrap">{{ucwords($r->nombre)}}</p>
                                 </td>
 
                                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
@@ -93,7 +98,7 @@
                                 </td>
 
                                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
-                                    <p class="text-gray-900 whitespace-no-wrap">{{$r->Categoria}}</p>
+                                    <p class="text-gray-900 whitespace-no-wrap">{{ucwords($r->Categoria)}}</p>
                                 </td>
 
                                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">

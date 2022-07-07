@@ -56,14 +56,14 @@ class AuthController extends Controller
     //usandon el Hash::check
     //Hash::check //recibe texo plano password, luego la encriptada en la Tabla
   if ($user != null and  Hash::check($r->password,$user->password)){
-    //hacer login
-    Auth::login($user);
+      //hacer login
+      Auth::login($user);
 
-    //generar el token csrf
-    $r->session()->regenerate();
+      //generar el token csrf
+      $r->session()->regenerate();
 
     // se esta registrando la bitacora de inicio de sesion del usuario
-$usuario = Auth::user()->nombre_usuario;
+    $usuario = Auth::user()->nombre_usuario;
     $usuario = User::where('nombre_usuario', $usuario)->first();
 
     $bUser = new BitacoraSesion();

@@ -3,7 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Casts\Attribute;//para combetir en minuscula lso nombres
 use Illuminate\Database\Eloquent\Model;
+
 
 class Empleado extends Model
 {
@@ -31,6 +33,42 @@ class Empleado extends Model
    public function mesas(){
     //hasMany{tien mucho} //metodo para dar la primari key
    return $this->hasMany(Mesa::class);
-}
+   }
+
+   protected function nombreCompleto(): Attribute
+   {
+       return Attribute::make(
+           get: fn ($value) => ucwords($value),
+           set: fn ($value) => strtolower($value),
+       );
+   }
+
+
+
+
+
+//   // mutador / metodo para poner en minuscula todos los datos ingresados
+//     protected function nombreCompleto():Attribute{
+//         return new Attribute(
+//             get: function($value){
+//                 dd('llegue a get');
+//                 return ucwords($value);
+//                 }
+//             );
+
+//     }
+
+    // protected function nombre_completo(): Attribute
+    // {
+    //     return Attribute::make(
+    //         get: fn ($value) => ucwords($value),
+    //         set: fn ($value) => strtolower($value)
+    //     );
+    // }
+
+    // public function setnombre_completoAttribute($value){
+    //     $this->attribute['nombre_completo'] = strtolower($value);
+    // }
+
 
 }

@@ -192,7 +192,45 @@ class ReservaController extends Controller
         return redirect()->route('Reserva.index');
     }
 
+    //-- BITACORA RESERVAS -----------------------------------------------------------//
+    public function bitacoraReservas(){
 
+        $reserva = DB::table('bitacora_reservas as br')
+                        // ->when(Request('id'),function($q){
+                        //     return $q->where('br.id',Request('id'));
+                        // })
+                        ->when(Request('user'),function($q){
+                            return $q->where('br.user',Request('user'));
+                        })
+                        ->when(Request('accion'),function($q){
+                            return $q->where('br.accion',Request('accion'));
+                        })
+                        ->when(Request('fecha'),function($q){
+                            return $q->where('br.fecha',Request('fecha'));
+                        })
+                        ->when(Request('hora'),function($q){
+                            return $q->where('br.hora',Request('hora'));
+                        })
+                        ->when(Request('id_reserva'),function($q){
+                            return $q->where('br.id_reserva',Request('id_reserva'));
+                        })
+                        ->when(Request('fecha_reserva'),function($q){
+                            return $q->where('br.fecha_reserva',Request('fecha_reserva'));
+                        })
+                        ->when(Request('hora_reserva'),function($q){
+                            return $q->where('br.hora_reserva',Request('hora_reserva'));
+                        })
+                        ->when(Request('ci_cliente'),function($q){
+                            return $q->where('br.ci_cliente',Request('ci_cliente'));
+                        })
+                        ->when(Request('ci_empleado'),function($q){
+                            return $q->where('br.ci_empleado',Request('ci_empleado'));
+                        })
+                        ->get();
+
+           return view('VistasReservas.bitacoraReservas',compact('reserva'));
+
+        }
 
 
 }
