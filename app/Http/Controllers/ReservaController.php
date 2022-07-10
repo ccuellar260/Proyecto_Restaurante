@@ -176,7 +176,6 @@ class ReservaController extends Controller
                 $old = DetallesReserva::find($old->id_detalle);
                 $old->delete();
             }
-
         }
 
         //dd($mesa_new);

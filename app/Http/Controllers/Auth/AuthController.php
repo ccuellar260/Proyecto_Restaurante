@@ -14,6 +14,7 @@ use App\Models\marcar_turno;
 use App\Models\EmpleadoTurno;
 use App\Models\Turno;
 use App\Models\BitacoraSesion;
+use Illuminate\Support\Facades\DB;
 
 
 class AuthController extends Controller
@@ -76,6 +77,8 @@ class AuthController extends Controller
     $bUser->save();
     //////////////////////////////////////////////////////////////////
 
+    // resetear automaticamente la cantidad disponible de los productos
+    event(new ResetProductosEvent(Producto::whereDate('updated_at', '<>',now())->get()));
 
     $bienvenida = 'Bienvenido '.(Auth::user()->nombre_usuario);
     //redirecciona a dashboard con una variable status
@@ -167,6 +170,35 @@ class AuthController extends Controller
     return redirect()->Route('Dashboard')->with('status',"Has marcado tu salida");
    }
 
+    //-- BITACORA SECIONES -----------------------------------------------------------//
+    public function bitacoraSeciones(){
 
+      $sesion = DB::table('bitacora_sesions as bs')
+                      // ->when(Request('id'),function($q){
+                      //     return $q->where('bs.id',Request('id'));
+                      // })
+                      ->when(Request('estado'),function($q){
+                          return $q->where('bs.estado',Request('estado'));
+                      })
+                      ->when(Request('nombre_usuario'),function($q){
+                          return $q->where('bs.nombre_usuario',Request('nombre_usuario'));
+                      })
+                      ->when(Request('id_rol'),function($q){
+                          return $q->where('bs.id_rol',Request('id_rol'));
+                      })
+                      ->when(Request('fecha'),function($q){
+                          return $q->where('bs.fecha',Request('fecha'));
+                      })
+                      ->when(Request('hora'),function($q){
+                          return $q->where('bs.hora',Request('hora'));
+                      })
+                      ->when(Request('correo_electronico'),function($q){
+                          return $q->where('bs.correo_electronico',Request('correo_electronico'));
+                      })
+                      ->get();
+
+         return view('VistasAuth.bitacoraSeciones',compact('sesion'));
+
+      }
 
 }

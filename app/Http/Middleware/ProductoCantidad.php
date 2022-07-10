@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use App\Models\Producto;
+use App\Models\DetallePedido;
 
 class ProductoCantidad
 {
@@ -17,28 +18,55 @@ class ProductoCantidad
      */
     public function handle(Request $r, Closure $next)
     {
-       // dd($r);
+
         $producto = Producto::get();
-        $count = count($r->producto);
-        //dd($producto);
-        for ($i=0;$i<$count;$i++){
-           // dd( $producto[$i]->cantidadMomento);
-            if($r->cantidad[$i] > $producto[$i]->cantidadMomento ){
-                //dd('redirecciona');
-                return redirect()->Route('Pedido.CrearPedido',$r->mesa)->with("status{$producto[$i]->id_producto}","Solo queda {$producto[$i]->cantidadMomento} {$producto[$i]->nombre} ");
+
+        if($r->metodo == 'create'){
+            for ($i=0;$i<count($r->producto);$i++){
+               // dd( $producto[$i]->cantidadMomento);
+                if($r->cantidad[$i] > $producto[$i]->cantidadMomento ){
+                    //dd('redirecciona');
+                    if($r->metodo == 'create'){
+                        return redirect()->Route('Pedido.CrearPedido',$r->mesa)->with("status{$producto[$i]->id_producto}","Solo queda {$producto[$i]->cantidadMomento} {$producto[$i]->nombre} ");
+                    }
+                }
             }
+             // dd('pasele nomas');
+             return $next($r);  //si entra
         }
-       // dd('pasele nomas');
-        return $next($r);  //si entra
 
 
-        // $producto = Producto::where('id_producto',$r->producto)->first();
-        // if($r->cantidad > $producto->cantidad ){
-        //       //no entra, mostrar cantidad no disponible
-        //        return redirect()->Route('Pedido.Create',$r->pedido)->with("status{$producto->id_producto}","Solo queda {$producto->cantidad} {$producto->nombre} ");
-        // }
+        //cuando es edit
+        if($r->metodo == 'edit'){
+            for ($i=0;$i<count($r->producto);$i++){
+                $detalle = DetallePedido::where('id_pedido',$r->pedido)
+                                          ->where('id_producto',$r->producto[$i])
+                                          ->first();
+               // dd($detalle);
+                $cantidadA = $detalle->cantidad;
+                $cantidadB = $r->cantidad[$i];
+                //dd($cantidadB);
+                 //quien es mayor
+                if($cantidadA > $cantidadB){
+                    return $next($r);
+                }else{
+                    $cant = $cantidadB - $cantidadA;
+                    //hay cantidad disponible
+                        if($producto[$i]->cantidadMomento < $cant ){
+                             return redirect()->Route('Pedido.editarPedido', $r->pedido)
+                                        ->with("status{$producto[$i]->id_producto}",
+                                        "Solo queda {$producto[$i]->cantidadMomento} {$producto[$i]->nombre} ");
 
-        // return $next($r);  //si entra
+                        }else{
+                                return $next($r);
+                            }
+                    //$pro->cantidadMomento = $pro->cantidadMomento - $cant;
+                     }
 
-    }
-}
+
+                } //end for
+        } //end if
+
+
+    } //end metodo prinpcial
+}//end clase

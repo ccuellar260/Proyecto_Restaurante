@@ -28,6 +28,8 @@
                         value="{{$ci}}">
                         <input type="hidden" name="mesa"
                         value="{{$nro_mesa}}">
+                        <input type="hidden" name="metodo"
+                        value="create">
 
 
         </div>

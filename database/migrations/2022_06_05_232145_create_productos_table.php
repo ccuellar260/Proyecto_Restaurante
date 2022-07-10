@@ -22,6 +22,7 @@ return new class extends Migration
             $table->integer('cantidadActualizar');
             $table->text('url');
             $table->unsignedBigInteger('id_tipo_plato');
+            $table->timestamps();
 
             $table->foreign('id_tipo_plato')
             ->references('id_tipo_plato')

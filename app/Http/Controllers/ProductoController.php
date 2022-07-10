@@ -27,7 +27,10 @@ class ProductoController extends Controller
 
         $tabla = DB::table('productos')
         ->join('tipo_productos','productos.id_tipo_plato','=','tipo_productos.id_tipo_plato')
+        ->select('productos.*','tipo_productos.Categoria')
         ->get();
+
+    
 
         return view('VistasProductos.index', compact('tabla'));
     }

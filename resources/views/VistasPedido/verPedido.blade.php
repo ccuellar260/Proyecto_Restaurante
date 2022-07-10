@@ -2,18 +2,11 @@
 
 @section('Contenido')
     <div class="grid grid-cols-3 py-3 text-center text-gray-500">
-        <p>Pedidos hecho por ci:{{ $pedido->ci_empleado }} </p>
+        <p>Pedidos hecho por ci: {{ $pedido->ci_empleado }} </p>
         <p>Mesa Nro: {{ $pedido->nro_mesa }}</p>
-        <p>Nro de pedido{{ $pedido->id_pedido }}</p>
+        <p>Nro de pedido : {{ $pedido->id_pedido }}</p>
     </div>
-    <div class="flex justify-between">
-    <button></button>
-    <button type="button"
-        class="ml-3 my-2 text-sm bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-        <a href="{{ Route('Cliente.Create') }}">
-            Crear Cliente
-        </a></button>
-    </div>
+
 
 
         <div class="bg-white p-2 rounded-md w-full">
@@ -25,7 +18,7 @@
                                 <tr>
                                     <th
                                         class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                                        NRO
+                                        COD. PRODUCTO
                                     </th>
                                     <th
                                         class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
@@ -33,7 +26,7 @@
                                     </th>
                                     <th
                                         class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                                        PRECIO
+                                        PRECIO UNITARIO
                                     </th>
                                     <th
                                         class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
@@ -45,10 +38,10 @@
                                 @foreach ($detalles as $d)
                                     <tr>
                                         <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
-                                            <p class="text-gray-900 whitespace-no-wrap"> {{ $d->id_detalle }}</p>
+                                            <p class="text-gray-900 whitespace-no-wrap"> {{ $d->id_producto }}</p>
                                         </td>
                                         <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
-                                            <p class="text-gray-900 whitespace-no-wrap">{{ $d->nombre }} </p>
+                                            <p class="text-gray-900 whitespace-no-wrap">{{ucwords($d->nombre)}} </p>
                                         </td>
                                         <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
                                             <p class="text-gray-900 whitespace-no-wrap">{{ $d->precio }}</p>
@@ -63,9 +56,20 @@
                     </div>
                 </div>
             </div>
-            <button type=""
-                class="bg-blue-700 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer">
-                <a href="{{ Route('Pedido.index') }}">Volver </a>
-            </button>
+
+            <div class="flex items-center justify-between p-3">
+                <div>
+                    <button type=""
+                    class="bg-blue-700 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer">
+                    <a href="{{ Route('Pedido.index') }}">Volver </a>
+                </button>
+                </div>
+                <div>
+                    <label for="">Precio Total = </label>
+                    <input class="border-solid border-2 border-indigo-600 rounded-lg" type="number" name="cantidad"
+                    value="{{$pedido->precio_total}}">
+                </div>
+
+            </div>
         </div>
     @endsection

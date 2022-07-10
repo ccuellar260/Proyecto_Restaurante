@@ -9,9 +9,8 @@ use Illuminate\Database\Eloquent\Casts\Attribute;//para combetir en minuscula ls
 class Producto extends Model
 {
     use HasFactory;
-
-    public $timestamps = false;
     protected $primaryKey = 'id_producto';
+    public $timestamps = false;
 
     public function tipo_productos(){
         //belongsTo{perteneces a} //metodo para recibir la forieng key

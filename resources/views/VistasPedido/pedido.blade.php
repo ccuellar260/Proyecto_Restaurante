@@ -2,42 +2,36 @@
 
 @section('Contenido')
 
-    <div class="flex justify-between p-4">
-        <button type=""
-            class="bg-indigo-600 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer">
-            <a href="{{ Route('Pedido.bitacora') }}">Bitacora Pedido</a>
-        </button>
-    </div>
-    <form action="{{ Route('Pedido.storexd') }}" method="POST">
+
+
+        <form action="{{ Route('Pedido.storexd') }}" method="POST">
         @csrf
-        <div class="flex items-center justify-between p-4">
-            <label class="text-black dark:text-gray-300"> Empleado:</label>
-            <input class="text-black bg-sky-200" type="text" name="empleado" readonly value="{{ $empleado->ci }}">
-            <br>
-            <label class="text-gray-500 dark:text-gray-300" for="">Seleccion el Nro Mesa:</label>
+        <div class="flex justify-between pl-3 mb-3">
+            <div class="">
+                <a class="bg-indigo-600 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer"
+                 href="{{ Route('Pedido.bitacora') }}">Bitacora</a>
+            </div>
+
+            <div>
+                <a class="bg-indigo-600 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer"
+                 href="{{ Route('Pedido.consultar') }}">Consultar pedido</a>
+            </div>
+
+            <div>
+                <label class="text-black dark:text-gray-300"> Empleado:</label>
+            </div>
+
+            <div>
+                <input class="text-black bg-sky-200" type="text" name="empleado" readonly value="{{ $empleado->ci }}">
+            </div>
 
             <div class="inline-block relative">
+            <label class="text-gray-500 dark:text-gray-300" for="">Seleccion el Nro Mesa:</label>
                 <select name="mesa" id=""
                     class="
-                                                                            inline-block
-                                                                            w-24
-                                                                            md:w-24
-                                                                            bg-gray-900
-                                                                            text-white text-base
-                                                                            md:text-xl
-                                                                            font-bold
-                                                                            h-full
-                                                                            appearance-none
-                                                                            px-4
-                                                                            py-1
-                                                                            pr-8
-                                                                            rounded-lg
-                                                                            shadow
-                                                                            leading-tight
-                                                                            outline-none
-                                                                            focus:outline-none
-                                                                            focus:shadow-outline
-                                                                        ">
+                        inline-block w-24 md:w-24 bg-gray-900 text-white text-base md:text-xl
+                        font-bold h-full appearance-none px-4 py-1 pr-8 rounded-lg shadow
+                        leading-tight outline-none focus:outline-nonefocus:shadow-outline   ">
                     @if (Auth()->user()->id_rol == 1)
                         @foreach ($mesasAdmin as $m)
                             <option class="bg-gray-900 text-white" value="{{ $m->nro_mesa }}">{{ $m->nro_mesa }}
@@ -52,7 +46,7 @@
                 </select>
             </div>
 
-            <div class="lg:ml-40 ml-10 space-x-8">
+            <div class=" ml-10 space-x-8">
                 <!--  <button class="bg-indigo-600 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer">
                                                    poner reporte
                                                     </button>-->
@@ -61,16 +55,12 @@
                     Realizar pedido
                 </button>
             </div>
-
         </div>
-    </form>
+        </form>
 
-    <div class="flex justify-between p-4">
-        <button type=""
-            class="bg-indigo-600 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer">
-            <a href="{{ Route('Pedido.consultar') }}">Consultar pedido</a>
-        </button>
-    </div>
+
+
+
 
 
     <div class="bg-white p-2 rounded-md w-full">
@@ -140,7 +130,7 @@
                                         <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
                                             <button type="button"
                                                 class="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">
-                                                <a href="{{ Route('Pedido.editarDetalles', $p->id_pedido) }}">
+                                                <a href="{{ Route('Pedido.editarPedido', $p->id_pedido) }}">
                                                     Editar
                                                 </a></butto>
                                         </td>
@@ -321,7 +311,7 @@
                                         <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
                                             <button type="button"
                                                 class="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">
-                                                <a href="{{ Route('Pedido.editarDetalles', $p->id_pedido) }}">
+                                                <a href="{{ Route('Pedido.editarPedido', $p->id_pedido) }}">
                                                     Editar
                                                 </a></butto>
                                         </td>

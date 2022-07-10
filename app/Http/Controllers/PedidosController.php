@@ -11,6 +11,9 @@ use Illuminate\Database\Eloquent\Builder;
 use App\Events\BPedidoEditEvent;
 use App\Events\BPedidoDeleteEvent;
 use App\Events\BPedidoCreateEvent;
+//evento para dismunir cantidad
+use App\Events\DisminuirCantidadEvent;
+use App\Events\PrecioTotalEvent;
 
 use App\Models\Pedido;
 use App\Models\Empleado;
@@ -50,8 +53,6 @@ class PedidosController extends Controller
     }
 
     public function storexd(Request $r){
-
-
         return redirect()->Route('Pedido.CrearPedido',$r->mesa);
     }
 
@@ -77,11 +78,6 @@ class PedidosController extends Controller
             'postres'=>$postres
         ]);
     }
-
-
-
-
-
     public function storePedido(Request $r){
         $pedido = new Pedido();
         $pedido->nro_mesa = $r->mesa;
@@ -122,64 +118,118 @@ class PedidosController extends Controller
     }
 
     public function destroy(Pedido $pedido){
-
         // hay q ver q atributos envia $pedido para enviar a la bitacora pedido
         // event (new BPedidoDeleteEvent($pedido));
-
         $pedido->delete();
         return redirect()->Route('Pedido.index');
     }
 
+    //VER DETALLES
     public function mostrarDetalle(Pedido $pe){
 
         $de = DetallePedido::join('productos','detalle_pedidos.id_producto','=','productos.id_producto')
                             ->select('detalle_pedidos.*','productos.nombre')
                              ->where('id_pedido',$pe->id_pedido)->get();
+
         return view('VistasPedido.verPedido',[
                     'detalles'=>$de,
                     'pedido'=>$pe
                 ]);
     }
 
-    public function editarDetalles(Pedido $pe){
-
+    public function editarPedido( Pedido $pe){
         $de = DetallePedido::join('productos','detalle_pedidos.id_producto','=','productos.id_producto')
-                                  ->where('id_pedido',$pe->id_pedido)->get();
+                        ->where('id_pedido',$pe->id_pedido)->get();
+        //dd($de);
+
+        $productos = DB::table('productos')
+            ->join('tipo_productos','productos.id_tipo_plato','=','tipo_productos.id_tipo_plato')
+            ->select('productos.*','tipo_productos.Categoria')
+            ->get();
 
         return view('VistasPedido.editarPedidos',[
                 'detalles'=>$de,
-                'pedido'=>$pe
+                'pedido'=>$pe,
+                'productos'=>$productos
                  ]);
     }
+
+    public function updatePedido( Request $r,Pedido $pe){
+      //dd($r);
+      //reeplando las mesas en pedido
+        $pe->nro_mesa = $r->mro_mesa;
+
+        //saco el array de procuito nuevos y produtos viejos!!
+        $todo_prod = Producto::get();
+        $detalle_prod = DB::table('detalle_pedidos')   //detalle producto
+                    ->where('id_pedido',$pe->id_pedido)
+                    ->get();
+                    //dd($todo_prod);
+        //hacer un marcador para verifcar si ya se paso por ahi
+        $macado= [];
+        for ($i=0; $i < count($todo_prod); $i++) {
+            $macado[$i] = 'no marcado';
+        }
+
+        foreach ( $detalle_prod as $de ) {
+            $ban = false;
+            //detalle prod esta dentro de todo prod ???
+            for ($i=0; $i < count($todo_prod) ; $i++) {  //recorrer todo pro
+                //es igual a detalle prod??
+                //dd($de);
+                if(($de->id_producto == $todo_prod[$i]->id_producto)and ($r->cantidad[$i]>0)){
+                  // remplazar;
+                 // dd($r->cantidad[$i]);
+
+                    if($de->cantidad != $r->cantidad[$i]){
+                        //en detalle se guarda, una
+                        $detalle = DetallePedido::where('id_producto',$de->id_producto)
+                                                ->where('id_pedido',$pe->id_pedido)
+                                                ->first();
+                        //d($detalle);
+                        //implementar el triggers
+                        event(new DisminuirCantidadEvent($de->id_producto,$detalle->cantidad,$r->cantidad[$i]));
+                        $detalle->cantidad = $r->cantidad[$i];
+                        $detalle->precio =  (float)$todo_prod[$i]->precio * (float)$r->cantidad[$i];
+                        $detalle->save();
+                    }
+                    $macado[$i] = 'marcado';
+                    $ban = true;
+                    break;
+                }
+
+            }//end for de todo pro
+
+
+            if ($ban == false) { //no se encontro que este dentro de todo pro // se debe eliminar
+                $detalle = DetallePedido::where('id_producto',$de->id_productoo)
+                                        ->where('id_pedido',$pe->id_pedido)
+                                        ->first();
+                $detalle->delete();
+            }
+
+        }// end for principal
+
+        //verificar si hay algun nuevo prar crear
+        for ($i=0; $i < count($todo_prod); $i++) {
+            if (($macado[$i] == 'no marcado')and($r->cantidad[$i]>0)  ) {
+                $detalle = new DetallePedido();
+                $detalle->cantidad = $r->cantidad[$i];
+                $detalle->precio =  (float)$todo_prod[$i]->precio * (float)$r->cantidad[$i];
+                $detalle->id_pedido = $pe->id_pedido;
+                $detalle->id_producto = $todo_prod[$i]->id_producto;
+                $detalle->save();
+            }
+        }
+        event(new PrecioTotalEvent($pe->id_pedido));
+        return  redirect()->Route('Pedido.editarPedido', $pe->id_pedido);
+
+    }//end
+
+
+
 //-- Consultar Pedidos -----------------------------------------------------------//
     public function consultarPedidos(){
-
-    //     $pagados = DB::table('pedidos as p')
-    //                 ->join('recibos as r','r.id_pedido','=','p.id_pedido')
-    //                 ->join('clientes as c','c.ci','=','r.ci_cliente')
-    //                 ->join('empleados as e','e.ci','=','p.ci_empleado')
-    //                 ->select('r.id_recibo','c.nombre_completo as cliente',
-    //                         'c.ci as ci_cliente','e.ci as ci_empleado',
-    //                         'e.nombre_completo as empleado','p.*')
-    //                 ->when(Request('pedido'),function($q){
-    //                     return $q->where('p.id_pedido',Request('pedido'));
-    //                           //  ->where('p.nro_mesa',Request(''));
-    //                             })
-    //                 ->when(Request('mesero'),function($q){
-    //                     return $q->where('e.ci',Request('mesero'))
-    //                            ->where('e.nombre_completo','like','%'.Request('mesero').'%');
-    //                             })->get();
-
-    //     $por_pagar = DB::table('pedidos as p')
-    //     ->join('empleados as e','e.ci','=','p.ci_empleado')
-    //     ->where('estado','Realizar Pago')
-    //     ->orWhere('estado','En Cocina')->get();
-    //    return view('VistasPedido.consultarPedidos',compact('pagados','por_pagar'));
-
-
-
-
-
     $pedidos = DB::table('pedidos as p')
                     ->join('empleados as e','e.ci','=','p.ci_empleado')
                     ->join('recibos as r','r.id_pedido','=','p.id_pedido')
@@ -211,15 +261,6 @@ class PedidosController extends Controller
                             return $q->where('fecha',Request('fecha'));
                     })
                     ->get();
-               // dd($pedidos);
-
-
-     //  return view('prueba',compact('pedidos'));
-
-        //     $por_pagar = DB::table('pedidos as p')
-        // ->join('empleados as e','e.ci','=','p.ci_empleado')
-        // ->where('estado','Realizar Pago')
-        // ->orWhere('estado','En Cocina')->get();
        return view('VistasPedido.consultarPedidos',compact('pedidos',));
 
     }

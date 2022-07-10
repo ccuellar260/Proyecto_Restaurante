@@ -19,7 +19,12 @@
                      <h1>bienvenido {{Auth::user()->nombre_usuario}} a dashboard!!</h1>
                      <h1>bienvenido {{$empleado->nombre_completo}} a dashboard!!</h1>
                 </div>
-
+                <div class="flex justify-between p-4">
+                    <button type=""
+                        class="bg-indigo-600 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer">
+                        <a href="{{ Route('bitacoraSeciones') }}">Bitacora Sesion</a>
+                    </button>
+                </div>
                 @if (Auth()->user()->id_rol == 1)
 
                 @else

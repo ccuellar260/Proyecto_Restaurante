@@ -85,8 +85,10 @@ Route::delete('Pedidos/{pedido}',[PedidosController::class,'destroy'])
      ->name('Pedido.destroy');
 Route::get('Pedido/{pe}/Detalle',[PedidosController::class,'mostrarDetalle'])
      ->name('Pedido.mostrarDetalles');
-Route::get('Pedido/{pe}/edit',[PedidosController::class,'editarDetalles'])
-     ->name('Pedido.editarDetalles');
+Route::get('Pedido/{pe}/edit',[PedidosController::class,'editarPedido'])
+     ->name('Pedido.editarPedido');
+Route::put('Pedido/{pe}/update',[PedidosController::class,'updatePedido'])
+     ->name('Pedido.updatePedido')->middleware('ProductoCantidad');
 Route::get('Pedido/{p}/crearRecibo',[PedidosController::class,'crearRecibo'])
     ->name('Pedido.crearRecibo');
 Route::post('Pedido/{p}/storeRecibo',[PedidosController::class,'storeRecibo'])
@@ -161,6 +163,8 @@ Route::put('marcarSalida/{marcado}', [AuthController::class, 'marcarSalida'])
 
 
 // rutas de bitacoras
+Route::get('Bitacora/Sesiones',[AuthController::class,'bitacoraSeciones'])
+    ->name('bitacoraSeciones')->middleware('auth');
 Route::get('Bitacora/Clientes',[ClienteController::class,'bitacoraClientes'])
     ->name('Cliente.bitacora')->middleware('auth');
 Route::get('Bitacora/Empleados',[EmpleadoController::class,'bitacoraEmpleados'])

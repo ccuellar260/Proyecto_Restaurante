@@ -37,6 +37,15 @@ use App\Listeners\BPedidoCreateListener;
 use App\Listeners\BPedidoEditListener;
 use App\Listeners\BPedidoDeleteListener;
 
+use App\Events\ResetProductosEvent;
+use App\Listeners\ResetProductosListener;
+
+//libreria de crish
+use App\Events\DisminuirCantidadEvent;
+use App\Listeners\DisminuirCantidadListener;
+use App\Events\PrecioTotalEvent;
+use App\Listeners\PrecioTotalListener;
+
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -52,6 +61,19 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         Registered::class => [
             SendEmailVerificationNotification::class,
+        ],
+        //dismunir la cantidad de productos //hecho por cris
+        DisminuirCantidadEvent::class => [
+            DisminuirCantidadListener::class,
+        ],
+         //precio total //hecho por cris
+         PrecioTotalEvent::class => [
+            PrecioTotalListener::class,
+        ],
+
+        // volver a su estado del cual empezo la cantidad de los productos
+        ResetProductosEvent::class =>[
+            ResetProductosListener::class,
         ],
 
         //conexion eventos y listener de bitacora cliente

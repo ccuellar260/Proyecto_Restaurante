@@ -15,7 +15,6 @@ return new class extends Migration
     public function up()
     {
 
-
         DB::unprepared('
             CREATE TRIGGER TriggerPrecio BEFORE INSERT ON detalle_pedidos
             FOR EACH ROW update pedidos set precio_total = precio_total + new.precio where id_pedido = new.id_pedido
