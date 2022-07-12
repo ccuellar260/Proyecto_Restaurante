@@ -15,31 +15,49 @@
                         <input type="text" name="nombre" id="nombre" value="{{$Producto->nombre}}"
                             class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
                     </div>
-                    <div class="mb-1">
-                        <label for="precio" class="mb-3 block text-base font-medium text-[#07074D]">
-                            Precio:
-                        </label>
-                        <input type="text" name="precio" id="precio" value="{{$Producto->precio}}"
-                            class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
-                    </div>
-                    <div class="mb-1">
-                        <label for="cantidad" class="mb-3 block text-base font-medium text-[#07074D]">
-                            Cantidad:
-                        </label>
-                        <input type="number" name="cantidad" id="cantidad" value="{{$Producto->cantidad}}" placeholder=""
-                            class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
-                    </div>
-                    <div class="mb-1">
+
+
+                    <div class="mb-5">
                         <label for="tipo" class="mb-3 block text-base font-medium text-[#07074D]">
                             Categoria:
                         </label>
                         <select name="tipo" id="tipo"
                             class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md">
+                            <option value="{{$tipoPlato->id_tipo_plato}}">{{$tipoPlato->Categoria}}</option>
                             @foreach ($tipo as $r)
-                                <option value="{{$r->id_tipo_plato}}">{{$r->Categoria}}</option>
+                                @if ($r->id_tipo_plato != $tipoPlato->id_tipo_plato)
+                                      <option value="{{$r->id_tipo_plato}}">{{$r->Categoria}}</option>
+                                @endif
                             @endforeach
                         </select>
                     </div>
+
+
+
+                </div>
+                <div class="grid gap-4 grid-cols-3">
+                    <div class="mb-1">
+                        <label for="precio" class="mb-3 block text-base font-medium text-[#07074D]">
+                            Precio:
+                        </label>
+                        <input type="number" step="any" name="precio" id="precio" value="{{$Producto->precio}}"
+                            class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                    </div>
+                    <div class="mb-5">
+                        <label for="cantidadM" class="mb-3 block text-base font-medium text-[#07074D]">
+                            Cantidad de Momento:
+                        </label>
+                        <input type="number" name="cantidadM" id="cantidadM" value="{{$Producto->cantidadMomento}}"
+                            class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                    </div>
+                    <div class="mb-5">
+                        <label for="cantidadA" class="mb-3 block text-base font-medium text-[#07074D]">
+                            Cantidad a Actualizar:
+                        </label>
+                        <input type="number" name="cantidadA" id="cantidadA" value="{{$Producto->cantidadActualizar}}"
+                            class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                    </div>
+
                 </div>
                 <div class="mb-5">
                     <label for="url" class="mb-3 block text-base font-medium text-[#07074D]">
@@ -52,8 +70,8 @@
                     <label for="Descripcion" class="mb-3 block text-base font-medium text-[#07074D]">
                         Descripcion:
                     </label>
-                    <textarea name="descripcion" id="Descripcion" value="{{$Producto->descripcion}}" cols="30" rows="4"
-                        class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"></textarea>
+                    <textarea name="descripcion" id="Descripcion" cols="30" rows="4"
+                        class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md">{{$Producto->descripcion}}</textarea>
                 </div>
                 <div>
                     <button type="submit"

@@ -28,13 +28,18 @@ class ResetProductosListener
      */
     public function handle($event)
     {
-        if ($event->resertproducto->count() > 0){
-            $producto = Producto::get();
+        $producto = Producto::get();
+       // $producto = Producto::whereDate('updated_at','<>','2022-07-20')->get();
+       // dd($producto);
             foreach ($producto as $p) {
-                //dd($p->cantidadMomento);
-                $p->where('updated_at','<>',now())
-                    ->update(["cantidadMomento" => $p->cantidadActualizar]);
+
+                $ff = $p->selectRaw('DATE(updated_at) as fecha' )
+                      ->first();
+                if($ff->fecha !=  date('Y-m-d')){
+                    $p->cantidadMomento = $p->cantidadActualizar;
+                    $p->save();
+                }
             }
-        }
+
     }
 }

@@ -81,6 +81,7 @@ Route::post('Pedidos/Detallles',[PedidosController::class,'storePedido'])
      ->name('Pedido.storePedido')->middleware('ProductoCantidad');
 Route::put('Pedidos/storePedidoListo/{p}',[PedidosController::class,'storePedidoListo'])
      ->name('Pedido.storePedidoListo');
+     
 Route::delete('Pedidos/{pedido}',[PedidosController::class,'destroy'])
      ->name('Pedido.destroy');
 Route::get('Pedido/{pe}/Detalle',[PedidosController::class,'mostrarDetalle'])

@@ -10,7 +10,7 @@ class Producto extends Model
 {
     use HasFactory;
     protected $primaryKey = 'id_producto';
-    public $timestamps = false;
+    //public $timestamps = false;
 
     public function tipo_productos(){
         //belongsTo{perteneces a} //metodo para recibir la forieng key

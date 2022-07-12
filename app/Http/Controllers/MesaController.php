@@ -54,11 +54,12 @@ class MesaController extends Controller
 
 
     public function edit(Mesa $Mesa){
-
-        $Mesa = Mesa::join('tipo_mesas',
-                      'tipo_mesas.id_tipo_mesa','=','mesas.id_tipo_mesa')
+ //dd($Mesa);
+        $Mesa = Mesa::join('tipo_mesas as t','t.id_tipo_mesa','=','mesas.id_tipo_mesa')
                       ->join('ambientes as a','a.id_ambiente','=','mesas.id_ambiente')
-                      ->where('nro_mesa',$Mesa->nro_mesa)->first();
+                      ->select('mesas.*','t.*','a.nombre','a.estado as estadoAmbiente')
+                      -> where('nro_mesa',$Mesa->nro_mesa)->first();
+        //dd($Mesa);
 
         $tipo = DB::table('tipo_mesas')->get();
         $ambiente = DB::table('ambientes')->get();
@@ -67,6 +68,7 @@ class MesaController extends Controller
     }
 
     public function update(Request $request,Mesa $Mesa){
+        //dd($request);
         $Mesa->estado = $request->estado;
         $Mesa->id_tipo_mesa = $request->mesa;
         $Mesa->id_ambiente = $request->Ubicacion;

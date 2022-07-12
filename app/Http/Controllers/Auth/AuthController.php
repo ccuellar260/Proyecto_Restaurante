@@ -14,7 +14,11 @@ use App\Models\marcar_turno;
 use App\Models\EmpleadoTurno;
 use App\Models\Turno;
 use App\Models\BitacoraSesion;
+use App\Models\Producto;
 use Illuminate\Support\Facades\DB;
+
+use App\Events\ResetearProductosEvent;
+use App\Events\ResetProductosEvent;
 
 
 class AuthController extends Controller
@@ -78,7 +82,8 @@ class AuthController extends Controller
     //////////////////////////////////////////////////////////////////
 
     // resetear automaticamente la cantidad disponible de los productos
-    event(new ResetProductosEvent(Producto::whereDate('updated_at', '<>',now())->get()));
+    //now())->get() Producto::whereDate('updated_at', '<>',"now")
+    event(new ResetProductosEvent());
 
     $bienvenida = 'Bienvenido '.(Auth::user()->nombre_usuario);
     //redirecciona a dashboard con una variable status
@@ -115,6 +120,10 @@ class AuthController extends Controller
 
 
    Public function dashboard(){
+    //evento para restablecer productos
+   // event(new ResetearProductosEvent());
+
+   event(new ResetProductosEvent());
     $user = Auth::user()->nombre_usuario;
     $empleado = Empleado::where('nombre_usuario',$user)->first();
     $marcaciones = marcar_turno::where('id_empleado',$empleado->ci)->get();
@@ -153,6 +162,9 @@ class AuthController extends Controller
 
         return redirect()->Route('Login')->with('statusLogout',"Haz cerrado session");
    }
+
+
+   
    public function marcarEntrada(marcar_turno $marcar_turno){
     $user = Auth::user()->nombre_usuario;
     $empleado = Empleado::where('nombre_usuario',$user)->first();

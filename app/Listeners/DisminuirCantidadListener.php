@@ -40,7 +40,7 @@ class DisminuirCantidadListener
             $cant = $event->cantidadB - $event->cantidadA;
             $pro->cantidadMomento = $pro->cantidadMomento - $cant;
         }
- 
+        //dd($pro);
         $pro->save();
     }
 }

@@ -4,8 +4,8 @@
 
     <!-- This is an example component -->
     <div class="max-w-2xl mx-auto bg-white p-10">
-
-        <form action="{{ Route('Empleado.store') }}" method="POST">
+                                            {{-- enctype="multipart/form-data"> // sirve para envair archivos  --}}
+        <form action="{{ Route('Empleado.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="w-full">
               <div class="xl:w-12/12 w-12/12 mx-0 xl:mx-0">
@@ -28,7 +28,7 @@
                       </div>
                       <div
                           class="w-20 h-20 rounded-full bg-cover bg-center bg-no-repeat absolute bottom-0 -mb-10 ml-12 shadow flex items-center justify-center">
-                          <img src="https://cdn.tuk.dev/assets/webapp/forms/form_layouts/form2.jpg" alt=""
+                          <img src="{{ asset('img/fotosEmpleados/perfil_falso.png') }}" alt=""
                               class="absolute z-0 h-full w-full object-cover rounded-full shadow top-0 left-0 bottom-0 right-0" />
                           <div class="absolute bg-black opacity-50 top-0 right-0 bottom-0 left-0 rounded-full z-0"></div>
                           <div class="cursor-pointer flex flex-col justify-center items-center z-10 text-gray-100">
@@ -40,13 +40,19 @@
                                   <path d="M9 15h3l8.5 -8.5a1.5 1.5 0 0 0 -3 -3l-8.5 8.5v3" />
                                   <line x1="16" y1="5" x2="19" y2="8" />
                               </svg>
-                              <p class="text-xs text-gray-100">Edit Picture</p>
+                           <label id="fotoxd" class="text-xs text-gray-100">Cargar Foto</label>
+
                           </div>
                       </div>
+
                   </div>
               </div>
           </div>
-            <div class="mt-12 grid gap-6 mb-6 lg:grid-cols-2">
+
+          <input type="file"class="text-xs text-gray-100" name="fotoxd" id="fotoxd">
+
+
+          <div class="mt-12 grid gap-6 mb-6 lg:grid-cols-2">
                 <div>
                     <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                         Nombre de usuario

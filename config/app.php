@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Facade;
 
 return [
+    //variables globales
+    'fechaActualizarProd' =>  '2022-07-9',
 
     /*
     |--------------------------------------------------------------------------

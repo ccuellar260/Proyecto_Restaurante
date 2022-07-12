@@ -32,6 +32,7 @@ class PedidosController extends Controller
     //public $pp = new ProductoController;
 
     public function index(){
+      //  event(new ResetProductosEvent());
 
         $user = Auth::user()->nombre_usuario;
         //mostrar solo pedidos por pagar
@@ -120,6 +121,10 @@ class PedidosController extends Controller
     public function destroy(Pedido $pedido){
         // hay q ver q atributos envia $pedido para enviar a la bitacora pedido
         // event (new BPedidoDeleteEvent($pedido));
+        $detalle = DetallePedido::where('id_pedido',$pedido->id_pedido)->get();
+        foreach ($detalle as $de) {
+            event(new DisminuirCantidadEvent($de->id_producto,$de->cantidad,0));
+        }
         $pedido->delete();
         return redirect()->Route('Pedido.index');
     }
@@ -156,15 +161,16 @@ class PedidosController extends Controller
 
     public function updatePedido( Request $r,Pedido $pe){
       //dd($r);
-      //reeplando las mesas en pedido
+      //reeplando las mesas en pedido, falta hacer un dave
         $pe->nro_mesa = $r->mro_mesa;
 
         //saco el array de procuito nuevos y produtos viejos!!
-        $todo_prod = Producto::get();
-        $detalle_prod = DB::table('detalle_pedidos')   //detalle producto
+        $todo_prod = $r->producto;
+        //dd($todo_prod);
+        $detalle_prod = DB::table('detalle_pedidos')   //detalles de pedido anterior
                     ->where('id_pedido',$pe->id_pedido)
                     ->get();
-                    //dd($todo_prod);
+        //dd($detalle_prod);
         //hacer un marcador para verifcar si ya se paso por ahi
         $macado= [];
         for ($i=0; $i < count($todo_prod); $i++) {
@@ -173,11 +179,11 @@ class PedidosController extends Controller
 
         foreach ( $detalle_prod as $de ) {
             $ban = false;
-            //detalle prod esta dentro de todo prod ???
+            //detalle prod esta dentro del nuevo procutpo todo prod ???
             for ($i=0; $i < count($todo_prod) ; $i++) {  //recorrer todo pro
                 //es igual a detalle prod??
                 //dd($de);
-                if(($de->id_producto == $todo_prod[$i]->id_producto)and ($r->cantidad[$i]>0)){
+                if(($de->id_producto == $todo_prod[$i])and ($r->cantidad[$i]>0)){
                   // remplazar;
                  // dd($r->cantidad[$i]);
 
@@ -186,26 +192,33 @@ class PedidosController extends Controller
                         $detalle = DetallePedido::where('id_producto',$de->id_producto)
                                                 ->where('id_pedido',$pe->id_pedido)
                                                 ->first();
-                        //d($detalle);
-                        //implementar el triggers
                         event(new DisminuirCantidadEvent($de->id_producto,$detalle->cantidad,$r->cantidad[$i]));
                         $detalle->cantidad = $r->cantidad[$i];
-                        $detalle->precio =  (float)$todo_prod[$i]->precio * (float)$r->cantidad[$i];
+                        $prod = Producto::where('id_producto',$todo_prod[$i])
+                                    ->first();
+                        $detalle->precio =  (float)$prod->precio * (float)$r->cantidad[$i];
                         $detalle->save();
+                        //dd($detalle);
+
                     }
                     $macado[$i] = 'marcado';
                     $ban = true;
                     break;
                 }
 
+
+
             }//end for de todo pro
 
-
+            // =false, $de no esta dentro de todo pro, eliminarlo
             if ($ban == false) { //no se encontro que este dentro de todo pro // se debe eliminar
-                $detalle = DetallePedido::where('id_producto',$de->id_productoo)
+                $detalle = DetallePedido::where('id_producto',$de->id_producto)
                                         ->where('id_pedido',$pe->id_pedido)
                                         ->first();
                 $detalle->delete();
+                event(new DisminuirCantidadEvent($de->id_producto,$detalle->cantidad,0));
+
+
             }
 
         }// end for principal
@@ -215,9 +228,11 @@ class PedidosController extends Controller
             if (($macado[$i] == 'no marcado')and($r->cantidad[$i]>0)  ) {
                 $detalle = new DetallePedido();
                 $detalle->cantidad = $r->cantidad[$i];
-                $detalle->precio =  (float)$todo_prod[$i]->precio * (float)$r->cantidad[$i];
+                $prod = Producto::where('id_producto',$todo_prod[$i])
+                                    ->first();
+                $detalle->precio =  (float)$prod->precio * (float)$r->cantidad[$i];
                 $detalle->id_pedido = $pe->id_pedido;
-                $detalle->id_producto = $todo_prod[$i]->id_producto;
+                $detalle->id_producto = $todo_prod[$i];
                 $detalle->save();
             }
         }

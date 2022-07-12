@@ -72,9 +72,9 @@ class TurnoController extends Controller
      */
     public function edit($id)
     {
-        //
 
         $turno = Turno::find($id);
+        //dd($turno);
         return view('VistasTurno.edit', compact('turno'));
     }
 
@@ -87,7 +87,7 @@ class TurnoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        //dd($request);
         $turno = Turno::find($id);
         $turno->descripcion = $request->descripcion;
         $turno->hora_entrada = $request->hora_entrada;

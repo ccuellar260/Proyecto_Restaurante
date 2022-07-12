@@ -37,8 +37,11 @@ use App\Listeners\BPedidoCreateListener;
 use App\Listeners\BPedidoEditListener;
 use App\Listeners\BPedidoDeleteListener;
 
+//resetear producto
 use App\Events\ResetProductosEvent;
 use App\Listeners\ResetProductosListener;
+use App\Events\ResetearProductosEvent;
+use App\Listeners\ResetearProductosListener;
 
 //libreria de crish
 use App\Events\DisminuirCantidadEvent;
@@ -74,6 +77,10 @@ class EventServiceProvider extends ServiceProvider
         // volver a su estado del cual empezo la cantidad de los productos
         ResetProductosEvent::class =>[
             ResetProductosListener::class,
+        ],
+
+        ResetearProductosEvent::class =>[
+            ResetearProductosListener::class,
         ],
 
         //conexion eventos y listener de bitacora cliente

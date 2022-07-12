@@ -318,13 +318,27 @@
 
                                         <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
                                             @if (Auth()->user()->id_rol != 3)
-                                                <form action="" method="POST">
-                                                    @csrf
-                                                    @method('PUT')
+                                            {{-- div para odenar los botones! --}}
+                                            <div class="flex ">
                                                     <button
-                                                        class="mr-2 text-sm bg-red-700 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
-                                                        type="submit">{{ $p->estado }}</button>
-                                                </form>
+                                                        class="mr-2 text-sm bg-red-700 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">
+                                                        {{ $p->estado }}
+                                                    </button>
+
+
+                                                    <form action="{{ Route('Pedido.destroy', $p->id_pedido) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button
+                                                            class="mr-2 text-sm bg-red-700 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline" type="submit" onclick="return confirm('Desea Eliminar?')">
+                                                            Cancelar
+                                                        </button>
+
+                                                    </form>
+                                            </div>
+
+
                                             @else
                                                 <form action="{{ Route('Pedido.StoreRealizarPago', $p->id_pedido) }}"
                                                     method="POST">

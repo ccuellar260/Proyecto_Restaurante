@@ -1,11 +1,11 @@
 @extends('navegador')
-@section('Imagen')
+{{-- @section('Imagen')
 {{$empleado->foto}}
 @endsection
 
 @section('nombre')
 {{$empleado->nombre_completo}}
-@endsection
+@endsection --}}
 
 @section('Contenido')
 
@@ -107,11 +107,11 @@
                     <div class=" flex flex-col justify-center items-center">
                         <div class="w-32 h-32 rounded-full bg-gray-300 border-2 border-white mt-2">
                             <img
-                            src="{{$empleado->foto}}"
+                            src="{{asset('img/fotosEmpleados/'.$empleado->foto)}}"
                             class="rounded-full w-auto"
                             />
                         </div>
-                        <p class="font-semibold text-xl mt-1">{{$empleado->nombre_completo}}  </p>
+                        <p class="font-semibold text-xl mt-1">{{ucwords($empleado->nombre_completo)}}  </p>
                         <p class="font-semibold text-base text-gray-400">{{$rol->nombre}}</p>
 
                         <div class="relative  p-4 rounded-lg shadow-xl w-full bg-cover bg-center h-32 mt-4"

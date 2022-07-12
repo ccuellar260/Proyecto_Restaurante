@@ -36,7 +36,7 @@ class EmpleadoController extends Controller
     }
 
     public function store(Request $request,Empleado $Empleado){
-
+        //dd($request);
         //validacion, sino cumple retorna a la vista anterior
         // $request->validate([
         //     'usuario' => 'required',
@@ -60,7 +60,18 @@ class EmpleadoController extends Controller
         $table->ci = $request->ci;
         $table->nombre_completo = $request->nombre_completo;
         $table->telefono = $request->telefono;
-        $table->foto = $request->foto;
+        //existe algun imagen en la fotoxd
+        if($request->hasFile('fotoxd')){
+           $file = $request->file('fotoxd'); //guardar toda la info la foto en file
+           $capetaDestino = 'img/fotosEmpleados/';  //carpeta de destino
+           $nombreArchivo = time().'-'.$file->getClientOriginalName();//de file sacame el nombre
+           //mover la foto a la capeta de destino y su nombre
+           //dd($nombreArchivo);
+           $subirImagen = $request->file('fotoxd')->move($capetaDestino,$nombreArchivo);
+        }else{
+            $nombreArchivo = "perfil_falso.png";
+        }
+        $table->foto = $nombreArchivo;
         $table->nombre_usuario = $request->usuario;
         $table->save();
 
@@ -92,11 +103,18 @@ class EmpleadoController extends Controller
         ]);
         */
 
+        //dd($request);
         $user = User::where('nombre_usuario',$Empleado->nombre_usuario)->first();
         $user->correo_electronico = $request->correo;
         $user->save();
 
-        // $Empleado->ci = $request->ci;
+        if($request->hasFile('foto')){
+            $file = $request->file('foto'); //guardar toda la info la foto en file
+            $capetaDestino = 'img/fotosEmpleados/';  //carpeta de destino
+            $nombreArchivo = time().'-'.$file->getClientOriginalName();//de file sacame el nombre
+            $subirImagen = $request->file('foto')->move($capetaDestino,$nombreArchivo);
+            $Empleado->foto = $nombreArchivo;
+        }
         $Empleado->nombre_completo = $request->nombre_completo;
         $Empleado->telefono = $request->telefono;
         $Empleado->save();

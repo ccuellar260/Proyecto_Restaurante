@@ -1,30 +1,34 @@
 @extends('navegador')
 
 @section('Contenido')
-    <div class="flex items-center justify-center p-12 ">
-        <div class="mx-auto w-full max-w-[550px] bg-white px-8 py-6 rounded-md">
-            <h1 class="text-center font-bold text-3xl">EDITAR EMPLEADO</h1>
-            <form action="{{ Route('Empleado.update', $fila->ci) }}" method="POST">
+    <div class="flex items-center justify-center ">
+        <div class="mx-auto w-full max-w-[650px] bg-white px-8 py-6 rounded-md">
+            <h1 class="mb-7 text-center font-bold text-3xl">EDITAR EMPLEADO</h1>
+            <form action="{{ Route('Empleado.update', $fila->ci) }}" method="POST"  enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
-                <div class="grid gap-2 grid-cols-2">
-                    <div
-                        class="w-20 h-20 rounded-full bg-cover bg-center bg-no-repeat absolute bottom-0 -mb-10 ml-12 shadow flex items-center justify-center">
-                        <img src="{{ $fila->foto }}" alt=""
-                            class="absolute z-0 h-full w-full object-cover rounded-full shadow top-0 left-0 bottom-0 right-0" />
-                        <div class="absolute bg-black opacity-50 top-0 right-0 bottom-0 left-0 rounded-full z-0"></div>
-                        <div class="cursor-pointer flex flex-col justify-center items-center z-10 text-gray-100">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-edit" width="20"
-                                height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <path stroke="none" d="M0 0h24v24H0z" />
-                                <path d="M9 7 h-3a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-3" />
-                                <path d="M9 15h3l8.5 -8.5a1.5 1.5 0 0 0 -3 -3l-8.5 8.5v3" />
-                                <line x1="16" y1="5" x2="19" y2="8" />
-                            </svg>
-                            <p class="text-xs text-gray-100">Edit Picture</p>
-                        </div>
+
+
+                {{-- <div
+                    class="w-20 h-20 rounded-full bg-cover bg-center bg-no-repeat absolute bottom-0 -mb-10 ml-12 shadow flex items-center justify-center">
+                    <img src="{{ $fila->foto }}" alt=""
+                        class="absolute z-0 h-full w-full object-cover rounded-full shadow top-0 left-0 bottom-0 right-0" />
+                    <div class="absolute bg-black opacity-50 top-0 right-0 bottom-0 left-0 rounded-full z-0"> </div>
+                    <div class="cursor-pointer flex flex-col justify-center items-center z-10 text-gray-100">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-edit" width="20"
+                            height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" />
+                            <path d="M9 7 h-3a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-3" />
+                            <path d="M9 15h3l8.5 -8.5a1.5 1.5 0 0 0 -3 -3l-8.5 8.5v3" />
+                            <line x1="16" y1="5" x2="19" y2="8" />
+                        </svg>
+                        <p class="text-xs text-gray-100">Edit Picture</p>
                     </div>
+            </div> --}}
+
+                <div class="grid gap-2 grid-cols-2">
+
                     <div class="mb-5">
                         <label for="usuario" class="mb-3 block text-base font-medium text-[#07074D]">
                             Usuario:
@@ -34,17 +38,35 @@
                             class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                             readonly />
                     </div>
+
+                    <div class="mb-5 mx-10">
+                        <div class="grid gap-1 grid-cols-2 ">
+                            <div>
+                                <label for="foto" class="mb-3 block text-base font-medium text-[#07074D]">
+                                    Foto:
+                                </label>
+                            </div>
+                            <div>
+                                <input type="file"class="text-xs text-gray-100" name="foto" id="foto">
+                            </div>
+                        </div>
+                    <img src="{{ asset('img/fotosEmpleados/'.$fila->foto) }}" alt="" width="240px" for="foto"
+                        class="mx-10 mt-2 absolute  object-cover rounded-full shadow w-32 h-32 ring-4 ring-gray-300"/>
+                    </div>
+
+
                     <div class="mb-5">
                         <label for="correo" class="mb-3 block text-base font-medium text-[#07074D]">
                             Correo:
-
                         </label>
                         <input type="email" name="correo" value="{{ $fila->correo_electronico }}" id="correo"
                             placeholder=""
                             class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
                     </div>
+                </div>
 
 
+                <div class="grid gap-2 grid-cols-2">
                     <div class="mb-5">
                         <label for="contra_new" class="mb-3 block text-base font-medium text-[#07074D]">
                             Contrasena Nueva:

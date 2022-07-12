@@ -30,7 +30,7 @@ class ProductoController extends Controller
         ->select('productos.*','tipo_productos.Categoria')
         ->get();
 
-    
+
 
         return view('VistasProductos.index', compact('tabla'));
     }
@@ -89,8 +89,14 @@ class ProductoController extends Controller
      */
     public function edit(Producto $Producto)
     {
+        //dd($Producto);
         $tipo = DB::table('tipo_productos')->get();
-        return view('VistasProductos.edit',['Producto'=>$Producto,'tipo'=>$tipo]);
+        $tipoPlato = DB::table('tipo_productos')
+                     ->where('id_tipo_plato',$Producto->id_tipo_plato)->first();
+                  //   dd($tipoPlato);
+        return view('VistasProductos.edit',['Producto'=>$Producto,
+                                            'tipo'=>$tipo,
+                                            'tipoPlato'=>$tipoPlato]);
     }
 
     /**
@@ -107,6 +113,8 @@ class ProductoController extends Controller
         $Producto->descripcion = $request->descripcion;
         $Producto->url = $request->url;
         $Producto->precio = $request->precio;
+        $Producto->cantidadMomento = $request->cantidadM;
+        $Producto->cantidadMomento = $request->cantidadA;
         $Producto->id_tipo_plato = $request->tipo;
         $Producto->save();
 

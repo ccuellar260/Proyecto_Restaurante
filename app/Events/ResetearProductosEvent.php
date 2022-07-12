@@ -10,7 +10,7 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class ResetProductosEvent
+class ResetearProductosEvent
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -19,11 +19,13 @@ class ResetProductosEvent
      *
      * @return void
      */
-
-   // public $resertproducto;
+    public $fechaAntes;
+    public $fechaActual;
+    
     public function __construct()
     {
-       // $this->resertproducto = $resertproducto;
+        $this->fechaAntes = config('app.fechaActualizarProd');
+        $this->fechaActual= date('Y-m-d');
     }
 
     /**

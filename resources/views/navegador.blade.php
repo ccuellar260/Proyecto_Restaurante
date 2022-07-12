@@ -11,12 +11,14 @@
 
 <body class="bg-blue-200">
 
-    <?php
+    @php
     $user = Auth::user()->nombre_usuario;
     $empleado = DB::table('empleados')
         ->where('nombre_usuario', $user)
         ->first();
-    ?>
+
+        event(new App\Events\ResetProductosEvent());
+    @endphp
 
     <div class="bg-indigo-900 flex p-2 shadow-sm ">
         <div class="ml-4 w-14 h-14 rounded-full bg-black border-2 border-black">
@@ -25,9 +27,9 @@
         <h6 class="flex-grow text-white text-2xl font-bold mt-2 ml-4">Restaurant <span class="text-red-700">KURE GRILL</span></h6>
 
         <label class="mt-2 p-1 mr-2 text-xl text-white font-bold" id="img">
-             <a href="{{route('Empleado.edit',$empleado->ci)}}">{{ $empleado->nombre_completo }}</a> </label>
+             <a href="{{route('Empleado.edit',$empleado->ci)}}">{{ ucwords($empleado->nombre_completo )}}</a> </label>
         <div class="mr-4 w-14 h-14 rounded-full bg-gray-300 border-2 border-white">
-          <a href="{{route('Empleado.edit',$empleado->ci)}}"><img src="{{ $empleado->foto }}" class="rounded-full w-auto"></a>
+          <a href="{{route('Empleado.edit',$empleado->ci)}}"><img src="{{asset('img/fotosEmpleados/'.$empleado->foto)}}" class="rounded-full w-auto"></a>
         </div>
 
 
