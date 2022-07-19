@@ -184,6 +184,7 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
 
+
         /*
          * Package Service Providers...
          */
@@ -211,6 +212,7 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
+        'PDF' =>Barryvdh\DomPDF\Facade::Class,
         // 'ExampleClass' => App\Example\ExampleClass::class,
     ])->toArray(),
 

@@ -27,7 +27,31 @@
 
             <div class="inline-block relative">
             <label class="text-gray-500 dark:text-gray-300" for="">Seleccion el Nro Mesa:</label>
-                <select name="mesa" id=""
+            <br>
+                    @if (Auth()->user()->id_rol == 1)
+                        @foreach ($mesasAdmin as $m)
+                            @if ($m->estado == 'Disponible')
+                                <input type="radio" name="mesa" id="" value="{{ $m->nro_mesa }}">
+                                <span>{{ $m->nro_mesa }}</span> <br>
+                            @else
+                                <input type="radio" name="mesa" id="" value="{{ $m->nro_mesa }}" disabled>
+                                <span>{{ $m->nro_mesa }}</span> <br>
+                            @endif
+                        @endforeach
+                    @else
+                        @foreach ($mesas as $m)
+                            @if ($m->estado == 'Disponible')
+                                <input type="radio" name="mesa" id="" value="{{ $m->nro_mesa }}">
+                                <span>{{ $m->nro_mesa }}</span> <br>
+                            @else
+                                <input type="radio" name="mesa" id="" value="{{ $m->nro_mesa }}" disabled>
+                                <span>{{ $m->nro_mesa }}</span> <br>
+                            @endif
+                        @endforeach
+                    @endif
+
+
+                <!-- <select name="mesa" id=""
                     class="
                         inline-block w-24 md:w-24 bg-gray-900 text-white text-base md:text-xl
                         font-bold h-full appearance-none px-4 py-1 pr-8 rounded-lg shadow
@@ -43,7 +67,7 @@
                             </option>
                         @endforeach
                     @endif
-                </select>
+                </select> -->
             </div>
 
             <div class=" ml-10 space-x-8">
@@ -55,10 +79,13 @@
                     Realizar pedido
                 </button>
             </div>
+
         </div>
         </form>
 
-
+        <div>
+            @include('VistasPedido.ModelListaMesas')
+          </div>
 
 
 
@@ -359,5 +386,7 @@
             </div>
         </div>
     </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
 
 @endsection

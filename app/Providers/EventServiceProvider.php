@@ -48,6 +48,8 @@ use App\Events\DisminuirCantidadEvent;
 use App\Listeners\DisminuirCantidadListener;
 use App\Events\PrecioTotalEvent;
 use App\Listeners\PrecioTotalListener;
+use App\Events\CambioContrasenaEvent;
+use App\Listeners\CambioContrasenaListener;
 
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -65,6 +67,12 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+
+        //notificar que debe cambiar su contrasena //hecho por cris
+        CambioContrasenaEvent::class => [
+            CambioContrasenaListener::class,
+        ],
+
         //dismunir la cantidad de productos //hecho por cris
         DisminuirCantidadEvent::class => [
             DisminuirCantidadListener::class,

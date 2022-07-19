@@ -98,6 +98,7 @@
                                         </a>
                                     </button>
 
+
                                     <button type="button"
                                         class="mr-2 text-sm bg-red-700 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">
                                         <form action="{{Route('Reserva.destroy',$reserva->id_reserva)}}}" method="POST">
@@ -111,6 +112,25 @@
                                             <!-- volver a preguntar si desea eliminar -->
                                         </form>
                                     </button>
+
+
+
+
+
+
+
+
+
+                                    <form action="{{ Route('Pedido.storexd') }}" method="POST">
+                                        @csrf
+
+                                                <input  type="hidden" name="mesa" value="{{ $reserva->nro_mesa }}">
+                                                <button type="submit"
+                                                    class="bg-indigo-600 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer">
+                                                    Realizar pedido
+                                                </button>
+
+                                    </form>
                                 </div>
                                 </td>
                             </tr>

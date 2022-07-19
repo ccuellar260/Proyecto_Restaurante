@@ -57,7 +57,7 @@
                     <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                         Nombre de usuario
                     </label>
-                    <input type="text" id="name" name="usuario"
+                    <input type="text" id="name" name="usuario" value="{{old('usuario')}}"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         placeholder="ingrese usuario" required />
                     @error('usuario')
@@ -69,7 +69,7 @@
                         Seleccionar Rol
                     </label>
                     <select name="Rol" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    >
+                    value="{{old('Rol')}}">
 
                         @foreach ($Rol as $f)
                             <option value='{{ $f->id_rol }}''>{{ $f->nombre }}</option>
@@ -79,41 +79,55 @@
                 <div>
                     <label for="email"
                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Email</label>
-                    <input type="email" id="email" name="correo"
+                    <input type="email" id="email" name="correo" value="{{old('cooreo')}}"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         placeholder="example@domain.com" required>
+                        @if (session('correo'))
+                            <label class="text-red-500"> <b>*{{ session('correo') }}</b> </label>
+                        @endif
                 </div>
                 <div>
                     <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                         Contraseña</label>
-                    <input type="password" id="password" name="contrasena"
+                    <input type="password" id="password" name="contrasena" value="{{old('contrasena')}}"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         placeholder="***********" required/>
                 </div>
                 <div>
                     <label for="ci" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                         C.I.:</label>
-                    <input type="number" id="email" name="ci"
+                    <input type="number" id="email" name="ci" value="{{old('ci')}}"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         placeholder="" required>
                 </div>
                 <div>
                     <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                         Telefono</label>
-                    <input type="number" id="telefono" name="telefono"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        placeholder="" required>
+                    <input type="number" id="telefono" name="telefono" value="{{old('telefono')}}"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                 </div>
             </div>
             <div class="mb-6">
                 <label for="nombre_completo" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                     Nombre completo</label>
-                <input type="text" id="nombre_completo" name="nombre_completo"
+                <input type="text" id="nombre_completo" name="nombre_completo" value="{{old('nombre_completo')}}"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="" required>
             </div>
-            <button type="submit"
-                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Enviar</button>
+            <div class="flex justify-between">
+                        <div>
+                            <button
+                                class="hover:shadow-form rounded-md bg-[#6A64F1] py-3 px-8 text-base font-semibold text-white outline-none">
+                                <a href="{{ route('Empleado.index') }}">Volver</a>
+                            </button>
+                        </div>
+                        <div>
+                            <button type="submit"
+                                class="hover:shadow-form rounded-md bg-[#6A64F1] py-3 px-8 text-base font-semibold text-white outline-none">
+                                Enviar
+                            </button>
+                        </div>
+            </div>
         </form>
     </div>
 @endsection

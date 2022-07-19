@@ -76,7 +76,8 @@
                         @foreach ($tabla as $r)
                             <tr>
                                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
-                                    <img  width="80" src="{{$r->url}}">
+                                    <img  width="80" height="80"
+                                    src="{{asset('img/fotosProductos/'.$r->url)}}">
                                 </td>
                                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
                                     <p class="text-gray-900 whitespace-no-wrap"> {{$r->id_producto}} </p>

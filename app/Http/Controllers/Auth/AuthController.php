@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\DB;
 
 use App\Events\ResetearProductosEvent;
 use App\Events\ResetProductosEvent;
+use App\Events\CambioContrasenaEvent;
 
 
 class AuthController extends Controller
@@ -90,17 +91,35 @@ class AuthController extends Controller
 
 
    Public function dashboard(){
-   event(new ResetProductosEvent());
+
+    // $user = User::where('nombre_usuario',$event->user)->first();
+    //     $fecha1= $user->fecha_cambio_contra;
+    //   //  $fecha2 = date('Y-m-d');
+    //     $fecha2 = "2022-09-19";
+
+    //     $diferencia = date_diff(date_create($fecha1), date_create($fecha2))->format('%R%a');
+    //   //  dd($diferencia);
+    //     if(intval($diferencia) > 15){
+    //         dd('entre');
+    //     }dd('no entre');
+
+ //   event(new CambioContrasenaEvent($user));
+    event(new ResetProductosEvent());
     $user = Auth::user()->nombre_usuario;
     $empleado = Empleado::where('nombre_usuario',$user)->first();
     $marcaciones = marcar_turno::where('id_empleado',$empleado->ci)->get();
     $empleado_turno = EmpleadoTurno::where('id_empleado',$empleado->ci)->first();
     $turno = Turno::where('id_turno',$empleado_turno->id_turno)->first();
-
-
     $rol= Rol::where('id_rol',Auth::user()->id_rol)->first();
 
-    return view('VistasAuth.dashboard',compact('empleado','rol','marcaciones','turno'));
+
+   $fecha1= Auth::user()->fecha_cambio_contra;
+    //  $fecha2 = date('Y-m-d');
+    $fecha2 = "2022-12-19";
+    $diferencia = date_diff(date_create($fecha1), date_create($fecha2))->format('%R%a');
+
+
+    return view('VistasAuth.dashboard',compact('empleado','rol','marcaciones','turno','diferencia'));
   }
 
    public function logout(Request $r){

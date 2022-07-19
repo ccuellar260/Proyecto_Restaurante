@@ -115,4 +115,4 @@ Bs {{$d->precio}}
             </div>
         </div>
     </div>
-</td>
+

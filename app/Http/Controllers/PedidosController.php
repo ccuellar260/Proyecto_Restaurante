@@ -7,6 +7,10 @@ use Illuminate\Support\Facades\Auth; //para saber con que usuario estamos loguea
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Builder;
 
+//domPDF
+use PDF;
+
+
 //eventos depedido
 use App\Events\BPedidoEditEvent;
 use App\Events\BPedidoDeleteEvent;
@@ -47,7 +51,8 @@ class PedidosController extends Controller
 
         $mesas = DB::table('mesas')->where('estado','Disponible')
                      ->where('ci_empleado',$empleado->ci)->get();
-        $mesasAdmin = DB::table('mesas')->where('estado','Disponible')->get();
+       // $mesasAdmin = DB::table('mesas')->where('estado','Disponible')->get();
+        $mesasAdmin = DB::table('mesas')->get();
 
         $clientes = DB::table('clientes')->get();
         $detalles = DetallePedido::join('productos','detalle_pedidos.id_producto','=','productos.id_producto')
@@ -62,7 +67,7 @@ class PedidosController extends Controller
     }
 
     public function crear_pedido(Mesa $mesa){
-      //  dd( $mesa);
+        //dd( $mesa);
         //$producto = Producto::get();
         //metodo where (recibe el atributo,recibo la variable de comparacion)
         $platos = DB::table('productos')->where('id_tipo_plato',1)->get();
@@ -318,10 +323,34 @@ class PedidosController extends Controller
               ->select('detalle_pedidos.*','p.nombre','p.precio as prod_precio')
               ->where('id_pedido',$recibo->id_pedido)->get();
           //  ->where('id_pedido',$recibo->id_pedido)
-          return view('VistasPedido.generarRecibo',
-                 compact('recibo','detalles'));
+
+          return view('VistasPedido.pdfRecibo',
+          compact('recibo','detalles'));
     }
 
+    public function pdf(Request $r){
+        // join recibo con cliente
+        $recibo = Recibo::where('id_recibo',$r->recibo)->first();
+        // dd($recibo);
+        $recibo = Recibo::join('clientes','clientes.ci','=', 'recibos.ci_cliente')
+            ->join('pedidos','pedidos.id_pedido','=', 'recibos.id_pedido')
+            ->where('pedidos.id_pedido',$recibo->id_pedido)
+            ->where('ci', $recibo->ci_cliente)->first();
+
+        $detalles = DetallePedido::join('productos as p','detalle_pedidos.id_producto','=','p.id_producto')
+        ->select('detalle_pedidos.*','p.nombre','p.precio as prod_precio')
+        ->where('id_pedido',$recibo->id_pedido)->get();
+
+        $todos = [
+            'detalles' => $detalles,
+            'recibo' => $recibo
+        ];
+        //  dd($todos);
+
+        $pdf = PDF::loadView('VistasPedido.pdfRecibo');
+                //dd($pdf);
+        return $pdf->stream();
+    }
     //-- bitacora pedidos -----------------------------------------------------------//
     public function bitacoraPedidos(){
 
@@ -366,6 +395,15 @@ class PedidosController extends Controller
 
 
         return view('VistasPedido.bitacoraPedidos',compact('pedido'));
+
+    }
+
+
+
+    public function pdfxd(){
+        $pdf = PDF::loadView('formulario');
+       // dd($pdf);
+        return $pdf->stream();
 
     }
 }

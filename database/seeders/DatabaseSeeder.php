@@ -150,7 +150,7 @@ class DatabaseSeeder extends Seeder
         $e->id_producto = 10;
         $e->nombre = 'Pique Macho';
         $e->descripcion = 'asdfg';
-        $e->url = 'https://chipabythedozen.com/wp-content/uploads/2020/07/pique-de-macho-2-1-700x531.png';
+        $e->url = 'pique-de-macho-2-1-700x531.png';
         $e->precio = '15';
         $e->cantidadMomento = 40;
         $e->cantidadActualizar = 40;
@@ -161,7 +161,7 @@ class DatabaseSeeder extends Seeder
         $e->id_producto = 20;
         $e->nombre = 'Chicharon';
         $e->descripcion = 'asdfg';
-        $e->url = 'https://sofia.com.bo/wp-content/uploads/2021/06/chicharron_cerdo_yo_chef.jpg';
+        $e->url = 'chicharron_cerdo_yo_chef.jpg';
         $e->precio = '20';
         $e->cantidadMomento = 40;
         $e->cantidadActualizar = 40;
@@ -172,7 +172,7 @@ class DatabaseSeeder extends Seeder
         $e->id_producto = 30;
         $e->nombre = 'Sopa de Mani';
         $e->descripcion = 'asdfgh';
-        $e->url = 'https://comidasbolivianas.org/wp-content/uploads/2020/09/sopa-de-mani-comida-boliviana-480x270.jpg';
+        $e->url = 'sopa-de-mani-comida-boliviana-480x270.jpg';
         $e->precio = '10';
         $e->cantidadMomento = 40;
         $e->cantidadActualizar = 40;
@@ -183,7 +183,7 @@ class DatabaseSeeder extends Seeder
         $e->id_producto = 40;
         $e->nombre = 'Coca Cola';
         $e->descripcion = 'asdfgty';
-        $e->url = 'https://loccopizzaoporto.es/wp-content/uploads/2019/03/Coca-Cola-Bottle-2L-1-1.jpg';
+        $e->url = 'Majadito.jpg';
         $e->precio = '10';
         $e->cantidadMomento = 30;
         $e->cantidadActualizar = 30;
@@ -194,7 +194,7 @@ class DatabaseSeeder extends Seeder
         $e->id_producto = 50;
         $e->nombre = 'Sprite';
         $e->descripcion = 'asdfgh';
-        $e->url = 'https://i1.wp.com/veryperu.com/wp-content/uploads/2020/06/2.5-lts-2.jpg';
+        $e->url = '2.5-lts-2.jpg';
         $e->precio = '10';
         $e->cantidadMomento = 30;
         $e->cantidadActualizar = 30;
@@ -205,7 +205,7 @@ class DatabaseSeeder extends Seeder
         $e->id_producto = 60;
         $e->nombre = 'Gelatina';
         $e->descripcion = 'asdfghj';
-        $e->url = 'https://www.lavanguardia.com/files/image_948_465/files/fp/uploads/2020/09/08/5f5751abd0d13.r_d.633-427-8027.jpeg';
+        $e->url = '5f5751abd0d13.r_d.633-427-8027.jpeg';
         $e->precio = '3';
         $e->cantidadMomento = 10;
         $e->cantidadActualizar = 10;
@@ -216,7 +216,7 @@ class DatabaseSeeder extends Seeder
         $e->id_producto = 70;
         $e->nombre = 'Budin';
         $e->descripcion = 'asdfg';
-        $e->url = 'https://www.recetasderechupete.com/wp-content/uploads/2020/11/Pudin-de-pan-casero-2-768x514.jpg';
+        $e->url = 'Pudin-de-pan-casero-2-768x514.jpg';
         $e->precio = '3';
         $e->cantidadMomento = 10;
         $e->cantidadActualizar = 10;

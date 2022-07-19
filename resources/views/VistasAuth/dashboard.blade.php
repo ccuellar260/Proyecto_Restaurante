@@ -14,8 +14,23 @@
 
         <div class=" grid grid-cols-12 gap-0">
             <div class="col-span-12 sm:col-span-12 md:col-span-12 lg:col-span-8 xxl:col-span-8 px-6 py-6">
+                @if ($diferencia > 15)
+                <div class="grid flex  max-w-3xl">
+                    <div class=" max-w-max  p-2 flex space-x-2 rounded-3xl ">
+                    <img class="w-6 h-6 rounded-xl  "
+                          src="{{asset('img/advertencia.png')}}"
+                          class="rounded-full w-auto"/>
+                        <p class="text-red-700 p-1 font-semibold">{{'Se recomienda cambiar su contrasena cada 15 dias'}}</p>
+                        @include('VistasAuth.ModelCambioContra')
+
+                    </div>
+
+                </div>
+
+                @endif
 
                 <div>
+                    <a href="{{Route('Pedido.pdfxd')}}">Ver pdf</a>
                      <h1>bienvenido {{Auth::user()->nombre_usuario}} a dashboard!!</h1>
                      <h1>bienvenido {{$empleado->nombre_completo}} a dashboard!!</h1>
                 </div>

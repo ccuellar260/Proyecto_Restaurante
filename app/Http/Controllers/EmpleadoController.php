@@ -38,15 +38,9 @@ class EmpleadoController extends Controller
     public function store(Request $request,Empleado $Empleado){
         //dd($request);
         //validacion, sino cumple retorna a la vista anterior
-        // $request->validate([
-        //     'usuario' => 'required',
-        //     'Rol'     => 'required',
-        //     'correo'  => 'required',
-        //     'contrasena'=> 'required',
-        //     'ci'        => 'required',
-        //     'nombre_completo'=> 'required',
-        //     'telefono' => 'required',
-        // ]);
+        $request->validate([
+            'telefono' => 'nullable|numeric'
+        ]);
 
         $us = new User;
         $us->nombre_usuario= $request->usuario;
@@ -98,11 +92,11 @@ class EmpleadoController extends Controller
         // El campo correo_electronico es requerido con el formato email y es unico de la tabla usuario en el campo correo_electronico
         // lo ultimo es una condicion para que al actualizar el correo no podamos poner el correo existente de otro usuario.
 
-        /*
-        $request->validate([
-            'correo_electronico'   =>  'required|email|unique:User,correo_electronico,'.$user->nombre_usuario.',nombre_usuario',
-        ]);
-        */
+
+        // $request->validate([
+        //     'correo_electronico'   =>  'required|email|unique:User,correo_electronico,'.$user->nombre_usuario.',nombre_usuario'
+        // ]);
+
 
         //dd($request);
         $user = User::where('nombre_usuario',$Empleado->nombre_usuario)->first();

@@ -38,29 +38,13 @@
                 <div class="form-group">
                     <label for="nro_mesa">Nro. de Mesa</label><br>
                     <div >
-                        {{-- @foreach ($mesas as $mesa)
-                             @if ($mesa->mesa == 'Mesa para 2 personas')
-                                    Mesa para 2 personas <br>
-                                <input type="checkbox" name="nro_mesa[]" value="{{ $mesa->nro_mesa }}"> {{ $mesa->nro_mesa }}<br>
-                            @elseif ($mesa->mesa == 'Mesa para 4 personas')
-                                    Mesa para 4 personas <br>
-                                <input type="checkbox" name="nro_mesa[]" value="{{ $mesa->nro_mesa }}"> {{ $mesa->nro_mesa }}<br>
-                            @elseif ($mesa->mesa == 'Mesa para 6 personas')
-                                    Mesa para 6 personas <br>
-                                <input type="checkbox" name="nro_mesa[]" value="{{ $mesa->nro_mesa }}"> {{ $mesa->nro_mesa }}<br>
-                            @endif
-                        @endforeach --}}
-                        
                         <select id="mesa" name="mesa"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         required>
                         @foreach ($mesas as $m)
                             {{-- @if ($mesa->mesa == 'Mesa para 2 personas')
                             Mesa para 2 personas <br> --}}
-                      <option value="{{ $m->nro_mesa  }}">{{ $m->nro_mesa }} </option>
-
-
-
+                             <option value="{{ $m->nro_mesa  }}">{{ $m->nro_mesa }} </option>
                         @endforeach
                     </select>
                     </div>

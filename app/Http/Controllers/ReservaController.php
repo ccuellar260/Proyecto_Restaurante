@@ -49,9 +49,9 @@ class ReservaController extends Controller
         ->join('clientes','reservas.ci_cliente','=','clientes.ci')
         ->join('empleados','reservas.ci_empleado','=','empleados.ci')
        ->select('reservas.id_reserva','reservas.fecha_reserva as fecha','reservas.hora_reserva as hora',
-        'clientes.nombre_completo as nombre_cliente','clientes.ci as ci_cliente',
-        'empleados.nombre_completo as nombre_empleado','empleados.ci as ci_empleado')
-        ->get();
+                'reservas.nro_mesa',
+                'clientes.nombre_completo as nombre_cliente','clientes.ci as ci_cliente',
+                'empleados.nombre_completo as nombre_empleado','empleados.ci as ci_empleado')->get();
 
         return view('VistasReservas.create', compact('reservas','mesas','clientes'));
     }
@@ -80,9 +80,9 @@ class ReservaController extends Controller
         //     $detalles->id_reserva = $reserva->id_reserva;
         //     $detalles->nro_mesa = $r;
         //     $detalles->save();
-        //     $mesa = Mesa::where('nro_mesa',$r)->first();
-        //     $mesa->estado = 'Reserva';
-        //     $mesa->save();
+            $mesa = Mesa::where('nro_mesa',$reserva->nro_mesa)->first();
+            $mesa->estado = 'Reserva';
+            $mesa->save();
         // }
 
         return redirect()->route('Reserva.index');
@@ -160,7 +160,9 @@ class ReservaController extends Controller
     public function destroy($id)
     {
         $reserva = Reserva::find($id);
-
+        $mesa = Mesa::where('nro_mesa',$reserva->nro_mesa)->first();
+        $mesa->estado = 'Disponible';
+        $mesa->save();
         event(new BReservaDeleteEvent($reserva));
 
         $reserva->delete();

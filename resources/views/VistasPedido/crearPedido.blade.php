@@ -42,7 +42,7 @@
         @foreach ($platos as $p)
             @csrf
             <div class="flex flex-col items-center justify-center w-full max-w-lg mx-auto">
-                <img class="object-cover w-full rounded-md h-72 xl:h-80" src="{{ $p->url }}" alt="T-Shirt">
+                <img class="object-cover w-full rounded-md h-72 xl:h-80" src="{{asset('img/fotosProductos/'.$p->url)}}" alt="T-Shirt">
                 <h4 class="mt-2 text-lg font-medium text-gray-700
                             dark:text-gray-200">
                     {{ $p->nombre }}</h4>
@@ -111,7 +111,7 @@
         @foreach ($bebidas as $b)
             @csrf
             <div class="flex flex-col items-center justify-center w-full max-w-lg mx-auto">
-                <img class="object-cover w-full rounded-md h-72 xl:h-80" src="{{ $b->url }}" alt="T-Shirt">
+                <img class="object-cover w-full rounded-md h-72 xl:h-80" src="{{asset('img/fotosProductos/'.$b->url)}}" alt="T-Shirt">
                 <h4 class="mt-2 text-lg font-medium text-gray-700
                                     dark:text-gray-200">
                     {{ $b->nombre }}</h4>
@@ -179,7 +179,7 @@
         @foreach ($postres as $po)
             @csrf
             <div class="flex flex-col items-center justify-center w-full max-w-lg mx-auto">
-                <img class="object-cover w-full rounded-md h-72 xl:h-80" src="{{ $po->url }}" alt="T-Shirt">
+                <img class="object-cover w-full rounded-md h-72 xl:h-80" src="{{asset('img/fotosProductos/'.$po->url)}}" alt="T-Shirt">
                 <h4 class="mt-2 text-lg font-medium text-gray-700
                                     dark:text-gray-200">
                     {{ $po->nombre }}</h4>

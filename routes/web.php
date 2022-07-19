@@ -36,7 +36,7 @@ Route::get('/', function () {
 Route::resource('Rol', RolController::class)->except(['show'])
 ->middleware('auth');
 
-Route::resource('Empleado', EmpleadoController::class)->except(['show','update'])->middleware('auth'); //->middleware('Admin')
+Route::resource('Empleado', EmpleadoController::class)->except(['show','update'])->middleware('auth')->middleware('ExisteCorreo'); //->middleware('Admin')
 Route::resource('Mesas', MesaController::class)->except(['show'])
 ->middleware('auth')->middleware('Admin');
 
@@ -101,6 +101,16 @@ Route::put('Pedido/RefreshProduc',[PedidosController::class,'RestCantPlatos'])
 //store pedidos
 Route::put('Pedido/StoreRealizarPago/{pedido}',[PedidosController::class,'StoreRealizarPago'])
     ->name('Pedido.StoreRealizarPago');
+//Generar Recibo en PDF
+Route::get('Pedido/pdf',function(){
+     $pdf = PDF::loadView('prueba');
+     return $pdf->stream();
+})->name('Pedido.pdf');
+
+
+Route::get('Pedido/pdfxd',[PedidosController::class,'pdfxd'])
+    ->name('Pedido.pdfxd');
+
 
 
 //ritas de prueba

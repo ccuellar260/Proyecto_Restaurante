@@ -12,8 +12,13 @@
                         <label for="nombre" class="mb-3 block text-base font-medium text-[#07074D]">
                             Nombre Completo:
                         </label>
-                        <input type="text" name="nombre" id="nombre" value="{{$Producto->nombre}}"
+                        <input type="text" name="nombre" id="nombre" value="{{old('nombre', $Producto->nombre)}}"
                             class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                            @error('nombre')
+                                <br>
+                                <small>*{{$message}}</small>
+                                <br>
+                            @enderror
                     </div>
 
 
@@ -40,22 +45,37 @@
                         <label for="precio" class="mb-3 block text-base font-medium text-[#07074D]">
                             Precio:
                         </label>
-                        <input type="number" step="any" name="precio" id="precio" value="{{$Producto->precio}}"
+                        <input type="number" step="any" name="precio" id="precio" value="{{old('precio', $Producto->precio)}}"
                             class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                            @error('precio')
+                                <br>
+                                <small>*{{$message}}</small>
+                                <br>
+                            @enderror
                     </div>
                     <div class="mb-5">
                         <label for="cantidadM" class="mb-3 block text-base font-medium text-[#07074D]">
                             Cantidad de Momento:
                         </label>
-                        <input type="number" name="cantidadM" id="cantidadM" value="{{$Producto->cantidadMomento}}"
+                        <input type="number" name="cantidadM" id="cantidadM" value="{{old('cantidadM', $Producto->cantidadMomento)}}"
                             class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                            @error('cantidadM')
+                                <br>
+                                <small>*{{$message}}</small>
+                                <br>
+                            @enderror
                     </div>
                     <div class="mb-5">
                         <label for="cantidadA" class="mb-3 block text-base font-medium text-[#07074D]">
                             Cantidad a Actualizar:
                         </label>
-                        <input type="number" name="cantidadA" id="cantidadA" value="{{$Producto->cantidadActualizar}}"
+                        <input type="number" name="cantidadA" id="cantidadA" value="{{old('cantidadA', $Producto->cantidadActualizar)}}"
                             class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                            @error('cantidadA')
+                                <br>
+                                <small>*{{$message}}</small>
+                                <br>
+                            @enderror
                     </div>
 
                 </div>
@@ -63,15 +83,25 @@
                     <label for="url" class="mb-3 block text-base font-medium text-[#07074D]">
                         Imagen:
                     </label>
-                    <input type="text" name="url" id="url" value="{{$Producto->url}}" placeholder=""
+                    <input type="text" name="url" id="url" value="{{old('url', $Producto->url)}}" placeholder=""
                         class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                        @error('url')
+                            <br>
+                            <small>*{{$message}}</small>
+                            <br>
+                        @enderror
                 </div>
                 <div class="mb-1">
                     <label for="Descripcion" class="mb-3 block text-base font-medium text-[#07074D]">
                         Descripcion:
                     </label>
                     <textarea name="descripcion" id="Descripcion" cols="30" rows="4"
-                        class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md">{{$Producto->descripcion}}</textarea>
+                        class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md">{{old('descripcion', $Producto->descripcion)}}</textarea>
+                        @error('descripcion')
+                            <br>
+                            <small>*{{$message}}</small>
+                            <br>
+                        @enderror
                 </div>
                 <div>
                     <button type="submit"

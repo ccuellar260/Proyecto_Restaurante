@@ -54,11 +54,31 @@ class ProductoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {  //dd($request);
+
+        $request->validate([
+            'nombre' =>'required',
+            'precio'=>'numeric|required',
+            'cantidad' =>'numeric|required',
+            'tipo'=>'required',
+            'url'=>'file|required',
+            'descripcion' =>'required'
+        ]);
+
         $producto = new Producto;
         $producto->nombre = $request->nombre;
         $producto->descripcion = $request->descripcion;
-        $producto->url = $request->url;
+
+        if($request->hasFile('url')){
+            $file =$request->file('url');
+            $destino ='img/fotosProductos/';
+            $foto = time().'-'.$file->getClientOriginalName();
+            $subirImagen = $request->file('url')->move($destino,$foto);
+        }else{
+            $foto = "perfil_falso.png";
+        }
+
+        $producto->url = $foto;
         $producto->precio = $request->precio;
         $producto->cantidadMomento = $request->cantidad;
         $producto->cantidadActualizar = $request->cantidad;
@@ -88,8 +108,8 @@ class ProductoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit(Producto $Producto)
-    {
-        //dd($Producto);
+    {   //dd($Producto);
+
         $tipo = DB::table('tipo_productos')->get();
         $tipoPlato = DB::table('tipo_productos')
                      ->where('id_tipo_plato',$Producto->id_tipo_plato)->first();
@@ -107,7 +127,17 @@ class ProductoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Producto $Producto)
-    {
+    {   //dd($request);
+        $request->validate([
+            'nombre' =>'required',
+            'precio'=>'numeric|required',
+            'cantidad' =>'numeric|required',
+            'tipo'=>'required',
+            'cantidadM'=>'numeric|required',
+            'cantidadA'=>'numeric|required',
+            'url'=>'file|required',
+            'descripcion' =>'required'
+        ]);
 
         $Producto->nombre = $request->nombre;
         $Producto->descripcion = $request->descripcion;
