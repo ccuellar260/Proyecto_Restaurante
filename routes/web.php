@@ -81,7 +81,7 @@ Route::post('Pedidos/Detallles',[PedidosController::class,'storePedido'])
      ->name('Pedido.storePedido')->middleware('ProductoCantidad');
 Route::put('Pedidos/storePedidoListo/{p}',[PedidosController::class,'storePedidoListo'])
      ->name('Pedido.storePedidoListo');
-     
+
 Route::delete('Pedidos/{pedido}',[PedidosController::class,'destroy'])
      ->name('Pedido.destroy');
 Route::get('Pedido/{pe}/Detalle',[PedidosController::class,'mostrarDetalle'])
@@ -118,6 +118,10 @@ Route::get('Dashboard',[AuthController::class,'dashboard'])
      ->name('Dashboard')->middleware('auth');//si no estoy logueado retorname a login
 Route::post('Logout',[AuthController::class,'logout'])
      ->name('Logout');
+Route::get('ResertContrasena',[AuthController::class,'resertContrasena'])
+     ->name('Login.resertContrasena');
+Route::put('ResertContrasena/{user}',[AuthController::class,'updateContrasena'])
+     ->name('Login.updateContrasena');
 
 
 //gestion recibo

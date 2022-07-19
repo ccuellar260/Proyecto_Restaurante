@@ -20,35 +20,27 @@
                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Fecha</label>
                     <input type="date" name="fecha"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        placeholder="John" value="{{ $todos->fecha }}">
+                        placeholder="John" value="{{ $todos->fecha_reserva }}">
                 </div>
                 <div>
                     <label for=""
                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Hora</label>
                     <input type="time" name="hora"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        placeholder="Doe" value="{{ $todos->hora }}">
+                        placeholder="Doe" value="{{ $todos->hora_reserva }}">
                 </div>
                 <div class="form-group">
-                    <label for="nro_mesa">Mesa</label>
-                    <br>
-                    @foreach ($mesas as $m)
-                        @php
-                            $ban=false;
-                        @endphp
-                       @foreach ($detalles as $d)
-                          @if ($m->nro_mesa == $d->nro_mesa)
-                                 @php
-                                     $ban= true;
-                                 @endphp
-                                <input type="checkbox" name="nro_mesa[]" checked value="{{ $m->nro_mesa }}">{{ $m->nro_mesa }}
-                          @endif
-                       @endforeach
-                       @if ($ban == false)
-                            <input type="checkbox" name="nro_mesa[]" value="{{ $m->nro_mesa }}" >{{ $m->nro_mesa }}
-                       @endif
-                        <br>
-                    @endforeach
+                    <label for="nro_mesa">Nro. de Mesa</label><br>
+                        <select id="mesa" name="mesa"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        required>
+                        <option value="{{ $todos->nro_mesa  }}">{{ $todos->nro_mesa }} </option>
+                        @foreach ($mesas as $m)
+                            @if ($todos->nro_mesa != $m->nro_mesa)
+                             <option value="{{ $m->nro_mesa  }}">{{ $m->nro_mesa }} </option>
+                            @endif
+                        @endforeach
+                    </select>
                 </div>
                 <br>
             </div>

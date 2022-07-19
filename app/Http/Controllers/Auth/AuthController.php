@@ -41,26 +41,10 @@ class AuthController extends Controller
     //sacar la tabla donde este esee correo
     $user = User::where('correo_electronico',$r->correo_electronico)
                   ->first();
-    //verificar contrasena
-    /*
-    if ( $user->password === md5($r->password)) {
-        //hacer login
-        Auth::login($user);
-        //emcriptar contrasena con clases de laravel
-
-
-        //generar el token csrf
-        $r->session()->regenerate();
-        $bienvenida = 'Bienvenido '.(Auth::user()->nombre_usuario);
-        //redirecciona a dashboard con una variable status
-        return //intended, por sin entra ua una url protegida
-               redirect()->intended(Route('Dashboard'))
-               ->with('status',$bienvenida);
-    } */
 
     //usandon el Hash::check
     //Hash::check //recibe texo plano password, luego la encriptada en la Tabla
-  if ($user != null and  Hash::check($r->password,$user->password)){
+  if ($user != null and Hash::check($r->password,$user->password)){
       //hacer login
       Auth::login($user);
 
@@ -79,11 +63,9 @@ class AuthController extends Controller
     $bUser->hora = now();
     $bUser->correo_electronico = $usuario->correo_electronico;
     $bUser->save();
-    //////////////////////////////////////////////////////////////////
-
     // resetear automaticamente la cantidad disponible de los productos
     //now())->get() Producto::whereDate('updated_at', '<>',"now")
-    event(new ResetProductosEvent());
+    //event(new ResetProductosEvent());
 
     $bienvenida = 'Bienvenido '.(Auth::user()->nombre_usuario);
     //redirecciona a dashboard con una variable status
@@ -93,36 +75,21 @@ class AuthController extends Controller
             ->with('status',$bienvenida);
  }//false, login incorrecto redireccionar devuelta login
   //distafar un error de validacion
-
-
-
-
-
-/*
-  //  Auth::attempt(['email' => $email, 'password' => $password],true o fals);
-  // recibe credenciales y si desea recordar la contra, $recordar
-    if (Auth::attempt($credenciales,$recordar)){//Es correcta la autentificacion
-       //generar el token csrf
-       $r->session()->regenerate();
-       $bienvenida = 'Bienvenido '.(Auth::user()->nombre_usuario);
-       //redirecciona a dashboard con una variable status
-        return //intended, por sin entra ua una url protegida
-               redirect()->intended(Route('Dashboard'))
-               ->with('status',$bienvenida);
-    }//false, login incorrecto redireccionar devuelta login
-     //distafar un error de validacion
-     */
-     throw ValidationException::withMessages([
-        //meustra el eeroror del correo
-        'correo_electronico'=> __('auth.failed'),
-     ]);
+     if ($user == null){ //si es nulo, significa que no encontro el correo
+        throw ValidationException::withMessages([
+            //meustra el eeroror del correo
+            'correo'=> 'Correo no encontrado',
+         ]);
+    }else {
+        throw ValidationException::withMessages([
+            //meustra el eeroror del correo
+            'password'=> 'Contrasena Incorrecta',
+        ]);
+    }
    }
 
 
    Public function dashboard(){
-    //evento para restablecer productos
-   // event(new ResetearProductosEvent());
-
    event(new ResetProductosEvent());
     $user = Auth::user()->nombre_usuario;
     $empleado = Empleado::where('nombre_usuario',$user)->first();
@@ -163,8 +130,34 @@ class AuthController extends Controller
         return redirect()->Route('Login')->with('statusLogout',"Haz cerrado session");
    }
 
+   public function resertContrasena(Request $r){
+        //correo contrasena
+        $user = User::where('correo_electronico',$r->emailRestore)->first();
+        if(is_null($user)){
+            throw ValidationException::withMessages([
+                //meustra el eeroror del correo
+                'correoRestore'=> 'Correo no encontrado',
+             ]);
+        }
+        return view('VistasAuth.resertContrasena',compact('user'));
+   }
 
-   
+    public function updateContrasena(Request $r,User $user){
+
+        //verificar si las contrasena son correctas
+        if($r->password == $r->password1){
+            $user->password = Hash::make($r->password);
+            $user->save();
+            return redirect()->Route('Login')->with('statusContra','CONTRASENA RESTABLECIDA');
+        }
+        throw ValidationException::withMessages([
+            //meustra el eeroror del correo
+            'passwordxd'=> 'Las contrasenas no coinciden!!',
+         ]);
+         return view('VistasAuth.resertContrasena',compact('user'));
+    }
+
+
    public function marcarEntrada(marcar_turno $marcar_turno){
     $user = Auth::user()->nombre_usuario;
     $empleado = Empleado::where('nombre_usuario',$user)->first();

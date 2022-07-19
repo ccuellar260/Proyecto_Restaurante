@@ -7,7 +7,6 @@ use App\Events\BReservaDeleteEvent;
 use App\Events\BReservaCreateEvent;
 
 use App\Models\Cliente;
-use App\Models\DetallesReserva;
 use App\Models\Empleado;
 use App\Models\Mesa;
 use App\Models\Reserva;
@@ -31,10 +30,7 @@ class ReservaController extends Controller
         $reservas = DB::table('reservas')
         ->join('clientes','reservas.ci_cliente','=','clientes.ci')->get();
 
-        $detalles = DB::table('detalles_reservas')
-        ->join('mesas','detalles_reservas.nro_mesa','=','mesas.nro_mesa')->get();
-
-        return view('VistasReservas.index', compact('reservas','detalles'));
+        return view('VistasReservas.index', compact('reservas'));
     }
 
     /**
@@ -47,13 +43,12 @@ class ReservaController extends Controller
         $mesas = DB::table('mesas')
                     ->join('tipo_mesas','mesas.id_tipo_mesa','=','tipo_mesas.id_tipo_mesa')
                     ->where('estado','Disponible')->get();
-     //   $empleados = Empleado::get();
+       $empleados = Empleado::get();
         $clientes = Cliente::get();
         $reservas = DB::table('reservas')
         ->join('clientes','reservas.ci_cliente','=','clientes.ci')
         ->join('empleados','reservas.ci_empleado','=','empleados.ci')
-        ->join('detalles_reservas','reservas.id_reserva','=','detalles_reservas.id_reserva')
-        ->select('reservas.id_reserva','reservas.fecha_reserva as fecha','reservas.hora_reserva as hora',
+       ->select('reservas.id_reserva','reservas.fecha_reserva as fecha','reservas.hora_reserva as hora',
         'clientes.nombre_completo as nombre_cliente','clientes.ci as ci_cliente',
         'empleados.nombre_completo as nombre_empleado','empleados.ci as ci_empleado')
         ->get();
@@ -75,19 +70,20 @@ class ReservaController extends Controller
         $reserva->hora_reserva = $request->hora;
         $reserva->ci_cliente = $request->ci_cliente;
         $reserva->ci_empleado = 8994432;
+        $reserva->nro_mesa = $request->mesa;
         $reserva->save();
 
-        event(new BReservaCreateEvent($reserva));
+       // event(new BReservaCreateEvent($reserva));
 
-        foreach ($request->nro_mesa as $r) {
-            $detalles = new DetallesReserva();
-            $detalles->id_reserva = $reserva->id_reserva;
-            $detalles->nro_mesa = $r;
-            $detalles->save();
-            $mesa = Mesa::where('nro_mesa',$r)->first();
-            $mesa->estado = 'Reserva';
-            $mesa->save();
-        }
+        // foreach ($request->nro_mesa as $r) {
+        //     $detalles = new DetallesReserva();
+        //     $detalles->id_reserva = $reserva->id_reserva;
+        //     $detalles->nro_mesa = $r;
+        //     $detalles->save();
+        //     $mesa = Mesa::where('nro_mesa',$r)->first();
+        //     $mesa->estado = 'Reserva';
+        //     $mesa->save();
+        // }
 
         return redirect()->route('Reserva.index');
     }
@@ -111,28 +107,27 @@ class ReservaController extends Controller
      */
     public function edit(Reserva $Reserva)
     {
-        $todos = DB::table('reservas')
-        ->join('clientes','reservas.ci_cliente','=','clientes.ci')
-        ->join('empleados','reservas.ci_empleado','=','empleados.ci')
-        ->select('reservas.id_reserva as id_reserva','reservas.fecha_reserva as fecha',
-        'reservas.hora_reserva as hora','clientes.nombre_completo as nombre_cliente',
-        'clientes.ci as ci_cliente',
-        'empleados.nombre_completo as nombre_empleado')
+       // dd($Reserva);
+        $todos = DB::table('reservas as r')
+         ->join('clientes as c','r.ci_cliente','=','c.ci')
+         ->join('empleados','r.ci_empleado','=','empleados.ci')
+         ->select('r.*','c.nombre_completo as nombre_cliente',
+         'empleados.nombre_completo as nombre_empleado')
         ->where('id_reserva',$Reserva->id_reserva)
         ->first();
-       // dd($todos);
+      //  dd($todos);
 
         $mesas = Mesa::get();
 
 
-        $detalles = DB::table('detalles_reservas')
-        //->join('mesas','detalles_reservas.nro_mesa','=','mesas.nro_mesa')
-       ->select('detalles_reservas.id_reserva',
-               'detalles_reservas.nro_mesa')
-        ->where('detalles_reservas.id_reserva','=',$Reserva->id_reserva)
-        ->get();
+    //     $detalles = DB::table('detalles_reservas')
+    //     //->join('mesas','detalles_reservas.nro_mesa','=','mesas.nro_mesa')
+    //    ->select('detalles_reservas.id_reserva',
+    //            'detalles_reservas.nro_mesa')
+    //     ->where('detalles_reservas.id_reserva','=',$Reserva->id_reserva)
+    //     ->get();
      //  dd($detalles);
-        return view('VistasReservas.edit', compact('todos','mesas','detalles'));
+        return view('VistasReservas.edit', compact('todos','mesas'));
     }
 
     /**
@@ -144,53 +139,14 @@ class ReservaController extends Controller
      */
     public function update(Request $request, Reserva $Reserva)
     {
-        //dd($request);
-        $Reserva->fecha = $request->fecha;
-        $Reserva->hora = $request->hora;
-        $mesa_new = $request->nro_mesa;
-        $mesa_old = DB::table('detalles_reservas')
-                    ->where('id_reserva',$Reserva->id_reserva)
-                    ->get();
-        //dd($mesa_old);
-        $macado= [];
-        //marcador para mesa new
-        for ($i=0; $i < count($mesa_new); $i++) {
-            $macado[$i] = 'no marcado';
-        }
+      //  dd($request);
+        $Reserva->fecha_reserva = $request->fecha;
+        $Reserva->hora_reserva = $request->hora;
+        $Reserva->nro_mesa = $request->mesa;
+      //  $Reserva->ci_cliente = $request->hora;
+        //$Reserva->ci_empleado = $request->;
+        $Reserva->save();
 
-
-        foreach ($mesa_old as $old ) {
-            $ban = false;
-            //esta mesa esta adentro de aqui
-            for ($i=0; $i < count($mesa_new) ; $i++) {
-                if($old->nro_mesa == $mesa_new[$i]){
-                    $macado[$i] = 'marcado';
-                    $ban = true;
-                    break;
-                }
-            }
-            if ($ban == false) {
-                $mesa = Mesa::where('nro_mesa',$old->nro_mesa)->first();
-                $mesa->estado = 'Disponible';
-                $mesa->save();
-                $old = DetallesReserva::find($old->id_detalle);
-                $old->delete();
-            }
-        }
-
-        //dd($mesa_new);
-        for ($i=0; $i < count($mesa_new) ; $i++) {
-            if( $macado[$i] == 'no marcado'){
-                $d = new DetallesReserva();
-                $d->id_reserva = $Reserva->id_reserva;
-                $d->nro_mesa = $mesa_new[$i];
-                $d->save();
-                $mesa = Mesa::where('nro_mesa',$mesa_new[$i])->first();
-                $mesa->estado = 'Reserva';
-                $mesa->save();
-
-            }
-        }
         return redirect()->route('Reserva.index');
 
     }

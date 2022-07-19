@@ -1,7 +1,7 @@
 @extends('navegador')
 
 @section('Contenido')
-
+<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
 
 
         <form action="{{ Route('Pedido.storexd') }}" method="POST">
@@ -119,13 +119,12 @@
                                         <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
                                             <p class="text-gray-900 whitespace-no-wrap">{{ $p->precio_total }}</p>
                                         </td>
+
+
                                         <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
-                                            <button type="button"
-                                                class="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">
-                                                <a href="{{ Route('Pedido.mostrarDetalles', $p->id_pedido) }}">
-                                                    Ver Detalles
-                                                </a></butto>
+                                            @include('VistasPedido.verDetalles')
                                         </td>
+
 
                                         <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
                                             <button type="button"
@@ -138,8 +137,8 @@
                                         <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
                                             <button onclick="openModal(true)"
                                                 class="mr-2 text-sm bg-red-700 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">
-                                                {{ $p->estado }}</button>
-
+                                                {{ $p->estado }}
+                                            </button>
                                         </td>
 
 

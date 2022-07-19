@@ -50,7 +50,11 @@ class PedidosController extends Controller
         $mesasAdmin = DB::table('mesas')->where('estado','Disponible')->get();
 
         $clientes = DB::table('clientes')->get();
-        return view('VistasPedido.pedido',compact('pedidos','mesas','empleado','mesasAdmin','clientes'));
+        $detalles = DetallePedido::join('productos','detalle_pedidos.id_producto','=','productos.id_producto')
+                            ->select('detalle_pedidos.*','productos.nombre',)
+                            ->get();
+        return view('VistasPedido.pedido',compact('pedidos','mesas','empleado','mesasAdmin',
+                                                'clientes','detalles'));
     }
 
     public function storexd(Request $r){

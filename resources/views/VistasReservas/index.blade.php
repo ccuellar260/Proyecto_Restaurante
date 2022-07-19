@@ -44,7 +44,7 @@
 
                             <th
                                 class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                                Mesas
+                                Mesa
                             </th>
 
 
@@ -79,11 +79,8 @@
                                 </td>
 
                                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
-                                    @foreach ($detalles as $d)
-                                    @if ($d->id_reserva == $reserva->id_reserva)
-                                        {{$d->nro_mesa}}
-                                    @endif
-                                @endforeach
+                                    <p class="text-gray-900 whitespace-no-wrap">{{$reserva->nro_mesa}}</p>
+
                                 </td>
 
 

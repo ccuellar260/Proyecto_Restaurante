@@ -24,7 +24,7 @@ return new class extends Migration
             //averiguar lo que es remember token
             $table->rememberToken();
             $table->timestamps();  //fecha de creacion y de modficiacion
-
+            $table->date('fecha_cambio_contra');
             //crear los foreing key
             $table->unsignedBigInteger('id_rol'); //entero grande
             $table->foreign('id_rol')

@@ -54,6 +54,7 @@ class EmpleadoController extends Controller
         $us->password = Hash::make($request->contrasena);
         $us->remember_token = Str::random(10);
         $us->id_rol = $request->Rol;
+        $us->fecha_cambio_contra = date('Y-m-d');
         $us->save();
 
         $table =new Empleado;
@@ -106,6 +107,7 @@ class EmpleadoController extends Controller
         //dd($request);
         $user = User::where('nombre_usuario',$Empleado->nombre_usuario)->first();
         $user->correo_electronico = $request->correo;
+        //falta hacer pa las contras o nose xd xd xd
         $user->save();
 
         if($request->hasFile('foto')){

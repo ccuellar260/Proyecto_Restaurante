@@ -19,6 +19,7 @@ return new class extends Migration
             $table->time('hora_reserva');
             $table->unsignedBigInteger('ci_cliente');
             $table->unsignedBigInteger('ci_empleado');
+            $table->unsignedBigInteger('nro_mesa');
 
             $table->foreign('ci_cliente')
                 ->references('ci')
@@ -29,6 +30,12 @@ return new class extends Migration
             $table->foreign('ci_empleado')
                 ->references('ci')
                 ->on('empleados')
+                ->onDelete('Cascade')
+                ->onCascade('Cascade');
+
+            $table->foreign('nro_mesa')
+                ->references('nro_mesa')
+                ->on('mesas')
                 ->onDelete('Cascade')
                 ->onCascade('Cascade');
 

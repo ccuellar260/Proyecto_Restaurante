@@ -12,9 +12,14 @@ class Reserva extends Model
     public $timestamps = false;
     protected $primaryKey = 'id_reserva';
 
-    public function detalle_reservas(){
-        return $this->hasMany(DetallesReserva::class);
+    // public function detalle_reservas(){
+    //     return $this->hasMany(DetallesReserva::class);
+    // }
+
+    public function mesas(){
+        return $this->belongsTo(Mesa::class);
     }
+
 
     public function clientes(){
         return $this->belongsTo(Cliente::class);

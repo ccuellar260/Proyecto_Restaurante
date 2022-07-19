@@ -28,7 +28,7 @@
 
 </head>
 <body class="font-mono bg-gray-400 h-screen login bg-cover">
-		<!-- Container -->
+    <!-- Container -->
 		<div class="container mx-auto pt-10">
 			<div class="flex justify-center px-6 my-12">
 				<!-- Row -->
@@ -41,14 +41,23 @@
 					<!-- Col -->
 					<div class="w-full lg:w-1/2 bg-white p-5 rounded-lg lg:rounded-l-none">
 						<h3 class="pt-4 text-2xl text-center">BIENVENIDO</h3>
-						<form class="px-8 pt-6 pb-8 mb-4 bg-white rounded" method="POST" action="{{ route('Login') }}">
+						<form class="px-8 pt-6  mb-4 bg-white rounded" method="POST" action="{{ route('Login') }}">
                             @csrf
+
                             <p>
                                 <!-- usando el status solo muestra una edicion-->
                                 @if (session('statusLogout')) <!--Existe el atributo status?-->
-                                <br>   <!-- mostarr lo que esta en status-->
-                                <p class="text-white">{{session('statusLogout')}}</p>
-                               @endif
+                                    <div class=" max-w-lg bg-green-200 mx-auto mt-3 mb-3 p-2 flex space-x-2">
+                                        <svg class="w-6 h-6 stroke-green-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                        <p class="text-green-900 font-semibold">{{session('statusLogout')}}</p>
+                                    </div>
+
+                                @elseif (session("statusContra"))
+                                    <div class=" max-w-lg bg-green-200 mx-auto mt-3 mb-3 p-2 flex space-x-2">
+                                        <svg class="w-6 h-6 stroke-green-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                        <p class="text-green-900 font-semibold">{{session('statusContra')}}</p>
+                                    </div>
+                                @endif
                             </p>
 							<div class="mb-4">
 								<label class="block mb-2 text-sm font-bold text-gray-700" for="email">
@@ -64,7 +73,7 @@
 									placeholder="Ejemplo007@gmail.com"
                                     aria-label="email" required
 								/>
-                                @error('correo_electronico')  <p class="text-white">{{$message}}</p> @enderror
+                                @error('correo')  <p class="text-red-600">*{{$message}}</p> @enderror
 							</div>
 							<div class="mb-4">
 								<label class="block mb-2 text-sm font-bold text-gray-700" for="password">
@@ -78,7 +87,7 @@
 									placeholder="******************"
                                 arial-label="password" required>
 
-                                @error('password')  <td class="text-white">{{$message}} </td> @enderror
+                                @error('password')  <p class="text-red-600">*{{$message}} </p> @enderror
 							</div>
 							<div class="mb-4">
 								<input class="mr-2 leading-tight" type="checkbox" id="checkbox_id" />
@@ -94,30 +103,23 @@
 									Entrar
 								</button>
 							</div>
-                            <hr class="mb-6 border-t" />
-							<div class="text-center">
+                        </form>
+
+							{{-- <div class="text-center">
 								<a
 									class="inline-block text-sm text-blue-500 align-baseline hover:text-blue-800"
 									href="./register.html"
 								>
 									Create an Account!
 								</a>
-							</div>
-							<div class="text-center">
-								<a
-									class="inline-block text-sm text-blue-500 align-baseline hover:text-blue-800"
-									href="./forgot-password.html"
-								>
-									Forgot Password?
-								</a>
-							</div>
-						</form>
-					</div>
+							</div> --}}
+
+                        @include('VistasAuth.modelOlvidasteContra')
+
+					</div> {{-- bienvendio --}}
 				</div>
 			</div>
-		</div>
+		</div> {{-- container --}}
 	</body>
 </html>
 
-
-</html>
