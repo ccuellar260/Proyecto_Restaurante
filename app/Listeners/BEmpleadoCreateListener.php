@@ -28,7 +28,7 @@ class BEmpleadoCreateListener
      */
     public function handle($event)
     {
-        
+
         $empleado = new BitacoraEmpleado();
         $empleado->user = Auth::user()->nombre_usuario;
         $empleado->accion = 'insertar';
@@ -40,7 +40,6 @@ class BEmpleadoCreateListener
         $empleado->foto = $event->bempleadocreate->foto;
         $empleado->nombre_usuario = $event->bempleadocreate->usuario;
         $empleado->correo_electronico = $event->bempleadocreate->correo;
-        $empleado->id_rol = $event->bempleadocreate->Rol;
         $empleado->save();
     }
 }

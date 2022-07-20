@@ -33,12 +33,13 @@ class BPedidoDeleteListener
         $pedido->accion = 'eliminar';
         $pedido->fecha_bpedido = now();
         $pedido->hora_bpedido = now();
-        $pedido->id_pedido = $event->bpedidocreate->id_pedido;
-        $pedido->nro_mesa = $event->bpedidocreate->nro_mesa;
-        $pedido->ci_empleado = $event->bpedidocreate->ci_empleado;
-        $pedido->estado = $event->bpedidocreate->estado;
-        $pedido->fecha = $event->bpedidocreate->fecha;
-        $pedido->hora= $event->bpedidocreate->hora;
+        $pedido->id_pedido = $event->bpedidodelete->id_pedido;
+        $pedido->nro_mesa = $event->bpedidodelete->nro_mesa;
+        $pedido->ci_empleado = $event->bpedidodelete->ci_empleado;
+        $pedido->estado = $event->bpedidodelete->estado;
+        $pedido->fecha = $event->bpedidodelete->fecha;
+        $pedido->hora= $event->bpedidodelete->hora;
+        $pedido->precio_total= $event->bpedidodelete->precio_total;
         $pedido->save();
     }
 }

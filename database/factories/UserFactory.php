@@ -25,7 +25,7 @@ class UserFactory extends Factory
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
             'fecha_cambio_contra' => date('Y-m-d'),
-            'id_rol' => 1,
+           // 'id_rol' => 1,
         //    'ci' => 899434
         ];
     }

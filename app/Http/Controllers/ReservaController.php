@@ -30,6 +30,7 @@ class ReservaController extends Controller
         $reservas = DB::table('reservas')
         ->join('clientes','reservas.ci_cliente','=','clientes.ci')->get();
 
+
         return view('VistasReservas.index', compact('reservas'));
     }
 
@@ -43,6 +44,7 @@ class ReservaController extends Controller
         $mesas = DB::table('mesas')
                     ->join('tipo_mesas','mesas.id_tipo_mesa','=','tipo_mesas.id_tipo_mesa')
                     ->where('estado','Disponible')->get();
+
        $empleados = Empleado::get();
         $clientes = Cliente::get();
         $reservas = DB::table('reservas')
@@ -73,7 +75,8 @@ class ReservaController extends Controller
         $reserva->nro_mesa = $request->mesa;
         $reserva->save();
 
-       // event(new BReservaCreateEvent($reserva));
+        // bitacora
+        event(new BReservaCreateEvent($reserva));
 
         // foreach ($request->nro_mesa as $r) {
         //     $detalles = new DetallesReserva();
@@ -107,6 +110,9 @@ class ReservaController extends Controller
      */
     public function edit(Reserva $Reserva)
     {
+        // bitacora
+        event(new BReservaEditEvent($Reserva));
+
        // dd($Reserva);
         $todos = DB::table('reservas as r')
          ->join('clientes as c','r.ci_cliente','=','c.ci')
@@ -117,7 +123,9 @@ class ReservaController extends Controller
         ->first();
       //  dd($todos);
 
-        $mesas = Mesa::get();
+      $mesas = DB::table('mesas')
+      ->join('tipo_mesas','mesas.id_tipo_mesa','=','tipo_mesas.id_tipo_mesa')
+      ->where('estado','Disponible')->get();
 
 
     //     $detalles = DB::table('detalles_reservas')
@@ -163,6 +171,8 @@ class ReservaController extends Controller
         $mesa = Mesa::where('nro_mesa',$reserva->nro_mesa)->first();
         $mesa->estado = 'Disponible';
         $mesa->save();
+
+        //bitacora
         event(new BReservaDeleteEvent($reserva));
 
         $reserva->delete();

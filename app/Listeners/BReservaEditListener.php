@@ -30,7 +30,7 @@ class BReservaEditListener
     {
         $reserva = new BitacoraReserva();
         $reserva->user = Auth::user()->nombre_usuario;
-        $reserva->accion = 'insertar';
+        $reserva->accion = 'editar';
         $reserva->fecha = now();
         $reserva->hora = now();
         $reserva->id_reserva = $event->breservaedit->id_reserva;
@@ -38,6 +38,7 @@ class BReservaEditListener
         $reserva->hora_reserva = $event->breservaedit->hora_reserva;
         $reserva->ci_cliente = $event->breservaedit->ci_cliente;
         $reserva->ci_empleado = $event->breservaedit->ci_empleado;
+        $reserva->nro_mesa = $event->breservaedit->nro_mesa;
         $reserva->save();
     }
 }

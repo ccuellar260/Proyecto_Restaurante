@@ -21,11 +21,6 @@
                 <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full pl-2 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 type="text" placeholder="nombre usuario" name="nombre_usuario">
             </div>
-            <div class="py-4 pl-2">
-                <label for="fecha">ID ROL</label>
-                <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full pl-2 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                type="unsignedInteger" placeholder="id rol" name="id_rol">
-            </div>
             <div class="py-4 pl-2 ">
                 <label for="fecha">FECHA</label>
                 <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full pl-2 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -72,10 +67,6 @@
                                     </th>
                                     <th
                                         class="px-7 py-3 border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                                        ID ROL
-                                    </th>
-                                    <th
-                                        class="px-7 py-3 border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                                         FECHA
                                     </th>
                                     <th
@@ -100,9 +91,6 @@
                                         </td>
                                         <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
                                             <p class="text-gray-900 whitespace-no-wrap">{{ $s->nombre_usuario }}</p>
-                                        </td>
-                                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
-                                            <p class="text-gray-900 whitespace-no-wrap">{{ $s->id_rol }}</p>
                                         </td>
                                         <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
                                             <p class="text-gray-900 whitespace-no-wrap">{{ $s->fecha }}</p>

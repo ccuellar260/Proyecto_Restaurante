@@ -11,8 +11,8 @@
         <p>Nro de pedido : {{ $pedido->id_pedido }}</p>
 
         <button type="submit" id="btguardar" class="bg-blue-700 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer">
-            GUARDAR
-            </button>
+            <a href="{{ Route('Pedido.index') }}">GUARDAR</a>
+        </button>
          <input type="hidden" name="metodo"
             value="edit">
             <input type="hidden" name="pedido"
@@ -130,7 +130,7 @@
 
             <div>
                 <button type="submit" class="bg-blue-700 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer">
-                GUARDAR
+                    <a href="{{ Route('Pedido.index') }}">GUARDAR</a>
                 </button>
             </div>
             <div>

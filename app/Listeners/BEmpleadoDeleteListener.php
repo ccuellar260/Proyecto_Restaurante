@@ -39,7 +39,6 @@ class BEmpleadoDeleteListener
         $empleado->foto = $event->bempleadodelete->foto;
         $empleado->nombre_usuario = $event->bempleadodelete->nombre_usuario;
         $empleado->correo_electronico = $event->bempleadodelete->correo_electronico;
-        $empleado->id_rol = $event->bempleadodelete->id_rol;
         $empleado->save();
     }
 }

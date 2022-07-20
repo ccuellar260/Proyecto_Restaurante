@@ -38,6 +38,7 @@ class BReservaCreateListener
         $reserva->hora_reserva = $event->breservacreate->hora_reserva;
         $reserva->ci_cliente = $event->breservacreate->ci_cliente;
         $reserva->ci_empleado = $event->breservacreate->ci_empleado;
+        $reserva->nro_mesa = $event->breservacreate->nro_mesa;
         $reserva->save();
     }
 }

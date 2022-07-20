@@ -39,7 +39,6 @@ class BEmpleadoEditListener
         $empleado->foto = 'sin foto';
         $empleado->nombre_usuario = $event->bempleadoedit->nombre_usuario;
         $empleado->correo_electronico = $event->bempleadoedit->correo;
-        $empleado->id_rol = $event->bempleadoedit->rol;
         $empleado->save();
     }
 }

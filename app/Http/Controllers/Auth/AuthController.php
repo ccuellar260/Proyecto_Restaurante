@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash; //para encriptar contrasenas
 use App\Models\User;
 use App\Models\Empleado;
-use App\Models\Rol;
+
 use App\Models\marcar_turno;
 use App\Models\EmpleadoTurno;
 use App\Models\Turno;
@@ -20,6 +20,10 @@ use Illuminate\Support\Facades\DB;
 use App\Events\ResetearProductosEvent;
 use App\Events\ResetProductosEvent;
 use App\Events\CambioContrasenaEvent;
+
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Traits\HasRoles;
 
 
 class AuthController extends Controller
@@ -59,7 +63,6 @@ class AuthController extends Controller
     $bUser = new BitacoraSesion();
     $bUser->estado = 'login';
     $bUser->nombre_usuario = $usuario->nombre_usuario;
-    $bUser->id_rol = $usuario->id_rol;
     $bUser->fecha = now();
     $bUser->hora = now();
     $bUser->correo_electronico = $usuario->correo_electronico;
@@ -109,8 +112,10 @@ class AuthController extends Controller
     $empleado = Empleado::where('nombre_usuario',$user)->first();
     $marcaciones = marcar_turno::where('id_empleado',$empleado->ci)->get();
     $empleado_turno = EmpleadoTurno::where('id_empleado',$empleado->ci)->first();
+
     $turno = Turno::where('id_turno',$empleado_turno->id_turno)->first();
-    $rol= Rol::where('id_rol',Auth::user()->id_rol)->first();
+
+    $rol= User::where('nombre_usuario',$user)->first()->load('roles');
 
 
    $fecha1= Auth::user()->fecha_cambio_contra;
@@ -131,7 +136,6 @@ class AuthController extends Controller
         $bUser = new BitacoraSesion();
         $bUser->estado = 'logout';
         $bUser->nombre_usuario = $usuario->nombre_usuario;
-        $bUser->id_rol = $usuario->id_rol;
         $bUser->fecha = now();
         $bUser->hora = now();
         $bUser->correo_electronico = $usuario->correo_electronico;
@@ -206,9 +210,6 @@ class AuthController extends Controller
                       })
                       ->when(Request('nombre_usuario'),function($q){
                           return $q->where('bs.nombre_usuario',Request('nombre_usuario'));
-                      })
-                      ->when(Request('id_rol'),function($q){
-                          return $q->where('bs.id_rol',Request('id_rol'));
                       })
                       ->when(Request('fecha'),function($q){
                           return $q->where('bs.fecha',Request('fecha'));

@@ -1,10 +1,12 @@
 @extends('navegador')
 @section('Contenido')
     <div class="flex justify-between p-4">
+    @can('cliente.bitacora')
         <button type=""
             class="bg-indigo-600 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer">
             <a href="{{ Route('Cliente.bitacora') }}">Bitacora Clientes</a>
         </button>
+    @endcan
     </div>
     <div class="flex justify-end pl-3 mb-4">
 

@@ -28,8 +28,8 @@
 
         <label class="mt-2 p-1 mr-2 text-xl text-white font-bold" id="img">
              <a href="{{route('Empleado.edit',$empleado->ci)}}">{{ ucwords($empleado->nombre_completo )}}</a> </label>
-        <div class="mr-4 w-14 h-14 rounded-full bg-gray-300 border-2 border-white">
-          <a href="{{route('Empleado.edit',$empleado->ci)}}"><img src="{{asset('img/fotosEmpleados/'.$empleado->foto)}}" class="rounded-full w-auto"></a>
+        <div class="mr-4 w-14 h-14 rounded-full bg-gray-300">
+          <a href="{{route('Empleado.edit',$empleado->ci)}}"><img src="{{asset('img/fotosEmpleados/'.$empleado->foto)}}" class="mr-4 w-14 h-14 rounded-full border-2 border-white"></a>
         </div>
 
 
@@ -63,7 +63,11 @@
                     <span class="self-center text-white"><a href="{{ Route('Pedido.index') }}">Gestionar
                             Pedidos</a></span>
                 </li>
-                @if (Auth()->user()->id_rol == 1)
+
+
+
+                {{-- @if (Auth()->user()->id_rol == 1) --}}
+                @can('dashboard')
                     <li class="mb-4 flex hover:bg-slate-500 rounded">
                         <div class="bg-write shadow-sm p-2 mr-3 rounded-lg">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
@@ -75,6 +79,7 @@
                         <span class="self-center text-white"><a href="{{ Route('Rol.index') }}">Gestionar
                                 Roles</a></span>
                     </li>
+
                     <li class="mb-4 flex hover:bg-slate-500 rounded">
                         <div class="bg-write shadow-sm p-2 mr-3 rounded-lg">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
@@ -130,7 +135,10 @@
                         <span class="self-center text-white"><a
                                 href="{{ Route('Turno.index') }}">Horarios</a></span>
                     </li>
-                    <li class="mb-4 flex hover:bg-slate-500 rounded">
+
+                 @endcan
+                 @can('Pedidos.index')
+                 <li class="mb-4 flex hover:bg-slate-500 rounded">
                         <div class="bg-write shadow-sm p-2 mr-3 rounded-lg">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                                 viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -141,7 +149,7 @@
                         <span class="self-center text-white"><a
                                 href="{{ Route('Reserva.index') }}">Reservas</a></span>
                     </li>
-                    @endif
+                 @endcan
          @guest
             <!--mostrar login por que esta como invitado// es inecesario-->
             <a href="{{ Route('Login') }}"

@@ -3,7 +3,7 @@
 @section('Contenido')
 
 <div class="bg-white p-2 rounded-md w-full">
-    <h3>CHOTO</h3>
+    <h3>Consulta</h3>
     <form action="" method="GET">
         <div class="flex items-center ">
             <div class="py-4 pl-2">
@@ -114,7 +114,7 @@
 
                                         </td>
                                     </tr> --}}
-                                    
+
                                 @endforeach
                             </tbody>
                         </table>

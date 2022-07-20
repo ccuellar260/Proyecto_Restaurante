@@ -24,6 +24,7 @@ return new class extends Migration
             $table->time('hora_reserva');
             $table->unsignedBigInteger('ci_cliente');
             $table->unsignedBigInteger('ci_empleado');
+            $table->unsignedBigInteger('nro_mesa');
         });
     }
 

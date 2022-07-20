@@ -46,12 +46,10 @@
                                     Foto:
                                 </label>
                             </div>
-                            <div>
-                                <input type="file"class="text-xs text-gray-100" name="foto" id="foto">
-                            </div>
                         </div>
                     <img src="{{ asset('img/fotosEmpleados/'.$fila->foto) }}" alt="" width="240px" for="foto"
                         class="mx-10 mt-2 absolute  object-cover rounded-full shadow w-32 h-32 ring-4 ring-gray-300"/>
+<input type="file" class="opacity-0 mx-10 mt-2 absolute  object-cover rounded-full shadow w-32 h-32 ring-4 ring-gray-300" name="fotoxd" id="fotoxd">
                     </div>
 
 
@@ -123,7 +121,7 @@
                         <input type="number" name="telefono" value='{{ $fila->telefono }}' id="telefono" placeholder=""
                             class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
                     </div>
-                    <div class="mb-5">
+                    {{-- <div class="mb-5">
                         <label for="rol" class="mb-3 block text-base font-medium text-[#07074D]">
                             Rol:
 
@@ -132,7 +130,33 @@
                             placeholder=""
                             class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                             readonly />
+                    </div> --}}
+
+                    <div>
+                        <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                            Seleccionar Rol
+                        </label>
+                             @foreach ($roles as $id => $name)
+                                @php
+                                    $ban=false;
+                                @endphp
+                            @foreach ($fila->roles as $urol )
+                                @if ($id == $urol->id)
+                                        @php
+                                            $ban= true;
+                                        @endphp
+                                        <input type="checkbox" name="roles[]" checked value="{{ $id }}">{{ $name }}
+                                @endif
+                            @endforeach
+                            @if ($ban == false)
+                                    <input type="checkbox" name="roles[]" value="{{ $id }}" >{{ $name }}
+                            @endif
+                                <br>
+                            @endforeach
+                        </select>
                     </div>
+
+
                     </div>
                     <div class="mb-5">
                         <label for="contra_antigua" class="mb-3 block text-base font-medium text-[#07074D]">

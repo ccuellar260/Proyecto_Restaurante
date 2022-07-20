@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
-
+            $table->id();
             $table->string('nombre_usuario')->unique();
             $table->string('correo_electronico')->unique();
 
@@ -26,12 +26,12 @@ return new class extends Migration
             $table->timestamps();  //fecha de creacion y de modficiacion
             $table->date('fecha_cambio_contra');
             //crear los foreing key
-            $table->unsignedBigInteger('id_rol'); //entero grande
-            $table->foreign('id_rol')
-               ->references('id_rol')
-               ->on('rols')
-               ->onDelete('Cascade')
-               ->onUpdate('Cascade');
+            // $table->unsignedBigInteger('id_rol'); //entero grande
+            // $table->foreign('id_rol')
+            //    ->references('id_rol')
+            //    ->on('rols')
+            //    ->onDelete('Cascade')
+            //    ->onUpdate('Cascade');
 
 
 

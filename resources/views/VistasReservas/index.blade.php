@@ -3,12 +3,14 @@
 
 @section('Contenido')
 
+@can('reserva.index')
 <div class="flex justify-between p-4">
     <button type=""
         class="bg-indigo-600 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer">
         <a href="{{ Route('Reserva.bitacora') }}">Bitacora Reserva</a>
     </button>
 </div>
+@endcan
 
 <div class="flex justify-between pl-3 mb-3">
     <div>

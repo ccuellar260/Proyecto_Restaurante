@@ -25,7 +25,7 @@ return new class extends Migration
             $table->text('foto')->nullable();
             $table->string('nombre_usuario');
             $table->string('correo_electronico');
-            $table->integer('id_rol');
+
         });
     }
 

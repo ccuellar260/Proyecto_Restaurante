@@ -10,19 +10,20 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash; //para ecriptar contra
 use App\Models\Empleado;
 use App\Models\User;
-use App\Models\Rol;
 use App\Models\Mesa;
 use App\Models\AsignarMesa;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
+use App\Models\EmpleadoTurno;
+
+use Spatie\Permission\Models\Role; //de spity
 
 class EmpleadoController extends Controller
 {
 
     public function index(){
         //$tabla = Empleado::get(); //mostrame los datos de la tabla Empleado
-        $tabla = User::join('rols as r','r.id_rol','=','users.id_rol')
-                ->join('empleados as e','e.nombre_usuario','=','users.nombre_usuario')->get();
+        $tabla = User::join('empleados as e','e.nombre_usuario','=','users.nombre_usuario')->get();
 
                 $mesas = Mesa::get();
                 //dd($mesas);
@@ -31,8 +32,8 @@ class EmpleadoController extends Controller
 
 
     public function create(){
-        $Rol = Rol::get();
-        return view('VistasEmpleado.create',['Rol'=>$Rol]);
+        $roles = Role::all()->pluck('name','id');
+        return view('VistasEmpleado.create',['roles'=>$roles]);
     }
 
     public function store(Request $request,Empleado $Empleado){
@@ -41,13 +42,14 @@ class EmpleadoController extends Controller
         $request->validate([
             'telefono' => 'nullable|numeric'
         ]);
-
+        $roles = $request->input('roles', []); //obtenemos los roles
+        // dd($roles);
         $us = new User;
         $us->nombre_usuario= $request->usuario;
         $us->correo_electronico = $request->correo;
         $us->password = Hash::make($request->contrasena);
         $us->remember_token = Str::random(10);
-        $us->id_rol = $request->Rol;
+        $us->syncRoles($roles); //asignamos los roles al usuario
         $us->fecha_cambio_contra = date('Y-m-d');
         $us->save();
 
@@ -57,18 +59,26 @@ class EmpleadoController extends Controller
         $table->telefono = $request->telefono;
         //existe algun imagen en la fotoxd
         if($request->hasFile('fotoxd')){
-           $file = $request->file('fotoxd'); //guardar toda la info la foto en file
-           $capetaDestino = 'img/fotosEmpleados/';  //carpeta de destino
-           $nombreArchivo = time().'-'.$file->getClientOriginalName();//de file sacame el nombre
-           //mover la foto a la capeta de destino y su nombre
-           //dd($nombreArchivo);
-           $subirImagen = $request->file('fotoxd')->move($capetaDestino,$nombreArchivo);
-        }else{
-            $nombreArchivo = "perfil_falso.png";
-        }
-        $table->foto = $nombreArchivo;
+            $file = $request->file('fotoxd'); //guardar toda la info la foto en file
+            $capetaDestino = 'img/fotosEmpleados/';  //carpeta de destino
+            $nombreArchivo = time().'-'.$file->getClientOriginalName();//de file sacame el nombre
+            //mover la foto a la capeta de destino y su nombre
+            //dd($nombreArchivo);
+            $subirImagen = $request->file('fotoxd')->move($capetaDestino,$nombreArchivo);
+         }else{
+             $nombreArchivo = "perfil_falso.png";
+         }
+         $table->foto = $nombreArchivo;
         $table->nombre_usuario = $request->usuario;
         $table->save();
+
+
+        $asignar = new EmpleadoTurno();
+        $asignar->id_turno = 1;
+        $asignar->id_empleado = $table->ci;
+        $asignar->save();
+
+
 
         event(new BEmpleadoCreateEvent($request));
 
@@ -76,31 +86,30 @@ class EmpleadoController extends Controller
     }
 
     public function edit(Empleado $Empleado){
-        $fila = User::join('rols as r','r.id_rol','=','users.id_rol')
-        ->join('empleados as e','e.nombre_usuario','=','users.nombre_usuario')
-        ->where('e.ci',$Empleado->ci)->first();
-        return view('VistasEmpleado.edit',compact('fila'));
+        $fila = User::join('empleados as e','e.nombre_usuario','=','users.nombre_usuario')
+        ->where('e.ci',$Empleado->ci)->first()->load('roles');
+       // dd($fila->roles[0]->name);
+    //    $user_roles = User::where('nombre_usuario',$fila->nombre_usuario)
+    //    ->first()->load('roles');
+    //  dd($user_roles);
+
+        $roles = Role::all()->pluck('name','id');
+     //    dd($roles);
+
+        return view('VistasEmpleado.edit',compact('fila','roles'));
     }
 
     public function update(Request $request,Empleado $Empleado){
 
+        //bitacora
         event(new BEmpleadoEditEvent($request));
 
 
-        // Probando una validacion atte: Julico
-        // Aqui dice lo siguiente:
-        // El campo correo_electronico es requerido con el formato email y es unico de la tabla usuario en el campo correo_electronico
-        // lo ultimo es una condicion para que al actualizar el correo no podamos poner el correo existente de otro usuario.
-
-
-        // $request->validate([
-        //     'correo_electronico'   =>  'required|email|unique:User,correo_electronico,'.$user->nombre_usuario.',nombre_usuario'
-        // ]);
-
-
         //dd($request);
+        $roles = $request->input('roles', []);
         $user = User::where('nombre_usuario',$Empleado->nombre_usuario)->first();
         $user->correo_electronico = $request->correo;
+        $user->syncRoles($roles);
         //falta hacer pa las contras o nose xd xd xd
         $user->save();
 
@@ -122,8 +131,10 @@ class EmpleadoController extends Controller
       $user =  $tabla = User::join('empleados as e','e.nombre_usuario','=','users.nombre_usuario')
                         ->where('e.nombre_usuario', $Empleado->nombre_usuario)->first();
 
+        // bitacora
         event(new BEmpleadoDeleteEvent($user));
-        $Empleado->delete();
+
+        $user->delete();
 
         return back();
     }
@@ -188,9 +199,6 @@ class EmpleadoController extends Controller
                         })
                         ->when(Request('correo_electronico'),function($q){
                             return $q->where('be.correo_electronico',Request('correo_electronico'));
-                        })
-                        ->when(Request('id_rol'),function($q){
-                            return $q->where('be.id_rol',Request('id_rol'));
                         })
                         ->get();
 

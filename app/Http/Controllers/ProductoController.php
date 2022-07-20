@@ -30,8 +30,6 @@ class ProductoController extends Controller
         ->select('productos.*','tipo_productos.Categoria')
         ->get();
 
-
-
         return view('VistasProductos.index', compact('tabla'));
     }
 
@@ -148,7 +146,7 @@ class ProductoController extends Controller
         $Producto->id_tipo_plato = $request->tipo;
         $Producto->save();
 
-
+        // bitacora
         event(new BProductoEditEvent($Producto));
 
         return redirect()->Route('Producto.index');

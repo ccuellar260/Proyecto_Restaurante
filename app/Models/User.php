@@ -7,13 +7,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable,HasRoles;
 
-    protected $primaryKey = 'nombre_usuario'; //que variable sera la pk
-    protected $keyType = 'string';  //establecer el tipo de dato de la pk
+   // protected $primaryKey = 'nombre_usuario'; //que variable sera la pk
+  //  protected $keyType = 'string';  //establecer el tipo de dato de la pk
    // protected $table = 'usuaarios'; //para cambiar el nombre a la tabla
 
     /**
@@ -27,7 +28,6 @@ class User extends Authenticatable
         'nombre_usuario',
         'correo_electronico',
         'password',
-        'id_rol',
     ];
 
     /**
@@ -52,13 +52,18 @@ class User extends Authenticatable
       //  'email_verified_at' => 'datetime',
     //];
 
-    public function rols(){
-          //belongsTo{perteneces a} //metodo para recibir la forieng key
-        return $this->belongsTo(Rol::class);
-    }
+    // public function rols(){
+    //       //belongsTo{perteneces a} //metodo para recibir la forieng key
+    //     return $this->belongsTo(Rol::class);
+    // }
 
     public function empleados(){
          //hasMany{tien mucho} //metodo para dar la primari key
         return $this->hasMany(Empleado::class);
     }
+
+//     public function rol_usuarios(){
+//         //hasMany{tien mucho} //metodo para dar la primari key
+//        return $this->hasMany(RolUsuario::class);
+//    }
 }

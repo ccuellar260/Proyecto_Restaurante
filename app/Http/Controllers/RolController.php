@@ -3,63 +3,85 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Rol;
+
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
+
+
 
 class RolController extends Controller
 {
     public function index(){
-        $tabla = Rol::get(); //mostrame los datos de la tabla rol
-
-        return view('VistasRol.indexd',['tabla'=>$tabla]);
+        $roles = Role::paginate(10); //mostrame los datos de la tabla rol
+        // dd($roles);
+        $permisos = Permission::paginate(20);
+        return view('VistasRol.indexd', compact('permisos', 'roles')); //retornamos la vista y le pasamos los datos de la tabla rol
     }
 
 
     public function create(){
-        return view('VistasRol.create');
+        $permissions = Permission::all()->pluck('name','id'); //obtenemos todos los permisos de la tabla permiso y los pasamos a una variable
+        // dd($permisos);
+        return view('VistasRol.create', compact('permissions')); //retornamos la vista y le pasamos los datos de la variable permisos
     }
 
     public function store(Request $request){
-        //metodo yt
-        $table =new Rol;
-        $table->id_rol = $request->id_rol;
-        $table->nombre = $request->nombre;
-        $table->descripcion = $request->descripcion;
-        $table->save();
+        // dd($request->all());
+        $role = Role::create($request->only('name')); //creamos un nuevo rol con los datos que nos lleguen del formulario
+        // dd($request->permissions);
+        $role->permissions()->syncPermissions($request->input('permissions',[])); //asignamos los permisos que nos lleguen del formulario
+        dd($role);
+        return redirect()->route('Rol.index'); //retornamos a la vista index
+    }
+
+
+    public function edit($id){
+        $role = Role::find($id); //obtenemos el rol que nos llega por parametro
+        $permissions = Permission::all()->pluck('name','id'); //obtenemos todos los permisos de la tabla permiso y los pasamos a una variable
+        $role->load('permissions'); //cargamos los permisos del rol
+        // dd($role);
+        return view('VistasRol.edit', compact('role', 'permissions')); //retornamos la vista y le pasamos los datos de la variable permisos
+
+    }
+
+    public function update($id,Request $request,Role $role){
+    $role = Role::find($id); //obtenemos el rol que nos llega por parametro
+    $role->update($request->only('name')); //actualizamos el rol con los datos que nos lleguen del formulario
+    $role->permissions()->syncPermissions($request->input('permissions',[])); //asignamos los permisos que nos lleguen del formulario
+    // dd($role);
+    return redirect()->route('Rol.index'); //retornamos a la vista index
+    }
+
+
+    public function destroy($id){
+        $Rol = Role::find($id);
+        $Rol->delete();
         return redirect()->Route('Rol.index');
     }
 
+/////////////////////////////////////////////////////// metodos para asignar permisos a un rol
+    public function crearPermisos(){
+        return view('VistasRol.crearPermisos');
+    }
+    public function storePermisos(Request $request, Permission $p){
+        $p = Permission::create($request->only('name'));
+        return redirect()->Route('Rol.index');
+    }
+    public function editPermisos($id){
+        $permiso = Permission::find($id);
+        return view('VistasRol.editPermisos', compact('permiso'));
+    }
+    public function updatePermisos($id, Permission $p, Request $request){
+        $p = Permission::find($id);
+        // dd($request->all());
+        $p->update($request->only('name'));
 
-    public function edit(Rol $Rol){
-      //  $fila=Rol::findOrFail($Rol);
-
-        return view('VistasRol.edit',['fila'=>$Rol] );
-
+        return redirect()->Route('Rol.index');
+    }
+    public function deletePermisos($p){
+        $permiso = Permission::find($p);
+        $permiso->delete();
+        return redirect()->Route('Rol.index');
     }
 
-    public function update(Request $request,Rol $Rol){
-        //forma platzi
-     /*   $Rol->update([
-            'id_rol' => $request->id_rol,
-            'nombre' => $request->nombre,
-            'descripcion' => $request->descripcion,
-
-        ]);
-        return redirect()->Route('Rol.edit',$Rol->id_rol);
-    }*/
-
-    //2da forma de cambiar los datos
-
-    $Rol->id_rol = $request->id_rol;
-    $Rol->nombre = $request->nombre;
-    $Rol->descripcion = $request->descripcion;
-
-    $Rol->save();
-    return redirect()->Route('Rol.index');
-    }
-
-
-    public function destroy(Rol $Rol){
-        $Rol->delete();
-        return back();
-    }
 }

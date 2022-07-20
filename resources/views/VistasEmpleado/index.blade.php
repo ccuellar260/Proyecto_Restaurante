@@ -25,9 +25,9 @@
                 <h1 class="mt-4 text-2xl font-semibold text-gray-700 capitalize dark:text-white
                     group-hover:text-white"> {{ ucwords($fila->nombre_completo) }}</h1>
 
-                <p class="mt-2 text-gray-700 capitalize dark:text-gray-300
+                {{-- <p class="mt-2 text-gray-700 capitalize dark:text-gray-300
                     group-hover:text-gray-300">{{ ucwords($fila->nombre) }}
-                </p>
+                </p> --}}
                 @php
                     $me ='';
                 @endphp

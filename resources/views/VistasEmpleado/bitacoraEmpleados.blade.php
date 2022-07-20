@@ -61,11 +61,6 @@
                 <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full pl-2 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 type="text" placeholder="correo electronico" name="correo_electronico" >
             </div>
-            <div class="py-4 pl-2">
-                <label for="fecha">ID ROL</label>
-                <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full pl-2 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                type="unsignedInteger" placeholder="id rol" name="id_rol" >
-            </div>
             <div class="pl-2">
                 <button class="btn-outline-primary" type="submit" >
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -127,10 +122,6 @@
                                         class="px-2 py-3 border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                                         CORREO ELECTRONICO
                                     </th>
-                                    <th
-                                        class="px-2 py-3 border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                                        ID ROL
-                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -171,10 +162,6 @@
 
                                         </td><td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
                                             <p class="text-gray-900 whitespace-no-wrap">{{ $e->correo_electronico }}</p>
-                                        </td>
-
-                                        </td><td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
-                                            <p class="text-gray-900 whitespace-no-wrap">{{ $e->id_rol }}</p>
                                         </td>
 
                                         {{-- <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">

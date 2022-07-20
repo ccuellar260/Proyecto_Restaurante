@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
 
             $table->unsignedBigInteger('id_empleado');
-            $table->unsignedBigInteger('id_turno');
+            $table->unsignedBigInteger('id_turno')->nullable();
 
             $table->foreign('id_empleado')
                ->references('ci')

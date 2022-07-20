@@ -33,12 +33,13 @@ class BPedidoEditListener
         $pedido->accion = 'editar';
         $pedido->fecha_bpedido = now();
         $pedido->hora_bpedido = now();
-        $pedido->id_pedido = $event->bpedidocreate->id_pedido;
-        $pedido->nro_mesa = $event->bpedidocreate->nro_mesa;
-        $pedido->ci_empleado = $event->bpedidocreate->ci_empleado;
-        $pedido->estado = $event->bpedidocreate->estado;
-        $pedido->fecha = $event->bpedidocreate->fecha;
-        $pedido->hora= $event->bpedidocreate->hora;
+        $pedido->id_pedido = $event->bpedidoedit->id_pedido;
+        $pedido->nro_mesa = $event->bpedidoedit->nro_mesa;
+        $pedido->ci_empleado = $event->bpedidoedit->ci_empleado;
+        $pedido->estado = $event->bpedidoedit->estado;
+        $pedido->fecha = $event->bpedidoedit->fecha;
+        $pedido->hora= $event->bpedidoedit->hora;
+        $pedido->precio_total= $event->bpedidoedit->precio_total;
         $pedido->save();
     }
 }

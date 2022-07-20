@@ -17,7 +17,6 @@ return new class extends Migration
             $table->id();
             $table->string('estado');
             $table->string('nombre_usuario');
-            $table->unsignedBigInteger('id_rol');
             $table->date('fecha');
             $table->time('hora');
             $table->string('correo_electronico');

@@ -49,10 +49,15 @@ class PedidosController extends Controller
         $empleado = DB::table('empleados')->join('users','empleados.nombre_usuario','=','users.nombre_usuario')
         ->where('empleados.nombre_usuario',$user)->first();
 
-        $mesas = DB::table('mesas')->where('estado','Disponible')
-                     ->where('ci_empleado',$empleado->ci)->get();
-       // $mesasAdmin = DB::table('mesas')->where('estado','Disponible')->get();
-        $mesasAdmin = DB::table('mesas')->get();
+         $mesas = DB::table('mesas')->where('estado','Disponible')
+                  ->where('ci_empleado',$empleado->ci)->get();
+        //dd($mesas);
+
+
+       // $mesas = DB::table('mesas')->get();
+
+        $mesasAdmin = DB::table('mesas')->where('estado','Disponible')->get();
+       // $mesasAdmin = DB::table('mesas')->get();
 
         $clientes = DB::table('clientes')->get();
         $detalles = DetallePedido::join('productos','detalle_pedidos.id_producto','=','productos.id_producto')
@@ -128,8 +133,9 @@ class PedidosController extends Controller
     }
 
     public function destroy(Pedido $pedido){
-        // hay q ver q atributos envia $pedido para enviar a la bitacora pedido
-        // event (new BPedidoDeleteEvent($pedido));
+        //bitacora pedido
+        event (new BPedidoDeleteEvent($pedido));
+
         $detalle = DetallePedido::where('id_pedido',$pedido->id_pedido)->get();
         foreach ($detalle as $de) {
             event(new DisminuirCantidadEvent($de->id_producto,$de->cantidad,0));
@@ -155,6 +161,9 @@ class PedidosController extends Controller
         $de = DetallePedido::join('productos','detalle_pedidos.id_producto','=','productos.id_producto')
                         ->where('id_pedido',$pe->id_pedido)->get();
         //dd($de);
+
+        // bitacora
+        event (new BPedidoEditEvent($pe));
 
         $productos = DB::table('productos')
             ->join('tipo_productos','productos.id_tipo_plato','=','tipo_productos.id_tipo_plato')
@@ -324,7 +333,7 @@ class PedidosController extends Controller
               ->where('id_pedido',$recibo->id_pedido)->get();
           //  ->where('id_pedido',$recibo->id_pedido)
 
-          return view('VistasPedido.pdfRecibo',
+          return view('VistasPedido.generarRecibo',
           compact('recibo','detalles'));
     }
 

@@ -38,20 +38,20 @@ Route::resource('Rol', RolController::class)->except(['show'])
 
 Route::resource('Empleado', EmpleadoController::class)->except(['show','update'])->middleware('auth')->middleware('ExisteCorreo'); //->middleware('Admin')
 Route::resource('Mesas', MesaController::class)->except(['show'])
-->middleware('auth')->middleware('Admin');
+->middleware('auth');
 
 Route::get('Mesas/listas', [MesaController::class,'listas'])->name('listas');
 Route::get('Empleado/asignarMesa/{ci}', [EmpleadoController::class,'asignarMesa'])
-->name('Empleado.asignarMesa')->middleware('auth')->middleware('Admin');
+->name('Empleado.asignarMesa')->middleware('auth');
 Route::put('Empleado/{Empleado}', [EmpleadoController::class,'update'])
 ->name('Empleado.update')->middleware('auth')->middleware('ConfirmarContra');
 Route::post('Empleado/asignarMesa/{ci}', [EmpleadoController::class,'StoreAsignarMesa'])
-->name('Empleado.StoreAsignarMesa')->middleware('auth')->middleware('Admin');
+->name('Empleado.StoreAsignarMesa')->middleware('auth');
 
 Route::resource('Producto', ProductoController::class)->except(['show'])
-->middleware('auth')->middleware('Admin');
+->middleware('auth');
 Route::get('Producto/Consultas',[ProductoController::class,'consultas'])
-->name('Producto.consultas')->middleware('auth')->middleware('Admin');
+->name('Producto.consultas')->middleware('auth');
 
 
 //Gestion de Ambinete
@@ -74,7 +74,7 @@ Route::get('Pedidos',[PedidosController::class,'index'])
 Route::get('Consultar/Pedidos',[PedidosController::class,'consultarPedidos'])
      ->name('Pedido.consultar')->middleware('auth');
 Route::post('Pedidos/storexd',[PedidosController::class,
-     'storexd'])->name('Pedido.storexd');
+     'storexd'])->name('Pedido.storexd')->middleware('SelectMesa');
 Route::get('Pedidos/CrearPedido/{mesa}',[PedidosController::class,
      'crear_pedido'])->name('Pedido.CrearPedido');
 Route::post('Pedidos/Detallles',[PedidosController::class,'storePedido'])
@@ -190,3 +190,12 @@ Route::get('Bitacora/Productos',[ProductoController::class,'bitacoraProductos'])
     ->name('Producto.bitacora')->middleware('auth');
 Route::get('Bitacora/Reservas',[ReservaController::class,'bitacoraReservas'])
     ->name('Reserva.bitacora')->middleware('auth');
+
+
+//rutas de PERMISOS
+
+Route::get('Permisos',[RolController::class,'crearPermisos'])->name('Permiso.create')->middleware('auth');
+Route::post('Permisos',[RolController::class,'storePermisos'])->name('Permiso.store')->middleware('auth');
+Route::get('Permisos/{rol}/edit',[RolController::class,'editPermisos'])->name('Permiso.edit')->middleware('auth');
+Route::put('Permisos/{rol}',[RolController::class,'updatePermisos'])->name('Permiso.update')->middleware('auth');
+Route::delete('Permisos/{rol}',[RolController::class,'deletePermisos'])->name('Permiso.deletePermisos')->middleware('auth');

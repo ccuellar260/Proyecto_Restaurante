@@ -4,7 +4,13 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+
+use Illuminate\Support\Str;
+
 use App\Models\Rol;
+use App\Models\Permiso;
+use App\Models\PermisoRol;
+use App\Models\RolUsuario;
 use App\Models\Empleado;
 use App\Models\User;
 use App\Models\TipoProducto;
@@ -14,6 +20,11 @@ use App\Models\Mesa;
 use App\Models\Ambiente;
 use App\Models\Turno;
 use App\Models\EmpleadoTurno;
+
+//ibreria spity
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Traits\HasRoles;
 
 
 class DatabaseSeeder extends Seeder
@@ -29,25 +40,9 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
 
-       //  \App\Models\Empleado::factory()->create();
-       //  \App\Models\Rol::factory(3)->create();
-
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
-        $this->CargarRol();
-
-
-/*
-        $e1 =  new Empleado;
-        $e1->ci = 899434;
-        $e1->nombre_completo = 'Cristhian Cuellar';
-        $e1->telefono = 783243;
-
-        $e1->save();*/
-
-         \App\Models\User::factory()->create();
+        $this->CargarRolePermisos(); //roles y permisos
+        $this->CargarUsuariosEmpleados(); //user y roles
+        // \App\Models\User::factory()->create();
         // \App\Models\Empleado::factory()->create();
        $this->CargarEmpleado();
        $this->CargarTurno();
@@ -61,42 +56,146 @@ class DatabaseSeeder extends Seeder
 
     }
 
-    public function CargarRol(){
-        $tt =  new Rol();
-        $tt->id_rol = '1';
-        $tt->nombre = 'Admin';
-        $tt->descripcion = 'Es el adminstardor del negocio';
+    // public function CargaUser(){
+    //     $user = new User();
+    //     $user->nombre_usuario = 'cristhian22';
+    //     $user->correo_electronico = 'osvaldo.marvin@example.net';
+    //     $user->password =  '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'; // password
+    //     $user->remember_token =  Str::random(10);
+    //     $user->fecha_cambio_contra = date('Y-m-d');
+    //     $user->save();
+    // }
 
-        $tt->save();
+    // cargar roles y permisos
+    public function CargarRolePermisos()
+    {
+        // creamos los roles
+        $Admin          = Role::create(['name' => 'Administrador']);
+        $Meseros         = Role::create(['name' => 'Mesero']);
+        $Cocineros       = Role::create(['name' => 'Cocinero']);
 
-        $t2 =  new Rol();
-        $t2->id_rol = '2';
-        $t2->nombre = 'Mesero';
-        $t2->descripcion = 'Es el que atinede a lso clientes';
+        ////////////admin
+        Permission::create(['name' => 'admin'])->syncRoles([$Admin]);
+        ////////////Pedidos
+        Permission::create(['name' => 'Pedidos.index'])->syncRoles([$Admin,$Meseros]);
+        Permission::create(['name' => 'Pedidos.admin.mesa'])->syncRoles([$Admin]);
+        Permission::create(['name' => 'Pedidos.mesero.mesa'])->syncRoles([$Meseros]);
+        Permission::create(['name' => 'Pedidos.consulta'])->syncRoles([$Admin]);
+        Permission::create(['name' => 'Pedidos.realizar.pedido'])->syncRoles([$Admin,$Meseros]);
+        Permission::create(['name' => 'Pedidos.bitacora'])->syncRoles([$Admin]);
+        Permission::create(['name' => 'Pedidos.en.cocina'])->syncRoles([$Admin,$Meseros]);
+        Permission::create(['name' => 'Pedidos.listo'])->syncRoles([$Admin,$Cocineros]);
+        Permission::create(['name' => 'Pedidos.pagar'])->syncRoles([$Admin,$Meseros]);
+        ////////////roles
+        Permission::create(['name' => 'roles.index'])->syncRoles([$Admin]);
+        Permission::create(['name' => 'roles.creatit'])->syncRoles([$Admin]);
+        Permission::create(['name' => 'roles.delee'])->syncRoles([$Admin]);
+        Permission::create(['name' => 'roles.edte'])->syncRoles([$Admin]);
+        ////////////empleados
+        Permission::create(['name' => 'empleados.index'])->syncRoles([$Admin,$Meseros,$Cocineros]);
+        Permission::create(['name' => 'empleados.create'])->syncRoles([$Admin]);
+        Permission::create(['name' => 'empleados.edit'])->syncRoles([$Admin,$Meseros,$Cocineros]);
+        Permission::create(['name' => 'empleados.delete'])->syncRoles([$Admin]);
+        Permission::create(['name' => 'empleados.bitacora'])->syncRoles([$Admin]);
+        ////////////Mesas
+        Permission::create(['name' => 'mesas.index'])->syncRoles([$Admin]);
+        Permission::create(['name' => 'mesas.create'])->syncRoles([$Admin]);
+        Permission::create(['name' => 'mesas.edit'])->syncRoles([$Admin]);
+        Permission::create(['name' => 'mesas.delete'])->syncRoles([$Admin]);
+        Permission::create(['name' => 'mesas.ambiente'])->syncRoles([$Admin]);
+        Permission::create(['name' => 'mesas.ambiente.index'])->syncRoles([$Admin]);
+        Permission::create(['name' => 'mesas.ambiente.create'])->syncRoles([$Admin]);
+        Permission::create(['name' => 'mesas.ambiente.edit'])->syncRoles([$Admin]);
+        Permission::create(['name' => 'mesas.ambiente.delete'])->syncRoles([$Admin]);
+        ////////////
+        Permission::create(['name' => 'productos.index'])->syncRoles([$Admin]);
+        Permission::create(['name' => 'productos.create'])->syncRoles([$Admin]);
+        Permission::create(['name' => 'productos.edit'])->syncRoles([$Admin]);
+        Permission::create(['name' => 'productos.delete'])->syncRoles([$Admin]);
+        Permission::create(['name' => 'productos.consulta'])->syncRoles([$Admin]);
+        Permission::create(['name' => 'productos.bitacora'])->syncRoles([$Admin]);
+        ////////////
+        Permission::create(['name' => 'cliente.index'])->syncRoles([$Admin]);
+        Permission::create(['name' => 'cliente.create'])->syncRoles([$Admin]);
+        Permission::create(['name' => 'cliente.edit'])->syncRoles([$Admin]);
+        Permission::create(['name' => 'cliente.delete'])->syncRoles([$Admin]);
+        Permission::create(['name' => 'cliente.bitacora'])->syncRoles([$Admin]);
+        ////////////
+        Permission::create(['name' => 'turno.index'])->syncRoles([$Admin]);
+        Permission::create(['name' => 'turno.create'])->syncRoles([$Admin]);
+        Permission::create(['name' => 'turno.edit'])->syncRoles([$Admin]);
+        Permission::create(['name' => 'turno.delete'])->syncRoles([$Admin]);
+        Permission::create(['name' => 'turno.asignar'])->syncRoles([$Admin]);
+        ////////////
+        Permission::create(['name' => 'reserva.index'])->syncRoles([$Admin]);
+        Permission::create(['name' => 'reserva.create'])->syncRoles([$Admin]);
+        Permission::create(['name' => 'reserva.edit'])->syncRoles([$Admin]);
+        Permission::create(['name' => 'reserva.delete'])->syncRoles([$Admin]);
+        Permission::create(['name' => 'reserva.bitacora'])->syncRoles([$Admin]);
+        ////////////
+        Permission::create(['name' => 'dashboard'])->syncRoles([$Admin]);
+        Permission::create(['name' => 'dashboard.empleado'])->syncRoles([$Meseros,$Cocineros]);
+        Permission::create(['name' => 'logout'])->syncRoles([$Admin,$Meseros,$Cocineros]);
+        ////////////
+        // Permission::create(['name' => 'Mesero'])->syncRoles([$Admin,$Meseros]);
+        ////////////
 
-        $t2->save();
+        // // creamos los permisos
+        // $permisos = [
+        //     'menu',
+        //     'bitacora',
+        //     'consultas',
+        //     'create',
+        //     'read',
+        //     'update',
+        //     'delete',
+        // ];
 
-        $t=  new Rol();
-        $t->id_rol = '3';
-        $t->nombre = 'Cocinero';
-        $t->descripcion = 'Es el que se quema en la cocina';
+        // // a cada rol le asignamos los permisos
+        // foreach (Role::all() as $rol) {
+        //     foreach ($permisos as $p) {
+        //         Permission::create(['name' => "{$rol->name} $p"]);
+        //     }
+        // }
 
-        $t->save();
+        // // unir permisos con los roles
+        // $Admin->syncPermissions(Permission::all());
+        // $Meseros->syncPermissions(Permission::where('name', 'like', '%Mesero%')->get());
+        // $Cocineros->syncPermissions(Permission::where('name', 'like', '%Cocinero%')->get());
+
+        // // unir roles con los usuarios
+        // // $Administrador->assignRole('Administrador');
+        // // $Mesero->assignRole('Mesero');
+        // // $Cocinero->assignRole('Cocinero');
+        // //cargar un usuario administrador
 
 
     }
 
+    //cargar roles a los usarios
+    public function CargarUsuariosEmpleados()
+    {
+
+        User::create([
+            'nombre_usuario' => 'cristhian22',
+            'correo_electronico' => 'osvaldo.marvin@example.net',
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'remember_token' => Str::random(10),
+            'fecha_cambio_contra' => date('Y-m-d'),
+        ])->assignRole('Administrador');
+
+    }
+
+
+
     public function CargarEmpleado(){
 
         $e = new Empleado();
-      //  $u = User::get();
-
         $e->ci = 8994432;
         $e->nombre_completo = 'Cristian Cuellar';
         $e->telefono = 110;
         $e->foto = '1657436258-critian.jpg';
         $e->nombre_usuario = User::inRandomOrder()->first()->nombre_usuario;
-
         $e->save();
 
 

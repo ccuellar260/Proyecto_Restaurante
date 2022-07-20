@@ -38,6 +38,7 @@ class BReservaDeleteListener
         $reserva->hora_reserva = $event->breservadelete->hora_reserva;
         $reserva->ci_cliente = $event->breservadelete->ci_cliente;
         $reserva->ci_empleado = $event->breservadelete->ci_empleado;
+        $reserva->nro_mesa = $event->breservadelete->nro_mesa;
         $reserva->save();
     }
 }

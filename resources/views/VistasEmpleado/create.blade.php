@@ -40,6 +40,7 @@
                                   <path d="M9 15h3l8.5 -8.5a1.5 1.5 0 0 0 -3 -3l-8.5 8.5v3" />
                                   <line x1="16" y1="5" x2="19" y2="8" />
                               </svg>
+<input type="file" class="opacity-0 w-20 h-20 rounded-full absolute bottom-0 -mb- ml-0 shadow flex items-center justify-center " name="fotoxd" id="fotoxd">
                            <label id="fotoxd" class="text-xs text-gray-100">Cargar Foto</label>
 
                           </div>
@@ -48,8 +49,6 @@
                   </div>
               </div>
           </div>
-
-          <input type="file"class="text-xs text-gray-100" name="fotoxd" id="fotoxd">
 
 
           <div class="mt-12 grid gap-6 mb-6 lg:grid-cols-2">
@@ -68,11 +67,11 @@
                     <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                         Seleccionar Rol
                     </label>
-                    <select name="Rol" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    value="{{old('Rol')}}">
-
-                        @foreach ($Rol as $f)
-                            <option value='{{ $f->id_rol }}''>{{ $f->nombre }}</option>
+                        @foreach ($roles as $id => $role)
+                        <input type="checkbox" name="roles[]" value="{{ $id }}">
+                        <span>
+                            {{ $role }}
+                        </span><br>
                         @endforeach
                     </select>
                 </div>
