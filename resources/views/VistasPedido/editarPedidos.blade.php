@@ -52,7 +52,7 @@
                             @foreach ($productos as $p)
                                 <tr>
                                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
-                                        <img  width="80" src="{{$p->url}}">
+                                        <img  width="80" src="{{asset('img/fotosProductos/'.$p->url)}}">
                                     </td>
                                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
                                         <p class="text-gray-900 whitespace-no-wrap">{{ucwords($p->nombre)}} </p>
@@ -60,9 +60,6 @@
                                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
                                         <p class="text-gray-900 whitespace-no-wrap">{{ $p->precio }}</p>
                                     </td>
-
-
-
 
                                                         <!-- usando el status solo muestra un mensaje-->
                                         @if (session("status{$p->id_producto}"))

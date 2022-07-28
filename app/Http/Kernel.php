@@ -59,6 +59,7 @@ class Kernel extends HttpKernel
         'Cocino' => \App\Http\Middleware\Cocino::class,
         'ConfirmarContra' => \App\Http\Middleware\ConfirmarContr::class,
         'ProductoCantidad' => \App\Http\Middleware\ProductoCantidad::class,
+        'ConfirmarReserva' => \App\Http\Middleware\ConfirmarReserva::class,
         'auth' => \App\Http\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'auth.session' => \Illuminate\Session\Middleware\AuthenticateSession::class,

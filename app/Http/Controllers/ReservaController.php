@@ -24,8 +24,7 @@ class ReservaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index() {
 
         $reservas = DB::table('reservas')
         ->join('clientes','reservas.ci_cliente','=','clientes.ci')->get();
@@ -39,21 +38,16 @@ class ReservaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    public function create(){
         $mesas = DB::table('mesas')
-                    ->join('tipo_mesas','mesas.id_tipo_mesa','=','tipo_mesas.id_tipo_mesa')
-                    ->where('estado','Disponible')->get();
+                    ->join('tipo_mesas','mesas.id_tipo_mesa','=','tipo_mesas.id_tipo_mesa')->get();
+                  //  ->where('estado','Disponible')->get();
 
-       $empleados = Empleado::get();
+     //  $empleados = Empleado::get();
         $clientes = Cliente::get();
         $reservas = DB::table('reservas')
-        ->join('clientes','reservas.ci_cliente','=','clientes.ci')
-        ->join('empleados','reservas.ci_empleado','=','empleados.ci')
-       ->select('reservas.id_reserva','reservas.fecha_reserva as fecha','reservas.hora_reserva as hora',
-                'reservas.nro_mesa',
-                'clientes.nombre_completo as nombre_cliente','clientes.ci as ci_cliente',
-                'empleados.nombre_completo as nombre_empleado','empleados.ci as ci_empleado')->get();
+        ->join('clientes','reservas.ci_cliente','=','clientes.ci')->get();
+     //   dd($reservas);
 
         return view('VistasReservas.create', compact('reservas','mesas','clientes'));
     }
@@ -64,9 +58,8 @@ class ReservaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-
+    public function store(Request $request) {
+     //   dd('llegue a update');
         $reserva = new Reserva();
         $reserva->fecha_reserva = $request->fecha;
         $reserva->hora_reserva = $request->hora;
@@ -97,8 +90,7 @@ class ReservaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
+    public function show($id){
         //
     }
 

@@ -8,103 +8,104 @@
     <title>Document</title>
 </head>
 <body>
-    <div class="bg-white">
-        <div class="container mx-auto px-6 py-16">
-        <div class="mx-auto sm:w-6/12 lg:w-5/12 xl:w-[30%]">
-            <div>
-            <h1 class="text-3xl">Your Library</h1>
-            <p class="mt-2 text-gray-600">Listen to your favorite music today !</p>
-            </div>
+  <!-- component -->
+<style>
+    body {
+      background: #e2e8f0;
+    }
+      *:hover {
+        transition: all 150ms ease-in;
+      }
+    </style>
 
-            <div class="mt-4">
-            <div class="relative flex flex-col justify-end overflow-hidden rounded-b-xl pt-6">
-                <div class="group relative flex cursor-pointer justify-between rounded-xl bg-amber-200 before:absolute before:inset-y-0 before:right-0 before:w-1/2 before:rounded-r-xl before:bg-gradient-to-r before:from-transparent before:to-amber-600 before:opacity-0 before:transition before:duration-500 hover:before:opacity-100">
-                <div class="relative  space-y-1 p-4">
-                    <h4 class="text-lg text-amber-900">Smooth Criminal</h4>
-                    <div class="relative h-6 text-amber-800 text-sm">
-                    <span class="transition duration-300 group-hover:invisible group-hover:opacity-0">Michael Jackson</span>
-                    <a href="" class="flex items-center gap-3 invisible absolute left-0 top-0 translate-y-3 transition duration-300 group-hover:visible group-hover:translate-y-0">
-                        <span>Listen now </span>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 -translate-x-4 transition duration-300 group-hover:translate-x-0" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
-                        </svg>
-                    </a>
-                    </div>
-                </div>
-                <img class="absolute bottom-0 right-6 w-[6rem] transition duration-300 group-hover:scale-[1.4]" src="https://raw.githubusercontent.com/Meschacirung/Tailus-website/main/public/images/singers/Michael-Jackson.png" alt="" />
-                </div>
-            </div>
-            <div class="relative -mr-6 flex flex-col justify-end overflow-hidden rounded-b-xl pt-6 pr-6">
-                <div class="group relative flex cursor-pointer justify-between rounded-xl bg-orange-200 before:absolute before:inset-y-0 before:right-0 before:w-1/2 before:rounded-r-xl before:bg-gradient-to-r before:from-transparent before:to-orange-600 before:opacity-0 before:transition before:duration-500 hover:before:opacity-100">
-                <div class="relative space-y-1 p-4">
-                    <h4 class="text-lg text-orange-900">Ice Cream</h4>
-                    <div class="relative h-6 text-orange-800 text-sm">
-                    <span class="transition duration-300 group-hover:invisible group-hover:opacity-0">Selena Gomez</span>
-                    <a href="" class="w-max flex items-center gap-3 invisible absolute left-0 top-0 translate-y-3 transition duration-300 group-hover:visible group-hover:translate-y-0">
-                        <span>Listen now </span>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 -translate-x-4 transition duration-300 group-hover:translate-x-0" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
-                        </svg>
-                    </a>
-                    </div>
-                </div>
-                <img class="absolute -bottom-1 right-0 w-[6rem] transition duration-300 group-hover:scale-[1.4]" src="https://raw.githubusercontent.com/Meschacirung/Tailus-website/main/public/images/singers/Selena-Gomez.png" alt="" />
-                </div>
-            </div>
-            <div class="relative flex flex-col justify-end overflow-hidden rounded-b-xl pt-6">
-                <div class="group relative flex cursor-pointer justify-between rounded-xl bg-rose-200 before:absolute before:inset-y-0 before:right-0 before:w-1/2 before:rounded-r-xl before:bg-gradient-to-r before:from-transparent before:to-rose-600 before:opacity-0 before:transition before:duration-500 hover:before:opacity-100">
-                <div class="relative space-y-1 p-4">
-                    <h4 class="text-lg text-rose-900">Love yourself</h4>
-                    <div class="relative h-6 text-rose-800 text-sm">
-                    <span class="transition duration-300 group-hover:invisible group-hover:opacity-0">Justin Bieber</span>
-                    <a href="" class="w-max flex items-center gap-3 invisible absolute left-0 top-0 translate-y-3 transition duration-300 group-hover:visible group-hover:translate-y-0">
-                        <span>Listen now </span>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 -translate-x-4 transition duration-300 group-hover:translate-x-0" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
-                        </svg>
-                    </a>
-                    </div>
-                </div>
-                <img class="absolute bottom-0 right-6 w-[6rem] transition duration-300 group-hover:scale-[1.4]" src="https://raw.githubusercontent.com/Meschacirung/Tailus-website/main/public/images/singers/Justin-Bieber.png" alt="" />
-                </div>
-            </div>
-            <div class="relative -mr-6 flex flex-col justify-end overflow-hidden rounded-b-xl pt-6 pr-6">
-                <div class="group relative flex cursor-pointer justify-between rounded-xl bg-fuchsia-200 before:absolute before:inset-y-0 before:right-0 before:w-1/2 before:rounded-r-xl before:bg-gradient-to-r before:from-transparent before:to-fuchsia-600 before:opacity-0 before:transition before:duration-500 hover:before:opacity-100">
-                <div class="relative w-7/12 space-y-1 p-4">
-                    <h4 class="text-lg text-fuchsia-900">7 Rings</h4>
-                    <div class="relative h-6 text-fuchsia-800 text-sm">
-                    <span class="transition duration-300 group-hover:invisible group-hover:opacity-0">Ariana Grande</span>
-                    <a href="" class="w-max flex items-center gap-3 invisible absolute left-0 top-0 translate-y-3 transition duration-300 group-hover:visible group-hover:translate-y-0">
-                        <span>Listen now </span>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 -translate-x-4 transition duration-300 group-hover:translate-x-0" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
-                        </svg>
-                    </a>
-                    </div>
-                </div>
-                <img class="absolute -bottom-1 right-0 w-[6rem] transition duration-300 group-hover:scale-[1.4]" src="https://raw.githubusercontent.com/Meschacirung/Tailus-website/main/public/images/singers/Ariana-Grande.png" alt="" />
-                </div>
-            </div>
-            <div class="relative flex flex-col justify-end overflow-hidden rounded-b-xl pt-6">
-                <div class="group relative flex cursor-pointer justify-between rounded-xl bg-blue-200 before:absolute before:inset-y-0 before:right-0 before:w-1/2 before:rounded-r-xl before:bg-gradient-to-r before:from-transparent before:to-blue-600 before:opacity-0 before:transition before:duration-500 hover:before:opacity-100">
-                <div class="relative space-y-1 p-4">
-                    <h4 class="text-xl text-blue-900">Diamond</h4>
-                    <div class="relative h-6 text-blue-800 text-sm">
-                    <span class="transition duration-300 group-hover:invisible group-hover:opacity-0">Rihanna</span>
-                    <a href="" class="w-max flex items-center gap-3 invisible absolute left-0 top-0 translate-y-3 transition duration-300 group-hover:visible group-hover:translate-y-0">
-                        <span>Listen now </span>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 -translate-x-4 transition duration-300 group-hover:translate-x-0" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
-                        </svg>
-                    </a>
-                    </div>
-                </div>
-                <img class="absolute bottom-0 right-6 w-[6rem] transition duration-300 group-hover:scale-[1.4]" src="https://raw.githubusercontent.com/Meschacirung/Tailus-website/main/public/images/singers/Rihanna.png" alt="" />
-                </div>
-            </div>
-            </div>
+    <div class="antialiased max-w-6xl mx-auto my-12 bg-gray-300 px-8">
+
+        <form action="{{ Route('Reserva.store') }}" method="post">
+            @csrf
+      <div class="relative block md:flex items-center">
+
+
+        {{-- div del cuadrado blanco  --}}
+        <div class="w-full md:w-1/2 relative z-1 bg-gray-100 rounded shadow-lg overflow-hidden">
+            {{-- div solo para el tiutlo --}}
+            <div class="text-lg font-medium text-green-500 uppercase p-8 text-center border-b border-gray-200 tracking-wide">Titulo para div</div>
+
+            {{-- div donde estan los numeros  --}}
+          <div class="block sm:flex md:block lg:flex items-center justify-center">
+            {{-- <div class="mt-8 sm:m-8 md:m-0 md:mt-8 lg:m-8 text-center"> --}}
+              <div class="inline-flex items-center mt-8 sm:m-8 md:m-0 md:mt-8 lg:m-8">
+                <label for="fecha" class="mr-4" >
+                    Fecha
+                </label>
+                <input type="date" id="fecha" name="fecha"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block  p-2.5 "
+                    placeholder="John" required>
+              </div>
+          </div>
+
+          <div class="block sm:flex md:block lg:flex items-center justify-center">
+            {{-- <div class="mt-8 sm:m-8 md:m-0 md:mt-8 lg:m-8 text-center"> --}}
+              <div class="inline-flex items-center mt-8 sm:m-8 md:m-0 md:mt-8 lg:m-8">
+                <label for="hora"
+                    class="block mb-2 text-sm font-medium mr-4 text-gray-900 dark:text-gray-300">Hora</label>
+                <input type="time" id="hora" name="hora"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block  p-2.5 "
+                    placeholder="Doe" required>
+              </div>
+          </div>
+
+          <div class="block sm:flex md:block lg:flex items-center justify-center">
+            {{-- <div class="mt-8 sm:m-8 md:m-0 md:mt-8 lg:m-8 text-center"> --}}
+              <div class="inline-flex items-center mt-8 sm:m-8 md:m-0 md:mt-8 lg:m-8">
+                <label for="ci_cliente"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Cliente</label>
+            <select id="ci_cliente" name="ci_cliente"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                required>
+
+            </select>
+              </div>
+          </div>
+
+          <div class="grid gap-4 grid-cols-2">
+            <div><a class="block flex items-center justify-center bg-gray-200 hover:bg-gray-300 p-8 text-md font-semibold text-gray-800 uppercase mt-16" href="{{ Route('Reserva.index') }}">
+                <span>Volver </span>
+                <span class="font-medium text-gray-700 ml-2">➔</span>
+              </a></div>
+            <div><a class="block flex items-center justify-center bg-gray-200 hover:bg-gray-300 p-8 text-md font-semibold text-gray-800 uppercase mt-16" href="{{ Route('Cliente.Create') }}">
+                <span>Crar Cliente </span>
+                <span class="font-medium text-gray-700 ml-2">➔</span>
+              </a></div>
+          </div>
+
+
         </div>
-        </div>
+
+
+        {{-- div para el oscuaro  --}}
+        <div class="w-full md:w-2/2 relative z-0 px-8 md:px-0 md:py-16">
+            <div class="bg-blue-900 text-white rounded-b md:rounded-b-none md:rounded-r shadow-lg overflow-hidden">
+              <div class="text-lg font-medium uppercase p-8 text-center border-b border-blue-800 tracking-wide">Registro de Reserva</div>
+              <label for="nro_mesa">Nro. de Mesa</label><br>
+              <div >
+
+
+
+              <a class="block flex items-center justify-center bg-blue-800 hover:bg-blue-700 p-8 text-md font-semibold text-gray-300 uppercase mt-8" href="#" >
+                <button type="submit"
+                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                    Guardar
+                </button>
+              </a>
+            </div>
+          </div>
+
+
+
+        </form>
+
+
+
     </div>
 
 </body>

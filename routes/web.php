@@ -28,8 +28,7 @@ use Illuminate\Validation\ValidationException;
 */
 
 Route::get('/', function () {
-
-    return view('welcome',);
+    return redirect()->Route('Dashboard');
 })->middleware('auth');//si no estoy logueado retorname a login
 
            //nombre clase, nombre de metodo  //-> name es el nombre de ruta
@@ -102,10 +101,13 @@ Route::put('Pedido/RefreshProduc',[PedidosController::class,'RestCantPlatos'])
 Route::put('Pedido/StoreRealizarPago/{pedido}',[PedidosController::class,'StoreRealizarPago'])
     ->name('Pedido.StoreRealizarPago');
 //Generar Recibo en PDF
-Route::get('Pedido/pdf',function(){
-     $pdf = PDF::loadView('prueba');
-     return $pdf->stream();
-})->name('Pedido.pdf');
+
+// Route::view("generarRecibos",'VistasPedido/generarRecibos')->name('recibos');
+
+Route::get('pdf',[PedidosController::class,'pdf'])->name('pdf');
+
+Route::delete('Pedidos/{pedido}',[PedidosController::class,'destroy'])
+     ->name('Pedido.destroy');
 
 
 Route::get('Pedido/pdfxd',[PedidosController::class,'pdfxd'])
@@ -153,9 +155,11 @@ Route::delete('Cliente/Dell/{cliente}',[ClienteController::class,'destroy'])
      ->name('Cliente.Destroy');
 
 
-//Reservas
-Route::resource('Reserva', ReservaController::class)->except(['show'])
+//Reservas ConfirmarReserva
+Route::resource('Reserva', ReservaController::class)->except(['show','store'])
      ->middleware('auth');
+Route::post('Reserva/Create', [ReservaController::class,'store'])
+      ->name('Reserva.store')->middleware('auth')->middleware('ConfirmarReserva');
 Route::get('Reserva/{reserva}',[ReservaController::class,'verReserva'])
      ->name('Reserva.verReserva');
 

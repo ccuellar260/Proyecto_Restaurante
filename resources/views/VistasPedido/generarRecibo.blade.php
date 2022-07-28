@@ -114,18 +114,14 @@
                             <div class="space-x-2 truncate">
 
                             </div>
-                            <a href="{{Route('Pedido.pdfxd')}}">Ver pdf</a>
-
-                            <!-- <a href="{{ Route('Pedido.pdf') }}" class="text-purple-700 hover:underline">
-                                Descargota
-                            </a> -->
+                            <a href="#">Ver pdf</a>
                         </div>
 
                         <div class="border-2 flex items-center p-2 rounded justify-between space-x-2">
                             <div class="space-x-2 truncate">
-                               
+
                             </div>
-                            <a href="#" class="text-purple-700 hover:underline">
+                            <a href="{{Route('pdf',$recibo->id_recibo)}}" class="text-purple-700 hover:underline">
                                 Download
                             </a>
                         </div>
@@ -134,7 +130,7 @@
             </div>
         </div>
 
-        <a href="{{Route('Pedido.pdfxd')}}"
+        <a href="#"
         class="bg-purple-600 p-2 rounded-lg text-white fixed right-0 bottom-0">
 
         Ver pdf</a>

@@ -1,135 +1,144 @@
 @extends('navegador')
 
 @section('Contenido')
-    <!-- This is an example component -->
-    <div class="max-w-4xl mx-auto bg-white p-12">
-
-        <form action="{{ Route('Reserva.store') }}" method="post">
-            @csrf
-            <div class="grid gap-6 mb-6 lg:grid-cols-2">
-                <div class="grid gap-6 mb-6 lg:grid-cols-1">
-                    <div>
-                        <label for="fecha"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Fecha</label>
-                        <input type="date" id="fecha" name="fecha"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            placeholder="John" required>
-                    </div>
-                    <div>
-                        <label for="hora"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Hora</label>
-                        <input type="time" id="hora" name="hora"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            placeholder="Doe" required>
-                    </div>
-
-                    <div>
-                        <label for="ci_cliente"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Cliente</label>
-                        <select id="ci_cliente" name="ci_cliente"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            required>
-                            @foreach ($clientes as $cliente)
-                                <option value="{{ $cliente->ci }}">{{ ucwords($cliente->nombre_completo) }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-                <div>
-                    <div class="form-group">
-                        <label for="nro_mesa">Nro. de Mesa</label><br>
-                        <div >
-
-                            @foreach ($mesas as $m)
-                            <div class="overflow-x-auto p-3">
-                                <table class="table-auto w-full">
-                                    <thead class="text-xs font-semibold uppercase text-gray-400 bg-gray-50">
-                                    <tr></tr>
-                                    </thead>
-
-                                <tbody class="text-sm divide-y divide-gray-100">
-                                <tr>
-                                    <td class="p-2">
-                                        <div class="flex justify-center">
-                                            @if ($m->estado == 'Disponible')
-                                                <input type="radio" name="mesa" id="" value="{{ $m->nro_mesa }}">
-                                            @else
-                                                <input type="radio" name="mesa" id="" value="{{ $m->nro_mesa }}" disabled>
-                                            @endif
-                                        </div>
-                                    </td>
-                                    <td class="p-2">
-                                        <div class="flex justify-center">
-                                        <img  width="50" src="https://cdn-icons-png.flaticon.com/512/1535/1535032.png">
-                                        </div>
-                                    </td>
-
-                                    <td class="p-2">
-                                        <div class="font-medium text-gray-800">
-                                        {{$m->nro_mesa}}
-                                        </div>
-                                    </td>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <title>Document</title>
+  </head>
+  <body>
+    @if (session('hora_reserva')) <!--Existe el atributo status?-->
+          <div class=" max-w-lg bg-red-500 mx-auto mt-3 mb-3 p-2 flex space-x-2">
+              <svg class="w-6 h-6 stroke-black" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+              <p class="text-white font-semibold">{{session('hora_reserva')}}</p>
+          </div>
+    @endif
+    <form
+      class="formulario_reserva"
+      action="{{ Route('Reserva.store') }}"
+      method="post"
+    >
+      @csrf
+      <h1 class="reserva_titulo">REGISTRO DE RESERVA</h1>
+      <div class="container_reserva">
+        <div class="container_reserva_datos">
+          <label class="reserva_subtitulos" for="fecha">Fecha</label>
+          <input
+            class="reserva_campos"
+            type="date"
+            id="fecha"
+            name="fecha"
+            placeholder="John"
+            required
+          />
+          <label class="reserva_subtitulos" for="hora">Hora</label>
+          <input
+            class="reserva_campos"
+            type="time"
+            id="hora"
+            name="hora"
+            placeholder="Doe"
+            required
+          />
+          <label class="reserva_subtitulos" for="ci_cliente">Cliente</label>
+          <select
+            class="reserva_campos"
+            id="ci_cliente"
+            name="ci_cliente"
+            required
+          >
+            @foreach ($clientes as $cliente)
+            <option value="{{ $cliente->ci }}">
+              {{ ucwords($cliente->nombre_completo) }}
+            </option>
+            @endforeach
+          </select>
+        </div>
 
 
-                                    @if ($m->estado == 'Disponible')
-                                        <td class="p-2">
-                                            <div class="text-left font-medium text-green-500">
-                                            {{$m->estado}}
-                                            </div>
-                                        </td>
-                                    @endif
+        <div class="ficha">
+          @foreach ($mesas as $m)
+          <table>
+            <tr class="reserva_mesa">
+              <td>
+                @if ($m->estado == 'Disponible')
+                <input class="input_radio"
+                  type="radio"
+                  name="mesa"
+                  id=""
+                  value="{{ $m->nro_mesa }}"
+                />
+                @else
+                <input class="input_radio"
+                  type="radio"
+                  name="mesa"
+                  id=""
+                  value="{{ $m->nro_mesa }}"
+                  disabled
+                />
+                @endif
+              </td>
+              <td>
+                <img
+                  width="50"
+                  src="https://cdn-icons-png.flaticon.com/512/1535/1535032.png"
+                />
+              </td>
+              <td>
+                <div>{{$m->nro_mesa}}</div>
+              </td>
+              @if ($m->estado == 'Disponible')
+              <td>
+                <div style="color: green">{{$m->estado}}</div>
+              </td>
+              @endif @if ($m->estado == 'Ocupado')
+              <td>
+                <div class="reserve_ocupado" style="color: red">{{$m->estado}}</div>
+              </td>
+              @endif @if ($m->estado == 'Reserva')
+              <td>
+                <div class="reserva_erva" style="color: yellow">{{$m->estado}}</div>
+              </td>
+              <td>
+              @php $datos = DB::table('reservas')
+                    ->join('clientes','reservas.ci_cliente','=','clientes.ci')
+                    ->where('nro_mesa',$m->nro_mesa)->first();
+                 @endphp
 
-                                    @if ($m->estado == 'Ocupado')
-                                        <td class="p-2">
-                                            <div class="text-left font-medium text-red-500">
-                                            {{$m->estado}}
-                                            </div>
-                                        </td>
-                                    @endif
-                                    @if ($m->estado == 'Reserva')
-                                        <td class="p-2">
-                                            <div class="text-left font-medium text-green-500">
-                                            {{$m->estado}}
-                                            </div>
-                                        </td>
-                                    @endif
+                 @if (!is_null($datos))
 
-                                    <td class="p-2">
-                                        <div class="font-medium text-gray-800">
-                                        {{$m->nro_mesa}}
-                                        </div>
-                                    </td>
+                        <p>{{$datos->hora_reserva}}</p>
+                        <p>{{$datos->fecha_reserva}}</p>
+                        <p>{{ucwords($datos->nombre_completo)}}</p>
 
-                                </tr>
-                                </tbody>
+                 @endif
 
-                            </table>
-                            </div>
-                            @endforeach
+              @endif
+              </td>
 
-                        </select>
-                        </div>
-                    </div>
-                    <br>
 
-                </div>
+            </tr>
+          </table>
+          @endforeach
+        </div>
+      </div>
+      <div class="botones">
+        <button class="boton">
+            <a href="{{ Route('Reserva.index') }}">Volver <span>➔</span></a>
+        </button>
+        <button class="boton">
+            <a href="{{ Route('Cliente.Create') }}">Crear cliente <span>➔</span></a>
+        </button>
+        <button type="submit" class="boton">
+            Guardar
+        </button>
+      </div>
+    </form>
+  </body>
+</html>
 
-            </div>
-            <div class="grid gap-6 grid-cols-3">
-                <a href="{{ Route('Reserva.index') }}"
-                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                    volver
-                </a>
-                <a href="{{ Route('Cliente.Create') }}"
-                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                    Crear cliente
-                </a>
-                <button type="submit"
-                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                    Guardar
-                </button>
-            </div>
-        </form>
-
-    </div>
 @endsection

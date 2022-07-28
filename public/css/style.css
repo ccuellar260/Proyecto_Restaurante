@@ -1,0 +1,166 @@
+.header{
+    background: #003865;
+    padding: 2px;
+    height: 70px;
+    width: 100%;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    color: #fff;
+    position: fixed;
+}
+.header_icons{
+    display: flex;
+    align-items: center;
+    margin-left: 15px;
+}
+.header div img{
+    width: 50px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+.icons2{
+    display: flex;
+    justify-content: end;
+    margin-right: 15px;
+}
+.header_icons label{
+    margin-right: 15px;
+}
+.header_icons h6 , .header_icons label{
+    font-size: 20px;
+}
+
+/*         NAVEGACION             */
+.nav{
+    top: 70px;
+    padding-top: 5px;
+    position: fixed;
+    color: #fff;
+    background: #003865;
+    height: 100%;
+    width: 250px;
+}
+li{
+    display: flex;
+    align-items: center;
+    height: 55px;
+    padding-left: 35px;
+    border-radius: 5px;
+    transition: .5s;
+}
+svg{
+    padding-right: 5px;
+}
+li:hover{
+    background: #D4F6CC;
+    color: black;
+    height: 60px;
+    padding-left: 45px;
+}
+li:focus{
+    background: #D4F6CC;
+    color: black;
+}
+.text{
+    padding-top:70px;
+    padding-left: 250px;
+    display: flex;
+    justify-content: center;
+}
+.contenido{
+    padding-top: 20px;
+}
+
+
+
+
+/*CSS DE RESERVA CREATE*/
+
+.formulario_reserva{
+    width: 1000px;
+    height: 540px;
+    overflow: hidden;
+    margin-top: 50px;
+    border: solid #d8d9da 1px;
+    border-radius: 5px;
+
+}
+.reserva_titulo{
+    text-align: center;
+    color: #000814;
+    font-size: 30px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-weight: bold;
+    background: #ebebeb;
+}
+.container_reserva{
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    column-gap: 30px;
+    padding: 0px 15px;
+    background: #d8d9da;
+}
+.container_reserva_datos{
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    padding-top: 40px;
+}
+.reserva_subtitulos{
+    font-size: 20px;
+    padding-top: 7px;
+    padding-left: 5px;
+    font-weight: bold;
+}
+.reserva_campos{
+    border-radius: 5px;
+    background: white;
+    border: solid black 1px;
+    height: 40px;
+}
+.ficha{
+    overflow: auto;
+    background: #003865;
+    height: 380px;
+    padding: 15px;
+    border-radius: 5px;
+    color: #fff;
+}
+.reserva_mesa {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+}
+.reserva_mesa td{
+    padding-right: 25px;
+    padding-bottom: 15px;
+}
+
+
+.botones{
+    display: flex;
+    justify-content: space-around;
+    height: 100px;
+    background: #ebebeb;
+}
+.boton{
+    margin-top: 20px;
+    border-radius: 10px;
+    border: solid black 1px;
+    padding: 5px 30px;
+    height: 50px;
+    background: #003865;
+    color: #fff;
+    font-weight: bold;
+}
+.boton a{
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+}
+.reserva_erva{
+    padding-left: 20px;
+}
+.reserve_ocupado{
+    padding-left: 7px;
+}

@@ -29,8 +29,8 @@ class RolController extends Controller
         // dd($request->all());
         $role = Role::create($request->only('name')); //creamos un nuevo rol con los datos que nos lleguen del formulario
         // dd($request->permissions);
-        $role->permissions()->syncPermissions($request->input('permissions',[])); //asignamos los permisos que nos lleguen del formulario
-        dd($role);
+        $role->permissions()->sync($request->input('permissions',[])); //asignamos los permisos que nos lleguen del formulario
+        // dd($role);
         return redirect()->route('Rol.index'); //retornamos a la vista index
     }
 
@@ -47,7 +47,7 @@ class RolController extends Controller
     public function update($id,Request $request,Role $role){
     $role = Role::find($id); //obtenemos el rol que nos llega por parametro
     $role->update($request->only('name')); //actualizamos el rol con los datos que nos lleguen del formulario
-    $role->permissions()->syncPermissions($request->input('permissions',[])); //asignamos los permisos que nos lleguen del formulario
+    $role->permissions()->sync($request->input('permissions',[])); //asignamos los permisos que nos lleguen del formulario
     // dd($role);
     return redirect()->route('Rol.index'); //retornamos a la vista index
     }

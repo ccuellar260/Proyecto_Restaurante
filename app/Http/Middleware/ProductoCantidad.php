@@ -38,7 +38,7 @@ class ProductoCantidad
 
 
         //cuando es edit
-       //dd($r);
+       dd($r);
         if($r->metodo == 'edit'){
             for ($i=0;$i<count($r->producto);$i++){
                 if($r->cantidad[$i]!=0){

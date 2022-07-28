@@ -59,10 +59,10 @@
 
             <div class="flex items-center justify-between p-3">
                 <div>
-                    <button type=""
-                    class="bg-blue-700 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer">
-                    <a href="{{ Route('Pedido.index') }}">Volver </a>
-                </button>
+
+                    <a class="bg-blue-700 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer"
+                    href="{{Route('Pedido.index')}}">Volver </a>
+
                 </div>
                 <div>
                     <label for="">Precio Total = </label>

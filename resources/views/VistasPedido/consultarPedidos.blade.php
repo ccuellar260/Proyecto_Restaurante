@@ -3,7 +3,7 @@
 @section('Contenido')
     {{-- Realizar un buscador --}}
 <div class="bg-white p-2 rounded-md w-full">
-    <h3>CHOTO</h3>
+    <Span>TOTAL VENTAS DEL DIA: {{ $v }}</Span>
     <form action="" method="GET">
         <div class="flex items-center ">
             <div class="py-4 pl-2">

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth; //para saber con que usuario estamos logueados
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Builder;
+use Carbon\Carbon;
 
 //domPDF
 use PDF;
@@ -162,8 +163,8 @@ class PedidosController extends Controller
                         ->where('id_pedido',$pe->id_pedido)->get();
         //dd($de);
 
-        // bitacora
-        event (new BPedidoEditEvent($pe));
+        // bitacora es va en update
+       // event (new BPedidoEditEvent($pe));
 
         $productos = DB::table('productos')
             ->join('tipo_productos','productos.id_tipo_plato','=','tipo_productos.id_tipo_plato')
@@ -178,7 +179,7 @@ class PedidosController extends Controller
     }
 
     public function updatePedido( Request $r,Pedido $pe){
-      //dd($r);
+      dd($r);
       //reeplando las mesas en pedido, falta hacer un dave
         $pe->nro_mesa = $r->mro_mesa;
 
@@ -294,7 +295,22 @@ class PedidosController extends Controller
                             return $q->where('fecha',Request('fecha'));
                     })
                     ->get();
-       return view('VistasPedido.consultarPedidos',compact('pedidos',));
+
+// dd($pedidos);
+
+    $ventas = DB::table('pedidos')->get();
+
+    // dd($ventas[3]->fecha);
+    // dd(now()->toDateString());
+    $v = Pedido::where('fecha',now()->toDateString())->sum('precio_total'); //suma las ventas del día
+    $total = Pedido::sum('precio_total'); //suma las ventas totales
+    // dd($v);
+
+    //cantidad de ventas vendiad deld dia
+    $ventas_del_dia = Pedido::where('fecha',now()->toDateString())->get(); //suma las ventas del día
+  // dd($ventas_del_dia);
+
+    return view('VistasPedido.consultarPedidos',compact('pedidos','v'));
 
     }
 
@@ -302,8 +318,7 @@ class PedidosController extends Controller
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public function storeRecibo(Request $re,Pedido $p)
-    {       //poner mesa en disponible
+    public function storeRecibo(Request $re,Pedido $p){       //poner mesa en disponible
          $mesa = Mesa::where('nro_mesa',$p->nro_mesa)->first();
          $mesa->estado = 'Disponible';
          $mesa->save();
@@ -319,8 +334,7 @@ class PedidosController extends Controller
 
     }
 
-    public function generarRecibo(Recibo $recibo)
-    {
+    public function generarRecibo(Recibo $recibo){
         // join recibo con cliente
         $recibo = Recibo::join('clientes','clientes.ci','=', 'recibos.ci_cliente')
                         ->join('pedidos','pedidos.id_pedido','=', 'recibos.id_pedido')
@@ -337,10 +351,13 @@ class PedidosController extends Controller
           compact('recibo','detalles'));
     }
 
-    public function pdf(Request $r){
-        // join recibo con cliente
-        $recibo = Recibo::where('id_recibo',$r->recibo)->first();
-        // dd($recibo);
+ public function pdf(Request $r){
+        // join recibo con client
+        $var = $r;
+        dd($var);
+
+        $recibo = Recibo::where('id_recibo',$r->id_recibo)->first();
+         dd($recibo);
         $recibo = Recibo::join('clientes','clientes.ci','=', 'recibos.ci_cliente')
             ->join('pedidos','pedidos.id_pedido','=', 'recibos.id_pedido')
             ->where('pedidos.id_pedido',$recibo->id_pedido)
@@ -353,13 +370,12 @@ class PedidosController extends Controller
         $todos = [
             'detalles' => $detalles,
             'recibo' => $recibo
-        ];
+        ];;
         //  dd($todos);
+        $pdf = PDF::loadView('VistasPedido.generarRecibos');
+        return $pdf->stream(compact('recibo,detalles'));
 
-        $pdf = PDF::loadView('VistasPedido.pdfRecibo');
-                //dd($pdf);
-        return $pdf->stream();
-    }
+     }
     //-- bitacora pedidos -----------------------------------------------------------//
     public function bitacoraPedidos(){
 
@@ -406,8 +422,6 @@ class PedidosController extends Controller
         return view('VistasPedido.bitacoraPedidos',compact('pedido'));
 
     }
-
-
 
     public function pdfxd(){
         $pdf = PDF::loadView('formulario');
