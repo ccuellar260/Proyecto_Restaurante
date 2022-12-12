@@ -114,7 +114,7 @@
 								</a>
 							</div> --}}
 
-                        @include('VistasAuth.modelOlvidasteContra')
+                       <!-- @include('VistasAuth.modelOlvidasteContra')-->
 
 					</div> {{-- bienvendio --}}
 				</div>
