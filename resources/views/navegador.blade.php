@@ -154,7 +154,7 @@
 </div>
 
 <div class="text">
-    <div class="contenido">
+    <div class="contenido bg-blue-900">
 
         @yield('Contenido')
     </div>

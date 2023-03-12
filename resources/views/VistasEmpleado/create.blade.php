@@ -40,7 +40,7 @@
                                   <path d="M9 15h3l8.5 -8.5a1.5 1.5 0 0 0 -3 -3l-8.5 8.5v3" />
                                   <line x1="16" y1="5" x2="19" y2="8" />
                               </svg>
-<input type="file" class="opacity-0 w-20 h-20 rounded-full absolute bottom-0 -mb- ml-0 shadow flex items-center justify-center " name="fotoxd" id="fotoxd">
+                                <input type="file" class="opacity-0 w-20 h-20 rounded-full absolute bottom-0 -mb- ml-0 shadow flex items-center justify-center " name="fotoxd" id="fotoxd">
                            <label id="fotoxd" class="text-xs text-gray-100">Cargar Foto</label>
 
                           </div>

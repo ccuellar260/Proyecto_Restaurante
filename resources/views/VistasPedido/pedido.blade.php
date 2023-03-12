@@ -140,13 +140,13 @@
                                             </td>
 
 
-                                            {{-- <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
+                                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
                                                 <button type="button"
                                                     class="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">
                                                     <a href="{{ Route('Pedido.editarPedido', $p->id_pedido) }}">
                                                         Editar
                                                     </a></butto>
-                                            </td> --}}
+                                            </td>
                                             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
                                                 <button onclick="openModal(true)"
                                                     class="mr-2 text-sm bg-red-700 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">
@@ -182,13 +182,13 @@
                                                     </a></butto>
                                             </td>
 
-                                            {{-- <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
+                                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
                                                 <button type="button"
                                                     class="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">
                                                     <a href="{{ Route('Pedido.editarPedido', $p->id_pedido) }}">
                                                         Editar
                                                     </a></butto>
-                                            </td> --}}
+                                            </td>
 
                                             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
 

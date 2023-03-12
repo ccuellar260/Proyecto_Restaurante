@@ -29,8 +29,8 @@
                 @endif
 
                 <div>
-                    <a href="{{ Route('Pedido.pdfxd') }}">Ver pdf</a>
-                    <h1>bienvenido {{ Auth::user()->nombre_usuario }} a dashboard!!</h1>
+                    <!-- <a href="{{ Route('Pedido.pdfxd') }}">Ver pdf</a> -->
+                    <!-- <h1>bienvenido {{ Auth::user()->nombre_usuario }} a dashboard!!</h1> -->
                     <h1>bienvenido {{ $empleado->nombre_completo }} a dashboard!!</h1>
                 </div>
                 @can('dashboard')

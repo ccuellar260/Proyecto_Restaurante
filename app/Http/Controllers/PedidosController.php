@@ -51,7 +51,8 @@ class PedidosController extends Controller
         ->where('empleados.nombre_usuario',$user)->first();
 
          $mesas = DB::table('mesas')->where('estado','Disponible')
-                  ->where('ci_empleado',$empleado->ci)->get();
+                    ->orWhere('estado','reserva')
+                    ->where('ci_empleado',$empleado->ci)->get();
         //dd($mesas);
 
 
@@ -261,7 +262,6 @@ class PedidosController extends Controller
     }//end
 
 
-
 //-- Consultar Pedidos -----------------------------------------------------------//
     public function consultarPedidos(){
     $pedidos = DB::table('pedidos as p')
@@ -372,8 +372,8 @@ class PedidosController extends Controller
             'recibo' => $recibo
         ];;
         //  dd($todos);
-        $pdf = PDF::loadView('VistasPedido.generarRecibos');
-        return $pdf->stream(compact('recibo,detalles'));
+        // $pdf = PDF::loadView('VistasPedido.generarRecibos');
+        // return $pdf->stream(compact('recibo,detalles'));
 
      }
     //-- bitacora pedidos -----------------------------------------------------------//
@@ -424,9 +424,9 @@ class PedidosController extends Controller
     }
 
     public function pdfxd(){
-        $pdf = PDF::loadView('formulario');
-       // dd($pdf);
-        return $pdf->stream();
+    //     $pdf = PDF::loadView('formulario');
+    //    // dd($pdf);
+    //     return $pdf->stream();
 
     }
 }
